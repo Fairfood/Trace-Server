@@ -16,6 +16,6 @@ database_dumps/*
 .pytype/*
 .mypy_cache/*
 .cache/*
-logs/
+logs/*
 htmlcov/
 fixtures/*
