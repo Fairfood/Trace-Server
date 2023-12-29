@@ -1,0 +1,6 @@
+export PROJECT_HOME=$HOME
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=$(which python3)
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+export ENVIRONMENT="HOST_ENV"
+source /usr/local/bin/virtualenvwrapper.sh

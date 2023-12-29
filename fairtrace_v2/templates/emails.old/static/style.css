@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'Moderat Bold';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Moderat Bold'), url('https://fairtrace-v2-dev.s3.eu-central-1.amazonaws.com/email/fonts/web/Moderat-Bold.woff') format('woff');
+  }
+
+  @font-face {
+    font-family: 'Moderat Medium';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Moderat Medium'), url('https://fairtrace-v2-dev.s3.eu-central-1.amazonaws.com/email/fonts/web/Moderat-Medium.woff') format('woff');
+  }
+  @font-face {
+    font-family: 'Moderat Regular';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Moderat Regular'), url('https://fairtrace-v2-dev.s3.eu-central-1.amazonaws.com/email/fonts/web/Moderat-Regular.woff') format('woff');
+  }

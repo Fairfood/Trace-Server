@@ -1,0 +1,67 @@
+{
+  "colors": {
+    "primary": "#4CB6B6",
+    "secondary": "#700F0D",
+    "text_color": "#334739",
+    "action_color": "#EF6749"
+  },
+  "brand_details": {
+    "name": "Trabocca",
+    "logo": "https://www.trabocca.com/wp-content/themes/trabocca-theme/assets/images/trabocca-logo.png",
+    "website": "https://www.trabocca.com",
+    "social_media": {
+      "facebook": "https://www.facebook.com/Trabocca/",
+      "linkdin": "https://www.linkedin.com/company/trabocca",
+      "instagram": "https://www.instagram.com/trabocca/",
+      "twitter": "https://twitter.com/trabocca"
+    }
+  },
+  "product_banner": {
+    "title": "Suke Quto coffee",
+    "image": "https://i.ibb.co/KbCBCpg/Product-image.png",
+    "location": "Ethiopia,Guji",
+    "description": "Suke Quto Farm is stretched out over the high lands and valleys of the Odo Shakisso woreda. The volcanic soil found on the farm is very fertile. Tesfaye keeps the soil in shape by organic recycling through litterfall, root residue from coffee and shade trees. Suke Quto coffees are all Organic and Rainforest Alliance certified."
+  },
+  "action_button": {
+    "text": "Order online",
+    "url": "https://my.trabocca.com/"
+  },
+  "video_banner": {
+    "title": "The Story of Guji Coffee",
+    "video_url": "",
+    "description": "Suke Quto Farm is stretched out over the high lands and valleys of the Odo Shakisso woreda. The volcanic soil found on the farm is very fertile. Tesfaye keeps the soil in shape by organic recycling through litterfall, root residue from coffee and shade trees. Suke Quto coffees are all Organic and Rainforest Alliance certified."
+  },
+  "menu_items": [
+    {
+      "title": "About us",
+      "url": "",
+      "target": ""
+    },
+    {
+      "title": "Contact us",
+      "url": "",
+      "target": ""
+    }
+  ],
+  "products": {
+    "1": {
+      "image": "",
+      "name": "",
+      "description": ""
+    }
+  },
+  "steps": [
+    {
+      "title": "",
+      "description": "",
+      "image": "",
+      "actor_name": ""
+    },
+    {
+      "title": "",
+      "description": "",
+      "image": "",
+      "actor_name": ""
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{% extends 'admin/base_site.html' %}
+{% load i18n admin_urls admin_static admin_modify %}
+
+{% block extrastyle %}{{ block.super }}
+<link admin href="{% static " rel="stylesheet"
+      type="text/css"/css/forms.css" %}">{% endblock %}
+
+{% block content %}
+<form action="{% url 'copy_sc' %}" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <br><br><br>
+    <input type="submit" value="Create">
+</form>
+{% endblock %}

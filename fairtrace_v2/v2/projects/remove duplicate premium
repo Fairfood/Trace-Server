@@ -1,0 +1,45 @@
+
+for txn in ExternalTransaction.objects.all():
+    for premium in ProjectPremium.objects.all():
+        earned  = PremiumEarned.objects.filter(transaction=txn.id, premium=premium)
+        first = earned.first()
+        count = earned.count()
+        if not count:
+            continue
+        if count > 1:
+            print('########################################')
+            print('issue in ', txn, ' with count ', count)
+            for earn in earned:
+                print('txn :', earn.transaction, ' premium :', earn.premium, ' amount :', earn.amount)
+            print('########################################')
+
+
+
+for txn in ExternalTransaction.objects.all():
+    for premium in ProjectPremium.objects.all():
+        earned  = PremiumEarned.objects.filter(transaction=txn.id, premium=premium)
+        first = earned.first()
+        count = earned.count()
+        if not count:
+            continue
+        if count > 1:
+            earned.exclude(id=first.id).delete()
+            print('with count ', count, ' excluded count ', exclded)
+
+3081
+PremiumEarned.objects.filter(transaction=3081)
+
+for txn in ExternalTransaction.objects.all():
+    for premium in ProjectPremium.objects.all():
+        earned  = PremiumEarned.objects.filter(transaction=txn.id, premium=premium)
+        first = earned.first()
+        count = earned.count()
+        if not count:
+            continue
+        if count > 1:
+            print('########################################')
+            print('issue in ', txn, ' with count ', count)
+        elif count == 1:
+            print('all good')
+        elif count == 0:
+            print('issue in ', txny)

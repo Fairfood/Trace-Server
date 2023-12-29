@@ -1,0 +1,95 @@
+version: '3.3'
+
+services:
+  web:
+    container_name: django
+    build: .
+    command: python fairtrace_v2/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/app/
+      - /etc/secret/:/etc/secret/
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+      - graphdb
+    entrypoint: "/usr/src/app/entrypoint.sh"
+
+  db:
+    container_name: postgres
+    image: postgres:13.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+
+  redis:
+    container_name: redis
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - redis:/data
+    depends_on:
+      - db
+
+  celery:
+    container_name: celery
+    build: .
+    command: celery -A fairtrace_v2 worker -l info
+    volumes:
+      - ./:/usr/src/app/fairtrace_v2/
+      - /etc/secret/:/etc/secret/
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+      - web
+
+  celery-beat:
+    container_name: celery-beat
+    build: .
+    command: celery -A fairtrace_v2 beat -l info
+    volumes:
+      - ./:/usr/src/app/fairtrace_v2/
+      - /etc/secret/:/etc/secret/
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+      - web
+
+  graphdb:
+    container_name: neo4j
+    image: neo4j
+    restart: unless-stopped
+    ports:
+      - "7474:7474"
+      - "7473:7473"
+      - "7687:7687"
+    volumes:
+      - graphdb_data:/bitnami
+      - ./conf:/conf
+      - ./data:/data
+      - ./import:/import
+      - ./logs:/logs
+      - ./plugins:/plugins
+    depends_on:
+      - db
+
+
+volumes:
+  postgres_data:
+  redis:
+    driver: local
+  graphdb_data:
+    driver: local

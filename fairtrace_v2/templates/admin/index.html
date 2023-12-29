@@ -1,0 +1,13 @@
+{% extends 'admin/index.html' %}
+
+<div class="{% block coltype %}colM{% endblock %}" id="content-main">
+    {% block content_title %}
+    {% if title %}<h1>{{ title }}</h1>{% endif %}
+    <p align="left" style="background-color:#79aec8; height:30px;">
+        <a href="{% url 'copy_sc' %}" style="color:white;">COPY SUPPLYCHAIN
+            CONNECTIONS</a>
+    </p>
+
+    {% endblock %}
+
+</div>

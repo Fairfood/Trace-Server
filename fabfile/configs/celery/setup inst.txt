@@ -1,0 +1,33 @@
+Setting up celery
+
+Ref: https://realpython.com/asynchronous-tasks-with-django-and-celery/
+
+1. Install redis
+    sudo aptitude install redis-server
+2. to test ping
+    redis-cli ping
+    to start the server locally run
+    redis-server
+3. go to the manage.py dir and check it the clery is running fine
+    celery -A nodemanager worker -l info
+4. make log dir
+     sudo mkdir /var/log/celery/
+
+5. create log file as in the config file
+    sudo touch /var/log/celery/cotown_beat.log
+    sudo touch /var/log/celery/cotown_worker.log
+6. copy config files
+    sudo cp fabfile/config/celery/celery.conf /etc/supervisor/conf.d/
+    sudo cp fabfile/config/celery/celerybeat.conf /etc/supervisor/conf.d/
+    sudo cp fabfile/config/celery/celerybeat /etc/supervisor/conf.d/
+7. Update supervisor
+    sudo supervisorctl reread
+    sudo supervisorctl update
+8.
+    sudo supervisorctl stop celery
+    sudo supervisorctl start celery
+    sudo supervisorctl status celery
+
+    sudo supervisorctl stop celerybeat
+    sudo supervisorctl start celerybeat
+    sudo supervisorctl status celerybeat

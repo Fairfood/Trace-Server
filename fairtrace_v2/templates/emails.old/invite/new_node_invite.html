@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>Fairfood</title>
+
+    <style type="text/css">
+    	.invitation-message
+    	{
+    		background-color: #F5FCFF;
+    		padding: 15px;
+    	}
+    </style>
+</head>
+
+<body yahoo="fix" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<!--Main Table Start-->
+Dear {{notification.user.name}},
+<br/>
+<br/>
+<div>
+    {{sender.name}} from {{event.inviter.full_name}} sent you a transparency request about the {{event.connection.supply_chain.name}}
+    you {{event.relation_text}} them.
+</div>
+<br/>
+{% if event.message %}
+    <div class="invitation-message">
+        <p>Invitation message: </p>
+        <p>
+             <multiline>{{event.message}}</multiline>
+        </p>
+    </div>
+    <br/>
+{% endif %}
+<div>
+    Please check if the information that was entered is correct and add additional data, if needed.
+</div>
+<br/>
+
+<div>
+    Sharing information about your product helps answer any questions your clients or consumers may have about food safety, fair trade,
+    and sustainability. Of course, not all of the data you enter is public; you can choose to share specific information only with your direct
+    business partners.
+</div>
+<br/>
+<div>
+    The future of food is transparent. Join today!
+</div>
+<br>
+<table width="100px"  border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <td height="1px" align="left" valign="middle" bgcolor="#EA2353" style="font-family: 'Moderat Bold',Arial, Helvetica, sans-serif, Verdana;font-size: 15px;font-weight: bold;color: #FFFFFF;padding: 15px;padding-left: 75px;padding-right: 75px;" mc:edit="mm-08">
+            <multiline><a href="{{notification.action_url}}" style="color:#FFFFFF!important; text-decoration:none;">JOIN</a></multiline>
+        </td>
+    </tr>
+</table>
+<br>
+<br>
+<div>
+  <multiline>
+    Kind regards,<br>
+    On behalf of {{event.inviter.full_name}}<br><br>
+    The Trace team <br>
+    trace@fairfood.org<br>
+    +31 6 16557605
+  </multiline>
+</div>
+
+<table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
+    <tr>
+        <!-- <td align="left" valign="middle" style="font-family:'Open Sans', sans-serif, Verdana; font-size:18px;font-weight:normal;color:#7e7c7c;" mc:edit="mm-36"><multiline>Fairfood Mail</multiline></td> -->
+        <!--    <td align="left" valign="top"><img mc:edit="mm-21" style="margin-left:-20px !important" editable="true" src="https://fairtrace-v2-dev.s3.eu-central-1.amazonaws.com/email/images/flogo.png"alt="" /></td>-->
+    </tr>
+
+</table>
+<br/>
+<div>
+    <a href="https://www.youtube.com/watch?v=_PmgeTHOOvM" target="_blank" ><img mc:edit="mm-21" editable="true" src="https://fairtrace-v2-dev.s3.eu-central-1.amazonaws.com/email/images/fairfood_video_thumbnail.png" width="392" height="218" alt="" /></a>
+</div>
+<br>
+</body>
+</html>

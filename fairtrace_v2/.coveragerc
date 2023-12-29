@@ -1,0 +1,27 @@
+[run]
+source = v2/
+
+omit =
+    */__init__.py
+    */apps.py
+    */admin.py
+    */permissions.py
+
+[report]
+exclude_lines =
+    ; Don't complain about missing debug-only code:
+    def __repr__
+    if self\.debug
+    def __str__
+    ; Don't complain if tests don't hit defensive assertion code:
+    raise AssertionError
+    raise NotImplementedError
+    raise BadRequest
+
+    ; Don't complain if non-runnable code isn't run:
+    if 0:
+    if __name__ == .__main__.:
+
+    ; Don't complain about abstract methods, they aren't run:
+    @(abc\.)?abstractmethod
+

@@ -1,0 +1,18 @@
+for farmer in Farmer.objects.all():
+    farmer.first_name = farmer.first_name.title()
+    farmer.last_name = farmer.last_name.title()
+    farmer.save()
+
+
+for farmer in Farmer.objects.all():
+    if farmer.last_name == 'Xxxxxx':
+        farmer.last_name = ''
+        farmer.save()
+
+buyer = Node.objects.get(id=2384)
+count = 1
+for supplier in buyer.get_suppliers():
+    if (ExternalTransaction.objects.filter(source=supplier).exists()):
+        print(supplier, count)
+
+        count += 1

@@ -1,0 +1,15 @@
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+
+
+SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly']
+
+# Key created using developer@fairfood.org
+# key user harvest-deploy@pc-api-5854446490936594943-99.iam.gserviceaccount.com
+
+G_KEY = '/etc/secret/fairtrace_v2/gsheet.json'
+
+creds = Credentials.from_authorized_user_file(G_KEY, SCOPES)

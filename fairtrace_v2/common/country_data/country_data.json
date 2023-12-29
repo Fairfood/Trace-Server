@@ -1,0 +1,7376 @@
+{
+  "Afghanistan": {
+    "latlong": [
+      33.0,
+      65.0
+    ],
+    "dial_code": "93",
+    "alpha_2": "AF",
+    "sub_divisions": [
+      "Badakhsh\u0101n",
+      "Baghl\u0101n",
+      "Balkh",
+      "B\u0101dgh\u012bs",
+      "B\u0101my\u0101n",
+      "D\u0101ykund\u012b",
+      "Far\u0101h",
+      "F\u0101ry\u0101b",
+      "Ghazn\u012b",
+      "Gh\u014dr",
+      "Helmand",
+      "Her\u0101t",
+      "Jowzj\u0101n",
+      "Kandah\u0101r",
+      "Kh\u014dst",
+      "Kunar",
+      "Kunduz",
+      "K\u0101bul",
+      "K\u0101p\u012bs\u0101",
+      "Laghm\u0101n",
+      "L\u014dgar",
+      "Nangarh\u0101r",
+      "N\u012bmr\u014dz",
+      "N\u016brist\u0101n",
+      "Paktiy\u0101",
+      "Pakt\u012bk\u0101",
+      "Panjshayr",
+      "Parw\u0101n",
+      "Samang\u0101n",
+      "Sar-e Pul",
+      "Takh\u0101r",
+      "Uruzg\u0101n",
+      "Wardak",
+      "Z\u0101bul"
+    ]
+  },
+  "Albania": {
+    "latlong": [
+      41.0,
+      20.0
+    ],
+    "dial_code": "355",
+    "alpha_2": "AL",
+    "sub_divisions": [
+      "Berat",
+      "Berat",
+      "Bulqiz\u00eb",
+      "Delvin\u00eb",
+      "Devoll",
+      "Dib\u00ebr",
+      "Dib\u00ebr",
+      "Durr\u00ebs",
+      "Durr\u00ebs",
+      "Elbasan",
+      "Elbasan",
+      "Fier",
+      "Fier",
+      "Gjirokast\u00ebr",
+      "Gjirokast\u00ebr",
+      "Gramsh",
+      "Has",
+      "Kavaj\u00eb",
+      "Kolonj\u00eb",
+      "Kor\u00e7\u00eb",
+      "Kor\u00e7\u00eb",
+      "Kruj\u00eb",
+      "Kuk\u00ebs",
+      "Kuk\u00ebs",
+      "Kurbin",
+      "Ku\u00e7ov\u00eb",
+      "Lezh\u00eb",
+      "Lezh\u00eb",
+      "Librazhd",
+      "Lushnj\u00eb",
+      "Mallakast\u00ebr",
+      "Mal\u00ebsi e Madhe",
+      "Mat",
+      "Mirdit\u00eb",
+      "Peqin",
+      "Pogradec",
+      "Puk\u00eb",
+      "P\u00ebrmet",
+      "Sarand\u00eb",
+      "Shkod\u00ebr",
+      "Shkod\u00ebr",
+      "Skrapar",
+      "Tepelen\u00eb",
+      "Tiran\u00eb",
+      "Tiran\u00eb",
+      "Tropoj\u00eb",
+      "Vlor\u00eb",
+      "Vlor\u00eb"
+    ]
+  },
+  "Algeria": {
+    "latlong": [
+      28.0,
+      3.0
+    ],
+    "dial_code": "213",
+    "alpha_2": "DZ",
+    "sub_divisions": [
+      "Adrar",
+      "Alger",
+      "Annaba",
+      "A\u00efn Defla",
+      "A\u00efn T\u00e9mouchent",
+      "Batna",
+      "Biskra",
+      "Blida",
+      "Bordj Bou Arr\u00e9ridj",
+      "Bouira",
+      "Boumerd\u00e8s",
+      "B\u00e9char",
+      "B\u00e9ja\u00efa",
+      "Chlef",
+      "Constantine",
+      "Djelfa",
+      "El Bayadh",
+      "El Oued",
+      "El Tarf",
+      "Gharda\u00efa",
+      "Guelma",
+      "Illizi",
+      "Jijel",
+      "Khenchela",
+      "Laghouat",
+      "Mascara",
+      "Mila",
+      "Mostaganem",
+      "Msila",
+      "M\u00e9d\u00e9a",
+      "Naama",
+      "Oran",
+      "Ouargla",
+      "Oum el Bouaghi",
+      "Relizane",
+      "Sa\u00efda",
+      "Sidi Bel Abb\u00e8s",
+      "Skikda",
+      "Souk Ahras",
+      "S\u00e9tif",
+      "Tamanghasset",
+      "Tiaret",
+      "Tindouf",
+      "Tipaza",
+      "Tissemsilt",
+      "Tizi Ouzou",
+      "Tlemcen",
+      "T\u00e9bessa"
+    ]
+  },
+  "American Samoa": {
+    "latlong": [
+      -14.33333333,
+      -170.0
+    ],
+    "dial_code": "1684",
+    "alpha_2": "AS",
+    "sub_divisions": [
+      "American Samoa"
+    ]
+  },
+  "Andorra": {
+    "latlong": [
+      42.5,
+      1.5
+    ],
+    "dial_code": "376",
+    "alpha_2": "AD",
+    "sub_divisions": [
+      "Andorra la Vella",
+      "Canillo",
+      "Encamp",
+      "Escaldes-Engordany",
+      "La Massana",
+      "Ordino",
+      "Sant Juli\u00e0 de L\u00f2ria"
+    ]
+  },
+  "Angola": {
+    "latlong": [
+      -12.5,
+      18.5
+    ],
+    "dial_code": "244",
+    "alpha_2": "AO",
+    "sub_divisions": [
+      "Bengo",
+      "Benguela",
+      "Bi\u00e9",
+      "Cabinda",
+      "Cuando-Cubango",
+      "Cuanza Norte",
+      "Cuanza Sul",
+      "Cunene",
+      "Huambo",
+      "Hu\u00edla",
+      "Luanda",
+      "Lunda Norte",
+      "Lunda Sul",
+      "Malange",
+      "Moxico",
+      "Namibe",
+      "U\u00edge",
+      "Zaire"
+    ]
+  },
+  "Anguilla": {
+    "latlong": [
+      18.25,
+      -63.16666666
+    ],
+    "dial_code": "1264",
+    "alpha_2": "AI",
+    "sub_divisions": [
+      "Anguilla"
+    ]
+  },
+  "Antarctica": {
+    "latlong": [
+      -74.65,
+      4.48
+    ],
+    "dial_code": "672",
+    "alpha_2": "AQ",
+    "sub_divisions": [
+      "Antarctica"
+    ]
+  },
+  "Antigua and Barbuda": {
+    "latlong": [
+      17.05,
+      -61.8
+    ],
+    "dial_code": "1268",
+    "alpha_2": "AG",
+    "sub_divisions": [
+      "Barbuda",
+      "Redonda",
+      "Saint George",
+      "Saint John",
+      "Saint Mary",
+      "Saint Paul",
+      "Saint Peter",
+      "Saint Philip"
+    ]
+  },
+  "Argentina": {
+    "latlong": [
+      -34.0,
+      -64.0
+    ],
+    "dial_code": "54",
+    "alpha_2": "AR",
+    "sub_divisions": [
+      "Buenos Aires",
+      "Catamarca",
+      "Chaco",
+      "Chubut",
+      "Ciudad Aut\u00f3noma de Buenos Aires",
+      "Cordoba",
+      "Corrientes",
+      "Entre Rios",
+      "Formosa",
+      "Jujuy",
+      "La Pampa",
+      "Mendoza",
+      "Misiones",
+      "Neuquen",
+      "Rio Negro",
+      "Salta",
+      "San Juan",
+      "San Luis",
+      "Santa Cruz",
+      "Santa Fe",
+      "Santiago del Estero",
+      "Tierra del Fuego",
+      "Tucuman"
+    ]
+  },
+  "Armenia": {
+    "latlong": [
+      40.0,
+      45.0
+    ],
+    "dial_code": "374",
+    "alpha_2": "AM",
+    "sub_divisions": [
+      "Aragacotn",
+      "Ararat",
+      "Armavir",
+      "Erevan",
+      "Gegarkunik'",
+      "Kotayk'",
+      "Lory",
+      "Sirak",
+      "Syunik'",
+      "Tavus",
+      "Vayoc Jor"
+    ]
+  },
+  "Aruba": {
+    "latlong": [
+      12.5,
+      -69.96666666
+    ],
+    "dial_code": "297",
+    "alpha_2": "AW",
+    "sub_divisions": [
+      "Aruba"
+    ]
+  },
+  "Australia": {
+    "latlong": [
+      -27.0,
+      133.0
+    ],
+    "dial_code": "61",
+    "alpha_2": "AU",
+    "sub_divisions": [
+      "Australian Capital Territory",
+      "New South Wales",
+      "Northern Territory",
+      "Queensland",
+      "South Australia",
+      "Tasmania",
+      "Victoria",
+      "Western Australia"
+    ]
+  },
+  "Austria": {
+    "latlong": [
+      47.33333333,
+      13.33333333
+    ],
+    "dial_code": "43",
+    "alpha_2": "AT",
+    "sub_divisions": [
+      "Burgenland",
+      "K\u00e4rnten",
+      "Nieder\u00f6sterreich",
+      "Ober\u00f6sterreich",
+      "Salzburg",
+      "Steiermark",
+      "Tirol",
+      "Vorarlberg",
+      "Wien"
+    ]
+  },
+  "Azerbaijan": {
+    "latlong": [
+      40.5,
+      47.5
+    ],
+    "dial_code": "994",
+    "alpha_2": "AZ",
+    "sub_divisions": [
+      "Ab\u015feron",
+      "Astara",
+      "A\u011fcab\u0259di",
+      "A\u011fdam",
+      "A\u011fda\u015f",
+      "A\u011fstafa",
+      "A\u011fsu",
+      "Bab\u0259k",
+      "Bak\u0131",
+      "Balak\u0259n",
+      "Beyl\u0259qan",
+      "Bil\u0259suvar",
+      "B\u0259rd\u0259",
+      "Culfa",
+      "C\u0259bray\u0131l",
+      "C\u0259lilabab",
+      "Da\u015fk\u0259s\u0259n",
+      "F\u00fczuli",
+      "Goranboy",
+      "G\u00f6yg\u00f6l",
+      "G\u00f6y\u00e7ay",
+      "G\u0259d\u0259b\u0259y",
+      "G\u0259nc\u0259",
+      "Hac\u0131qabul",
+      "K\u00fcrd\u0259mir",
+      "K\u01ddng\u01ddrli",
+      "K\u0259lb\u0259c\u0259r",
+      "La\u00e7\u0131n",
+      "Lerik",
+      "L\u0259nk\u0259ran",
+      "L\u0259nk\u0259ran",
+      "Masall\u0131",
+      "Ming\u0259\u00e7evir",
+      "Naftalan",
+      "Nax\u00e7\u0131van",
+      "Nax\u00e7\u0131van",
+      "Neft\u00e7ala",
+      "Ordubad",
+      "O\u011fuz",
+      "Qax",
+      "Qazax",
+      "Qobustan",
+      "Quba",
+      "Qubadl\u0131",
+      "Qusar",
+      "Q\u0259b\u0259l\u0259",
+      "Saatl\u0131",
+      "Sabirabad",
+      "Salyan",
+      "Samux",
+      "Siy\u0259z\u0259n",
+      "Sumqay\u0131t",
+      "S\u0259d\u0259r\u0259k",
+      "Tovuz",
+      "T\u0259rt\u0259r",
+      "Ucar",
+      "Xank\u0259ndi",
+      "Xa\u00e7maz",
+      "Xocal\u0131",
+      "Xocav\u0259nd",
+      "X\u0131z\u0131",
+      "Yard\u0131ml\u0131",
+      "Yevlax",
+      "Yevlax",
+      "Zaqatala",
+      "Z\u0259ngilan",
+      "Z\u0259rdab",
+      "\u0130mi\u015fli",
+      "\u0130smay\u0131ll\u0131",
+      "\u015eabran",
+      "\u015eahbuz",
+      "\u015eamax\u0131",
+      "\u015eirvan",
+      "\u015eu\u015fa",
+      "\u015e\u0259ki",
+      "\u015e\u0259ki",
+      "\u015e\u0259mkir",
+      "\u015e\u0259rur"
+    ]
+  },
+  "Bahamas": {
+    "latlong": [
+      24.25,
+      -76.0
+    ],
+    "dial_code": "1242",
+    "alpha_2": "BS",
+    "sub_divisions": [
+      "Acklins",
+      "Berry Islands",
+      "Bimini",
+      "Black Point",
+      "Cat Island",
+      "Central Abaco",
+      "Central Andros",
+      "Central Eleuthera",
+      "City of Freeport",
+      "Crooked Island and Long Cay",
+      "East Grand Bahama",
+      "Exuma",
+      "Grand Cay",
+      "Harbour Island",
+      "Hope Town",
+      "Inagua",
+      "Long Island",
+      "Mangrove Cay",
+      "Mayaguana",
+      "Moore's Island",
+      "North Abaco",
+      "North Andros",
+      "North Eleuthera",
+      "Ragged Island",
+      "Rum Cay",
+      "San Salvador",
+      "South Abaco",
+      "South Andros",
+      "South Eleuthera",
+      "Spanish Wells",
+      "West Grand Bahama"
+    ]
+  },
+  "Bahrain": {
+    "latlong": [
+      26.0,
+      50.55
+    ],
+    "dial_code": "973",
+    "alpha_2": "BH",
+    "sub_divisions": [
+      "Al Jan\u016bb\u012byah",
+      "Al Man\u0101mah (Al \u2018\u0100\u015fimah)",
+      "Al Mu\u1e29arraq",
+      "Al Wus\u0163\u00e1",
+      "Ash Sham\u0101l\u012byah"
+    ]
+  },
+  "Bangladesh": {
+    "latlong": [
+      24.0,
+      90.0
+    ],
+    "dial_code": "880",
+    "alpha_2": "BD",
+    "sub_divisions": [
+      "Bagerhat",
+      "Bandarban",
+      "Barguna",
+      "Barisal",
+      "Bhola",
+      "Bogra",
+      "Brahmanbaria",
+      "Chandpur",
+      "Chittagong",
+      "Chittagong",
+      "Chuadanga",
+      "Comilla",
+      "Cox's Bazar",
+      "Dhaka",
+      "Dhaka",
+      "Dinajpur",
+      "Faridpur",
+      "Feni",
+      "Gaibandha",
+      "Gazipur",
+      "Gopalganj",
+      "Habiganj",
+      "Jaipurhat",
+      "Jamalpur",
+      "Jessore",
+      "Jhalakati",
+      "Jhenaidah",
+      "Khagrachari",
+      "Khulna",
+      "Khulna",
+      "Kishorganj",
+      "Kurigram",
+      "Kushtia",
+      "Lakshmipur",
+      "Lalmonirhat",
+      "Madaripur",
+      "Magura",
+      "Manikganj",
+      "Meherpur",
+      "Moulvibazar",
+      "Munshiganj",
+      "Mymensingh",
+      "Naogaon",
+      "Narail",
+      "Narayanganj",
+      "Narsingdi",
+      "Natore",
+      "Nawabganj",
+      "Netrakona",
+      "Nilphamari",
+      "Noakhali",
+      "Pabna",
+      "Panchagarh",
+      "Patuakhali",
+      "Pirojpur",
+      "Rajbari",
+      "Rajshahi",
+      "Rajshahi",
+      "Rangamati",
+      "Rangpur",
+      "Rangpur",
+      "Satkhira",
+      "Shariatpur",
+      "Sherpur",
+      "Sirajganj",
+      "Sunamganj",
+      "Sylhet",
+      "Sylhet",
+      "Tangail",
+      "Thakurgaon"
+    ]
+  },
+  "Barbados": {
+    "latlong": [
+      13.16666666,
+      -59.53333333
+    ],
+    "dial_code": "1246",
+    "alpha_2": "BB",
+    "sub_divisions": [
+      "Christ Church",
+      "Saint Andrew",
+      "Saint George",
+      "Saint James",
+      "Saint John",
+      "Saint Joseph",
+      "Saint Lucy",
+      "Saint Michael",
+      "Saint Peter",
+      "Saint Philip",
+      "Saint Thomas"
+    ]
+  },
+  "Belarus": {
+    "latlong": [
+      53.0,
+      28.0
+    ],
+    "dial_code": "375",
+    "alpha_2": "BY",
+    "sub_divisions": [
+      "Br\u00e8sckaja voblasc'",
+      "Homel'skaja voblasc'",
+      "Horad Minsk",
+      "Hrodzenskaja voblasc'",
+      "Mahil\u00ebuskaja voblasc'",
+      "Minskaja voblasc'",
+      "Vicebskaja voblasc'"
+    ]
+  },
+  "Belgium": {
+    "latlong": [
+      50.83333333,
+      4.0
+    ],
+    "dial_code": "32",
+    "alpha_2": "BE",
+    "sub_divisions": [
+      "Antwerpen",
+      "Brabant wallon",
+      "Bruxelles-Capitale, R\u00e9gion de;Brussels Hoofdstedelijk Gewest",
+      "Hainaut",
+      "Limburg",
+      "Li\u00e8ge",
+      "Luxembourg",
+      "Namur",
+      "Oost-Vlaanderen",
+      "Vlaams Gewest",
+      "Vlaams-Brabant",
+      "West-Vlaanderen",
+      "wallonne, R\u00e9gion"
+    ]
+  },
+  "Belize": {
+    "latlong": [
+      17.25,
+      -88.75
+    ],
+    "dial_code": "501",
+    "alpha_2": "BZ",
+    "sub_divisions": [
+      "Belize",
+      "Cayo",
+      "Corozal",
+      "Orange Walk",
+      "Stann Creek",
+      "Toledo"
+    ]
+  },
+  "Benin": {
+    "latlong": [
+      9.5,
+      2.25
+    ],
+    "dial_code": "229",
+    "alpha_2": "BJ",
+    "sub_divisions": [
+      "Alibori",
+      "Atakora",
+      "Atlantique",
+      "Borgou",
+      "Collines",
+      "Donga",
+      "Kouffo",
+      "Littoral",
+      "Mono",
+      "Ou\u00e9m\u00e9",
+      "Plateau",
+      "Zou"
+    ]
+  },
+  "Bermuda": {
+    "latlong": [
+      32.33333333,
+      -64.75
+    ],
+    "dial_code": "1441",
+    "alpha_2": "BM",
+    "sub_divisions": [
+      "Bermuda"
+    ]
+  },
+  "Bhutan": {
+    "latlong": [
+      27.5,
+      90.5
+    ],
+    "dial_code": "975",
+    "alpha_2": "BT",
+    "sub_divisions": [
+      "Bumthang",
+      "Chhukha",
+      "Dagana",
+      "Gasa",
+      "Ha",
+      "Lhuentse",
+      "Monggar",
+      "Paro",
+      "Pemagatshel",
+      "Punakha",
+      "Samdrup Jongkha",
+      "Samtee",
+      "Sarpang",
+      "Thimphu",
+      "Trashi Yangtse",
+      "Trashigang",
+      "Trongsa",
+      "Tsirang",
+      "Wangdue Phodrang",
+      "Zhemgang"
+    ]
+  },
+  "Bolivia, Plurinational State of": {
+    "latlong": [
+      -17.0,
+      -65.0
+    ],
+    "dial_code": "591",
+    "alpha_2": "BO",
+    "sub_divisions": [
+      "Chuquisaca",
+      "Cochabamba",
+      "El Beni",
+      "La Paz",
+      "Oruro",
+      "Pando",
+      "Potos\u00ed",
+      "Santa Cruz",
+      "Tarija"
+    ]
+  },
+  "Bonaire, Sint Eustatius and Saba": {
+    "latlong": [
+      12.15,
+      -68.266667
+    ],
+    "dial_code": "5997",
+    "alpha_2": "BQ",
+    "sub_divisions": [
+      "Bonaire",
+      "Saba",
+      "Sint Eustatius"
+    ]
+  },
+  "Bosnia and Herzegovina": {
+    "latlong": [
+      44.0,
+      18.0
+    ],
+    "dial_code": "387",
+    "alpha_2": "BA",
+    "sub_divisions": [
+      "Bosansko-podrinjski kanton",
+      "Br\u010dko distrikt",
+      "Federacija Bosne i Hercegovine",
+      "Hercegova\u010dko-neretvanski kanton",
+      "Kanton Sarajevo",
+      "Kanton br. 10 (Livanjski kanton)",
+      "Posavski kanton",
+      "Republika Srpska",
+      "Srednjobosanski kanton",
+      "Tuzlanski kanton",
+      "Unsko-sanski kanton",
+      "Zapadnohercegova\u010dki kanton",
+      "Zeni\u010dko-dobojski kanton"
+    ]
+  },
+  "Botswana": {
+    "latlong": [
+      -22.0,
+      24.0
+    ],
+    "dial_code": "267",
+    "alpha_2": "BW",
+    "sub_divisions": [
+      "Central",
+      "Ghanzi",
+      "Kgalagadi",
+      "Kgatleng",
+      "Kweneng",
+      "North-East",
+      "North-West",
+      "South-East",
+      "Southern"
+    ]
+  },
+  "Bouvet Island": {
+    "latlong": [
+      -54.43333333,
+      3.4
+    ],
+    "dial_code": "47",
+    "alpha_2": "BV",
+    "sub_divisions": [
+      "Bouvet Island"
+    ]
+  },
+  "Brazil": {
+    "latlong": [
+      -10.0,
+      -55.0
+    ],
+    "dial_code": "55",
+    "alpha_2": "BR",
+    "sub_divisions": [
+      "Acre",
+      "Alagoas",
+      "Amap\u00e1",
+      "Amazonas",
+      "Bahia",
+      "Cear\u00e1",
+      "Distrito Federal",
+      "Esp\u00edrito Santo",
+      "Fernando de Noronha",
+      "Goi\u00e1s",
+      "Maranh\u00e3o",
+      "Mato Grosso",
+      "Mato Grosso do Sul",
+      "Minas Gerais",
+      "Paran\u00e1",
+      "Para\u00edba",
+      "Par\u00e1",
+      "Pernambuco",
+      "Piau\u00ed",
+      "Rio Grande do Norte",
+      "Rio Grande do Sul",
+      "Rio de Janeiro",
+      "Rond\u00f4nia",
+      "Roraima",
+      "Santa Catarina",
+      "Sergipe",
+      "S\u00e3o Paulo",
+      "Tocantins"
+    ]
+  },
+  "British Indian Ocean Territory": {
+    "latlong": [
+      -6.0,
+      71.5
+    ],
+    "dial_code": "246",
+    "alpha_2": "IO",
+    "sub_divisions": [
+      "British Indian Ocean Territory"
+    ]
+  },
+  "Brunei Darussalam": {
+    "latlong": [
+      4.5,
+      114.66666666
+    ],
+    "dial_code": "673",
+    "alpha_2": "BN",
+    "sub_divisions": [
+      "Belait",
+      "Brunei-Muara",
+      "Temburong",
+      "Tutong"
+    ]
+  },
+  "Bulgaria": {
+    "latlong": [
+      43.0,
+      25.0
+    ],
+    "dial_code": "359",
+    "alpha_2": "BG",
+    "sub_divisions": [
+      "Blagoevgrad",
+      "Burgas",
+      "Dobrich",
+      "Gabrovo",
+      "Haskovo",
+      "Kardzhali",
+      "Kyustendil",
+      "Lovech",
+      "Montana",
+      "Pazardzhik",
+      "Pernik",
+      "Pleven",
+      "Plovdiv",
+      "Razgrad",
+      "Ruse",
+      "Shumen",
+      "Silistra",
+      "Sliven",
+      "Smolyan",
+      "Sofia",
+      "Sofia-Grad",
+      "Stara Zagora",
+      "Targovishte",
+      "Varna",
+      "Veliko Tarnovo",
+      "Vidin",
+      "Vratsa",
+      "Yambol"
+    ]
+  },
+  "Burkina Faso": {
+    "latlong": [
+      13.0,
+      -2.0
+    ],
+    "dial_code": "226",
+    "alpha_2": "BF",
+    "sub_divisions": [
+      "Bal\u00e9",
+      "Bam",
+      "Banwa",
+      "Baz\u00e8ga",
+      "Boucle du Mouhoun",
+      "Bougouriba",
+      "Boulgou",
+      "Boulkiemd\u00e9",
+      "Cascades",
+      "Centre",
+      "Centre-Est",
+      "Centre-Nord",
+      "Centre-Ouest",
+      "Centre-Sud",
+      "Como\u00e9",
+      "Est",
+      "Ganzourgou",
+      "Gnagna",
+      "Gourma",
+      "Hauts-Bassins",
+      "Houet",
+      "Ioba",
+      "Kadiogo",
+      "Komondjari",
+      "Kompienga",
+      "Kossi",
+      "Koulp\u00e9logo",
+      "Kouritenga",
+      "Kourw\u00e9ogo",
+      "K\u00e9n\u00e9dougou",
+      "Loroum",
+      "L\u00e9raba",
+      "Mouhoun",
+      "Namentenga",
+      "Naouri",
+      "Nayala",
+      "Nord",
+      "Noumbiel",
+      "Oubritenga",
+      "Oudalan",
+      "Passor\u00e9",
+      "Plateau-Central",
+      "Poni",
+      "Sahel",
+      "Sangui\u00e9",
+      "Sanmatenga",
+      "Sissili",
+      "Soum",
+      "Sourou",
+      "Sud-Ouest",
+      "S\u00e9no",
+      "Tapoa",
+      "Tui",
+      "Yagha",
+      "Yatenga",
+      "Ziro",
+      "Zondoma",
+      "Zoundw\u00e9ogo"
+    ]
+  },
+  "Burundi": {
+    "latlong": [
+      -3.5,
+      30.0
+    ],
+    "dial_code": "257",
+    "alpha_2": "BI",
+    "sub_divisions": [
+      "Bubanza",
+      "Bujumbura Mairie",
+      "Bujumbura Rural",
+      "Bururi",
+      "Cankuzo",
+      "Cibitoke",
+      "Gitega",
+      "Karuzi",
+      "Kayanza",
+      "Kirundo",
+      "Makamba",
+      "Muramvya",
+      "Mwaro",
+      "Ngozi",
+      "Rutana",
+      "Ruyigi"
+    ]
+  },
+  "Cabo Verde": {
+    "latlong": [
+      16.0,
+      -24.0
+    ],
+    "dial_code": "238",
+    "alpha_2": "CV",
+    "sub_divisions": [
+      "Boa Vista",
+      "Brava",
+      "Ilhas de Barlavento",
+      "Ilhas de Sotavento",
+      "Maio",
+      "Mosteiros",
+      "Paul",
+      "Porto Novo",
+      "Praia",
+      "Ribeira Brava",
+      "Ribeira Grande",
+      "Ribeira Grande de Santiago",
+      "Sal",
+      "Santa Catarina",
+      "Santa Catarina de Fogo",
+      "Santa Cruz",
+      "S\u00e3o Domingos",
+      "S\u00e3o Filipe",
+      "S\u00e3o Louren\u00e7o dos \u00d3rg\u00e3os",
+      "S\u00e3o Miguel",
+      "S\u00e3o Salvador do Mundo",
+      "S\u00e3o Vicente",
+      "Tarrafal",
+      "Tarrafal de S\u00e3o Nicolau"
+    ]
+  },
+  "Cambodia": {
+    "latlong": [
+      13.0,
+      105.0
+    ],
+    "dial_code": "855",
+    "alpha_2": "KH",
+    "sub_divisions": [
+      "Banteay Mean Chey",
+      "Battambang",
+      "Kach Kong",
+      "Kampong Cham",
+      "Kampong Chhnang",
+      "Kampong Speu",
+      "Kampong Thom",
+      "Kampot",
+      "Kandal",
+      "Krachoh",
+      "Krong Kaeb",
+      "Krong Pailin",
+      "Krong Preah Sihanouk",
+      "Mondol Kiri",
+      "Otdar Mean Chey",
+      "Phnom Penh",
+      "Pousaat",
+      "Preah Vihear",
+      "Prey Veaeng",
+      "Rotanak Kiri",
+      "Siem Reab",
+      "Stueng Traeng",
+      "Svaay Rieng",
+      "Taakaev"
+    ]
+  },
+  "Cameroon": {
+    "latlong": [
+      6.0,
+      12.0
+    ],
+    "dial_code": "237",
+    "alpha_2": "CM",
+    "sub_divisions": [
+      "Adamaoua",
+      "Centre",
+      "East",
+      "Far North",
+      "Littoral",
+      "North",
+      "North-West (Cameroon)",
+      "South",
+      "South-West",
+      "West"
+    ]
+  },
+  "Canada": {
+    "latlong": [
+      60.0,
+      -95.0
+    ],
+    "dial_code": "1",
+    "alpha_2": "CA",
+    "sub_divisions": [
+      "Alberta",
+      "British Columbia",
+      "Manitoba",
+      "New Brunswick",
+      "Newfoundland and Labrador",
+      "Northwest Territories",
+      "Nova Scotia",
+      "Nunavut",
+      "Ontario",
+      "Prince Edward Island",
+      "Quebec",
+      "Saskatchewan",
+      "Yukon Territory"
+    ]
+  },
+  "Cayman Islands": {
+    "latlong": [
+      19.5,
+      -80.5
+    ],
+    "dial_code": "1345",
+    "alpha_2": "KY",
+    "sub_divisions": [
+      "Cayman Islands"
+    ]
+  },
+  "Central African Republic": {
+    "latlong": [
+      7.0,
+      21.0
+    ],
+    "dial_code": "236",
+    "alpha_2": "CF",
+    "sub_divisions": [
+      "Bamingui-Bangoran",
+      "Bangui",
+      "Basse-Kotto",
+      "Gribingui",
+      "Haut-Mbomou",
+      "Haute-Kotto",
+      "Haute-Sangha / Mamb\u00e9r\u00e9-Kad\u00e9\u00ef",
+      "K\u00e9mo-Gribingui",
+      "Lobaye",
+      "Mbomou",
+      "Nana-Mamb\u00e9r\u00e9",
+      "Ombella-M'poko",
+      "Ouaka",
+      "Ouham",
+      "Ouham-Pend\u00e9",
+      "Sangha",
+      "Vakaga"
+    ]
+  },
+  "Chad": {
+    "latlong": [
+      15.0,
+      19.0
+    ],
+    "dial_code": "235",
+    "alpha_2": "TD",
+    "sub_divisions": [
+      "Al Ba\u1e6dh\u0327ah",
+      "Al Buh\u0327ayrah",
+      "Bah\u0327r al Ghaz\u0101l",
+      "B\u016brk\u016b",
+      "Inn\u012bd\u012b",
+      "K\u0101nim",
+      "L\u016bq\u016bn al Gharb\u012b",
+      "L\u016bq\u016bn ash Sharq\u012b",
+      "Mad\u012bnat Injam\u012bn\u0101",
+      "M\u0101nd\u016bl",
+      "M\u0101y\u016b K\u012bbb\u012b al Gharb\u012b",
+      "M\u0101y\u016b K\u012bbb\u012b ash Sharq\u012b",
+      "Q\u012br\u0101",
+      "Sal\u0101m\u0101t",
+      "Sh\u0101r\u012b B\u0101qirm\u012b",
+      "Sh\u0101r\u012b al Awsa\u1e6d",
+      "S\u012bl\u0101",
+      "Tibast\u012b",
+      "T\u0101njil\u012b",
+      "Wadd\u0101y",
+      "W\u0101d\u012b F\u012br\u0101",
+      "\u1e24ajjar Lam\u012bs"
+    ]
+  },
+  "Chile": {
+    "latlong": [
+      -30.0,
+      -71.0
+    ],
+    "dial_code": "56",
+    "alpha_2": "CL",
+    "sub_divisions": [
+      "Ais\u00e9n del General Carlos Ib\u00e1\u00f1ez del Campo",
+      "Antofagasta",
+      "Araucan\u00eda",
+      "Arica y Parinacota",
+      "Atacama",
+      "B\u00edo-B\u00edo",
+      "Coquimbo",
+      "Libertador General Bernardo O'Higgins",
+      "Los Lagos",
+      "Los R\u00edos",
+      "Magallanes y Ant\u00e1rtica Chilena",
+      "Maule",
+      "Regi\u00f3n Metropolitana de Santiago",
+      "Tarapac\u00e1",
+      "Valpara\u00edso"
+    ]
+  },
+  "China": {
+    "latlong": [
+      35.0,
+      105.0
+    ],
+    "dial_code": "86",
+    "alpha_2": "CN",
+    "sub_divisions": [
+      "Anhui Sheng",
+      "Beijing Shi",
+      "Chongqing Shi",
+      "Fujian Sheng",
+      "Gansu Sheng",
+      "Guangdong Sheng",
+      "Guangxi Zhuangzu Zizhiqu",
+      "Guizhou Sheng",
+      "Hainan Sheng",
+      "Hebei Sheng",
+      "Heilongjiang Sheng",
+      "Henan Sheng",
+      "Hong Kong SAR (see also separate country code entry under HK)",
+      "Hubei Sheng",
+      "Hunan Sheng",
+      "Jiangsu Sheng",
+      "Jiangxi Sheng",
+      "Jilin Sheng",
+      "Liaoning Sheng",
+      "Macao SAR (see also separate country code entry under MO)",
+      "Nei Mongol Zizhiqu",
+      "Ningxia Huizi Zizhiqu",
+      "Qinghai Sheng",
+      "Shaanxi Sheng",
+      "Shandong Sheng",
+      "Shanghai Shi",
+      "Shanxi Sheng",
+      "Sichuan Sheng",
+      "Taiwan Sheng (see also separate country code entry under TW)",
+      "Tianjin Shi",
+      "Xinjiang Uygur Zizhiqu",
+      "Xizang Zizhiqu",
+      "Yunnan Sheng",
+      "Zhejiang Sheng"
+    ]
+  },
+  "Christmas Island": {
+    "latlong": [
+      -10.5,
+      105.66666666
+    ],
+    "dial_code": "61",
+    "alpha_2": "CX",
+    "sub_divisions": [
+      "Christmas Island"
+    ]
+  },
+  "Cocos (Keeling) Islands": {
+    "latlong": [
+      -12.5,
+      96.83333333
+    ],
+    "dial_code": "61",
+    "alpha_2": "CC",
+    "sub_divisions": [
+      "Cocos (Keeling) Islands"
+    ]
+  },
+  "Colombia": {
+    "latlong": [
+      4.0,
+      -72.0
+    ],
+    "dial_code": "57",
+    "alpha_2": "CO",
+    "sub_divisions": [
+      "Amazonas",
+      "Antioquia",
+      "Arauca",
+      "Atl\u00e1ntico",
+      "Bol\u00edvar",
+      "Boyac\u00e1",
+      "Caldas",
+      "Caquet\u00e1",
+      "Casanare",
+      "Cauca",
+      "Cesar",
+      "Choc\u00f3",
+      "Cundinamarca",
+      "C\u00f3rdoba",
+      "Distrito Capital de Bogot\u00e1",
+      "Guain\u00eda",
+      "Guaviare",
+      "Huila",
+      "La Guajira",
+      "Magdalena",
+      "Meta",
+      "Nari\u00f1o",
+      "Norte de Santander",
+      "Putumayo",
+      "Quind\u00edo",
+      "Risaralda",
+      "San Andr\u00e9s, Providencia y Santa Catalina",
+      "Santander",
+      "Sucre",
+      "Tolima",
+      "Valle del Cauca",
+      "Vaup\u00e9s",
+      "Vichada"
+    ]
+  },
+  "Comoros": {
+    "latlong": [
+      -12.16666666,
+      44.25
+    ],
+    "dial_code": "269",
+    "alpha_2": "KM",
+    "sub_divisions": [
+      "Andjaz\u00eedja (Anjaz\u012bjah)",
+      "Andjou\u00e2n (Anjw\u0101n)",
+      "Mo\u00fbh\u00eel\u00ee (M\u016bh\u012bl\u012b)"
+    ]
+  },
+  "Congo": {
+    "latlong": [
+      -1.0,
+      15.0
+    ],
+    "dial_code": "242",
+    "alpha_2": "CG",
+    "sub_divisions": [
+      "Bouenza",
+      "Brazzaville",
+      "Cuvette",
+      "Cuvette-Ouest",
+      "Kouilou",
+      "Likouala",
+      "L\u00e9koumou",
+      "Niari",
+      "Plateaux",
+      "Pool",
+      "Sangha"
+    ]
+  },
+  "Congo, The Democratic Republic of the": {
+    "latlong": [
+      4.4419,
+      15.2663
+    ],
+    "dial_code": "242",
+    "alpha_2": "CD",
+    "sub_divisions": [
+      "Bandundu",
+      "Bas-Congo",
+      "Kasai-Occidental",
+      "Kasai-Oriental",
+      "Katanga",
+      "Kinshasa",
+      "Maniema",
+      "Nord-Kivu",
+      "Orientale",
+      "Sud-Kivu",
+      "\u00c9quateur"
+    ]
+  },
+  "Cook Islands": {
+    "latlong": [
+      -21.23333333,
+      -159.76666666
+    ],
+    "dial_code": "682",
+    "alpha_2": "CK",
+    "sub_divisions": [
+      "Cook Islands"
+    ]
+  },
+  "Costa Rica": {
+    "latlong": [
+      10.0,
+      -84.0
+    ],
+    "dial_code": "506",
+    "alpha_2": "CR",
+    "sub_divisions": [
+      "Alajuela",
+      "Cartago",
+      "Guanacaste",
+      "Heredia",
+      "Lim\u00f3n",
+      "Puntarenas",
+      "San Jos\u00e9"
+    ]
+  },
+  "Croatia": {
+    "latlong": [
+      45.16666666,
+      15.5
+    ],
+    "dial_code": "385",
+    "alpha_2": "HR",
+    "sub_divisions": [
+      "Bjelovarsko-bilogorska \u017eupanija",
+      "Brodsko-posavska \u017eupanija",
+      "Dubrova\u010dko-neretvanska \u017eupanija",
+      "Grad Zagreb",
+      "Istarska \u017eupanija",
+      "Karlova\u010dka \u017eupanija",
+      "Koprivni\u010dko-kri\u017eeva\u010dka \u017eupanija",
+      "Krapinsko-zagorska \u017eupanija",
+      "Li\u010dko-senjska \u017eupanija",
+      "Me\u0111imurska \u017eupanija",
+      "Osje\u010dko-baranjska \u017eupanija",
+      "Po\u017ee\u0161ko-slavonska \u017eupanija",
+      "Primorsko-goranska \u017eupanija",
+      "Sisa\u010dko-moslava\u010dka \u017eupanija",
+      "Splitsko-dalmatinska \u017eupanija",
+      "Vara\u017edinska \u017eupanija",
+      "Viroviti\u010dko-podravska \u017eupanija",
+      "Vukovarsko-srijemska \u017eupanija",
+      "Zadarska \u017eupanija",
+      "Zagreba\u010dka \u017eupanija",
+      "\u0160ibensko-kninska \u017eupanija"
+    ]
+  },
+  "Cuba": {
+    "latlong": [
+      21.5,
+      -80.0
+    ],
+    "dial_code": "53",
+    "alpha_2": "CU",
+    "sub_divisions": [
+      "Camag\u00fcey",
+      "Ciego de \u00c1vila",
+      "Cienfuegos",
+      "Ciudad de La Habana",
+      "Granma",
+      "Guant\u00e1namo",
+      "Holgu\u00edn",
+      "Isla de la Juventud",
+      "La Habana",
+      "Las Tunas",
+      "Matanzas",
+      "Pinar del Rio",
+      "Sancti Sp\u00edritus",
+      "Santiago de Cuba",
+      "Villa Clara"
+    ]
+  },
+  "Cura\u00e7ao": {
+    "latlong": [
+      12.116667,
+      -68.933333
+    ],
+    "dial_code": "599",
+    "alpha_2": "CW",
+    "sub_divisions": [
+      "Cura\u00e7ao"
+    ]
+  },
+  "Cyprus": {
+    "latlong": [
+      35.0,
+      33.0
+    ],
+    "dial_code": "357",
+    "alpha_2": "CY",
+    "sub_divisions": [
+      "Amm\u00f3chostos",
+      "Ker\u00fdneia",
+      "Lefkos\u00eda",
+      "Lemes\u00f3s",
+      "L\u00e1rnaka",
+      "P\u00e1fos"
+    ]
+  },
+  "Czechia": {
+    "latlong": [
+      49.75,
+      15.5
+    ],
+    "dial_code": "42",
+    "alpha_2": "CZ",
+    "sub_divisions": [
+      "Bene\u0161ov",
+      "Beroun",
+      "Blansko",
+      "Brno-m\u011bsto",
+      "Brno-venkov",
+      "Brunt\u00e1l",
+      "B\u0159eclav",
+      "Cheb",
+      "Chomutov",
+      "Chrudim",
+      "Doma\u017elice",
+      "D\u011b\u010d\u00edn",
+      "Fr\u00fddek M\u00edstek",
+      "Havl\u00ed\u010dk\u016fv Brod",
+      "Hodon\u00edn",
+      "Hradec Kr\u00e1lov\u00e9",
+      "Jablonec nad Nisou",
+      "Jesen\u00edk",
+      "Jihlava",
+      "Jihomoravsk\u00fd kraj",
+      "Jiho\u010desk\u00fd kraj",
+      "Jind\u0159ich\u016fv Hradec",
+      "Ji\u010d\u00edn",
+      "Karlovarsk\u00fd kraj",
+      "Karlovy Vary",
+      "Karvin\u00e1",
+      "Kladno",
+      "Klatovy",
+      "Kol\u00edn",
+      "Kraj Vyso\u010dina",
+      "Krom\u011b\u0159\u00ed\u017e",
+      "Kr\u00e1lov\u00e9hradeck\u00fd kraj",
+      "Kutn\u00e1 Hora",
+      "Liberec",
+      "Libereck\u00fd kraj",
+      "Litom\u011b\u0159ice",
+      "Louny",
+      "Mlad\u00e1 Boleslav",
+      "Moravskoslezsk\u00fd kraj",
+      "Most",
+      "M\u011bln\u00edk",
+      "Nov\u00fd Ji\u010d\u00edn",
+      "Nymburk",
+      "N\u00e1chod",
+      "Olomouc",
+      "Olomouck\u00fd kraj",
+      "Opava",
+      "Ostrava-m\u011bsto",
+      "Pardubice",
+      "Pardubick\u00fd kraj",
+      "Pelh\u0159imov",
+      "Plze\u0148-jih",
+      "Plze\u0148-m\u011bsto",
+      "Plze\u0148-sever",
+      "Plze\u0148sk\u00fd kraj",
+      "Prachatice",
+      "Praha 1",
+      "Praha 10",
+      "Praha 11",
+      "Praha 12",
+      "Praha 13",
+      "Praha 14",
+      "Praha 15",
+      "Praha 16",
+      "Praha 17",
+      "Praha 18",
+      "Praha 19",
+      "Praha 2",
+      "Praha 20",
+      "Praha 21",
+      "Praha 22",
+      "Praha 3",
+      "Praha 4",
+      "Praha 5",
+      "Praha 6",
+      "Praha 7",
+      "Praha 8",
+      "Praha 9",
+      "Praha, Hlavn\u00ed me\u0161to",
+      "Praha-v\u00fdchod",
+      "Praha-z\u00e1pad",
+      "Prost\u011bjov",
+      "P\u00edsek",
+      "P\u0159erov",
+      "P\u0159\u00edbram",
+      "Rakovn\u00edk",
+      "Rokycany",
+      "Rychnov nad Kn\u011b\u017enou",
+      "Semily",
+      "Sokolov",
+      "Strakonice",
+      "St\u0159edo\u010desk\u00fd kraj",
+      "Svitavy",
+      "Tachov",
+      "Teplice",
+      "Trutnov",
+      "T\u00e1bor",
+      "T\u0159eb\u00ed\u010d",
+      "Uhersk\u00e9 Hradi\u0161t\u011b",
+      "Vset\u00edn",
+      "Vy\u0161kov",
+      "Zl\u00edn",
+      "Zl\u00ednsk\u00fd kraj",
+      "Znojmo",
+      "\u00dasteck\u00fd kraj",
+      "\u00dast\u00ed nad Labem",
+      "\u00dast\u00ed nad Orlic\u00ed",
+      "\u010cesk\u00e1 L\u00edpa",
+      "\u010cesk\u00e9 Bud\u011bjovice",
+      "\u010cesk\u00fd Krumlov",
+      "\u0160umperk",
+      "\u017d\u010f\u00e1r nad S\u00e1zavou"
+    ]
+  },
+  "C\u00f4te d'Ivoire": {
+    "latlong": [
+      8.0,
+      -5.0
+    ],
+    "dial_code": "225",
+    "alpha_2": "CI",
+    "sub_divisions": [
+      "18 Montagnes (R\u00e9gion des)",
+      "Agn\u00e9bi (R\u00e9gion de l')",
+      "Bafing (R\u00e9gion du)",
+      "Bas-Sassandra (R\u00e9gion du)",
+      "Dengu\u00e9l\u00e9 (R\u00e9gion du)",
+      "Fromager (R\u00e9gion du)",
+      "Haut-Sassandra (R\u00e9gion du)",
+      "Lacs (R\u00e9gion des)",
+      "Lagunes (R\u00e9gion des)",
+      "Marahou\u00e9 (R\u00e9gion de la)",
+      "Moyen-Cavally (R\u00e9gion du)",
+      "Moyen-Como\u00e9 (R\u00e9gion du)",
+      "Nzi-Como\u00e9 (R\u00e9gion)",
+      "Savanes (R\u00e9gion des)",
+      "Sud-Bandama (R\u00e9gion du)",
+      "Sud-Como\u00e9 (R\u00e9gion du)",
+      "Vall\u00e9e du Bandama (R\u00e9gion de la)",
+      "Worodouqou (R\u00e9gion du)",
+      "Zanzan (R\u00e9gion du)"
+    ]
+  },
+  "Denmark": {
+    "latlong": [
+      56.0,
+      10.0
+    ],
+    "dial_code": "45",
+    "alpha_2": "DK",
+    "sub_divisions": [
+      "Hovedstaden",
+      "Midtjylland",
+      "Nordjylland",
+      "Sj\u00e6lland",
+      "Syddanmark"
+    ]
+  },
+  "Djibouti": {
+    "latlong": [
+      11.5,
+      43.0
+    ],
+    "dial_code": "253",
+    "alpha_2": "DJ",
+    "sub_divisions": [
+      "Ali Sabieh",
+      "Arta",
+      "Dikhil",
+      "Djibouti",
+      "Obock",
+      "Tadjourah"
+    ]
+  },
+  "Dominica": {
+    "latlong": [
+      15.41666666,
+      -61.33333333
+    ],
+    "dial_code": "1767",
+    "alpha_2": "DM",
+    "sub_divisions": [
+      "Saint Andrew",
+      "Saint David",
+      "Saint George",
+      "Saint John",
+      "Saint Joseph",
+      "Saint Luke",
+      "Saint Mark",
+      "Saint Patrick",
+      "Saint Paul",
+      "Saint Peter"
+    ]
+  },
+  "Dominican Republic": {
+    "latlong": [
+      19.0,
+      -70.66666666
+    ],
+    "dial_code": "1809",
+    "alpha_2": "DO",
+    "sub_divisions": [
+      "Azua",
+      "Bahoruco",
+      "Barahona",
+      "Dajab\u00f3n",
+      "Distrito Nacional (Santo Domingo)",
+      "Duarte",
+      "El Seybo [El Seibo]",
+      "Espaillat",
+      "Hato Mayor",
+      "Independencia",
+      "La Altagracia",
+      "La Estrelleta [El\u00edas Pi\u00f1a]",
+      "La Romana",
+      "La Vega",
+      "Mar\u00eda Trinidad S\u00e1nchez",
+      "Monse\u00f1or Nouel",
+      "Monte Cristi",
+      "Monte Plata",
+      "Pedernales",
+      "Peravia",
+      "Puerto Plata",
+      "Salcedo",
+      "Saman\u00e1",
+      "San Crist\u00f3bal",
+      "San Juan",
+      "San Pedro de Macor\u00eds",
+      "Santiago",
+      "Santiago Rodr\u00edguez",
+      "S\u00e1nchez Ram\u00edrez",
+      "Valverde"
+    ]
+  },
+  "Ecuador": {
+    "latlong": [
+      -2.0,
+      -77.5
+    ],
+    "dial_code": "593",
+    "alpha_2": "EC",
+    "sub_divisions": [
+      "Azuay",
+      "Bol\u00edvar",
+      "Carchi",
+      "Ca\u00f1ar",
+      "Chimborazo",
+      "Cotopaxi",
+      "El Oro",
+      "Esmeraldas",
+      "Gal\u00e1pagos",
+      "Guayas",
+      "Imbabura",
+      "Loja",
+      "Los R\u00edos",
+      "Manab\u00ed",
+      "Morona-Santiago",
+      "Napo",
+      "Orellana",
+      "Pastaza",
+      "Pichincha",
+      "Santa Elena",
+      "Santo Domingo de los Ts\u00e1chilas",
+      "Sucumb\u00edos",
+      "Tungurahua",
+      "Zamora-Chinchipe"
+    ]
+  },
+  "Egypt": {
+    "latlong": [
+      27.0,
+      30.0
+    ],
+    "dial_code": "20",
+    "alpha_2": "EG",
+    "sub_divisions": [
+      "Ad Daqahl\u012byah",
+      "Al Bahr al Ahmar",
+      "Al Buhayrah",
+      "Al Fayy\u016bm",
+      "Al Gharb\u012byah",
+      "Al Iskandar\u012byah",
+      "Al Ism\u0101`\u012bl\u012byah",
+      "Al J\u012bzah",
+      "Al Miny\u0101",
+      "Al Min\u016bf\u012byah",
+      "Al Qaly\u016bb\u012byah",
+      "Al Q\u0101hirah",
+      "Al W\u0101d\u012b al Jad\u012bd",
+      "As Suways",
+      "As S\u0101dis min Ukt\u016bbar",
+      "Ash Sharq\u012byah",
+      "Asw\u0101n",
+      "Asy\u016bt",
+      "Ban\u012b Suwayf",
+      "B\u016br Sa`\u012bd",
+      "Dumy\u0101t",
+      "H\u0327ulw\u0101n",
+      "Jan\u016bb S\u012bn\u0101'",
+      "Kafr ash Shaykh",
+      "Matr\u016bh",
+      "Qin\u0101",
+      "Shamal S\u012bn\u0101'",
+      "S\u016bh\u0101j"
+    ]
+  },
+  "El Salvador": {
+    "latlong": [
+      13.83333333,
+      -88.91666666
+    ],
+    "dial_code": "503",
+    "alpha_2": "SV",
+    "sub_divisions": [
+      "Ahuachap\u00e1n",
+      "Caba\u00f1as",
+      "Chalatenango",
+      "Cuscatl\u00e1n",
+      "La Libertad",
+      "La Paz",
+      "La Uni\u00f3n",
+      "Moraz\u00e1n",
+      "San Miguel",
+      "San Salvador",
+      "San Vicente",
+      "Santa Ana",
+      "Sonsonate",
+      "Usulut\u00e1n"
+    ]
+  },
+  "Equatorial Guinea": {
+    "latlong": [
+      2.0,
+      10.0
+    ],
+    "dial_code": "240",
+    "alpha_2": "GQ",
+    "sub_divisions": [
+      "Annob\u00f3n",
+      "Bioko Norte",
+      "Bioko Sur",
+      "Centro Sur",
+      "Ki\u00e9-Ntem",
+      "Litoral",
+      "Regi\u00f3n Continental",
+      "Regi\u00f3n Insular",
+      "Wele-Nzas"
+    ]
+  },
+  "Eritrea": {
+    "latlong": [
+      15.0,
+      39.0
+    ],
+    "dial_code": "291",
+    "alpha_2": "ER",
+    "sub_divisions": [
+      "Al Awsa\u0163",
+      "Al Jan\u016bb\u012b",
+      "Ansab\u0101",
+      "Jan\u016bb\u012b al Ba\u1e29r\u012b al A\u1e29mar",
+      "Q\u0101sh-Barkah",
+      "Shim\u0101l\u012b al Ba\u1e29r\u012b al A\u1e29mar"
+    ]
+  },
+  "Estonia": {
+    "latlong": [
+      59.0,
+      26.0
+    ],
+    "dial_code": "372",
+    "alpha_2": "EE",
+    "sub_divisions": [
+      "Harjumaa",
+      "Hiiumaa",
+      "Ida-Virumaa",
+      "J\u00e4rvamaa",
+      "J\u00f5gevamaa",
+      "L\u00e4\u00e4ne-Virumaa",
+      "L\u00e4\u00e4nemaa",
+      "P\u00e4rnumaa",
+      "P\u00f5lvamaa",
+      "Raplamaa",
+      "Saaremaa",
+      "Tartumaa",
+      "Valgamaa",
+      "Viljandimaa",
+      "V\u00f5rumaa"
+    ]
+  },
+  "Eswatini": {
+    "latlong": [
+      -26.5,
+      31.5
+    ],
+    "dial_code": "268",
+    "alpha_2": "SZ",
+    "sub_divisions": [
+      "Hhohho",
+      "Lubombo",
+      "Manzini",
+      "Shiselweni"
+    ]
+  },
+  "Ethiopia": {
+    "latlong": [
+      8.0,
+      38.0
+    ],
+    "dial_code": "251",
+    "alpha_2": "ET",
+    "sub_divisions": [
+      "B\u012bnshangul Gumuz",
+      "Dir\u0113 Dawa",
+      "Gamb\u0113la Hizboch",
+      "H\u0101rer\u012b Hizb",
+      "Orom\u012bya",
+      "Sumal\u0113",
+      "Tigray",
+      "YeDebub Bih\u0113roch Bih\u0113reseboch na Hizboch",
+      "\u0100d\u012bs \u0100beba",
+      "\u0100far",
+      "\u0100mara"
+    ]
+  },
+  "Falkland Islands (Malvinas)": {
+    "latlong": [
+      -51.75,
+      -59.0
+    ],
+    "dial_code": "500",
+    "alpha_2": "FK",
+    "sub_divisions": [
+      "Falkland Islands (Malvinas)"
+    ]
+  },
+  "Faroe Islands": {
+    "latlong": [
+      62.0,
+      -7.0
+    ],
+    "dial_code": "298",
+    "alpha_2": "FO",
+    "sub_divisions": [
+      "Faroe Islands"
+    ]
+  },
+  "Fiji": {
+    "latlong": [
+      -18.0,
+      175.0
+    ],
+    "dial_code": "679",
+    "alpha_2": "FJ",
+    "sub_divisions": [
+      "Central",
+      "Eastern",
+      "Northern",
+      "Rotuma",
+      "Western"
+    ]
+  },
+  "Finland": {
+    "latlong": [
+      64.0,
+      26.0
+    ],
+    "dial_code": "358",
+    "alpha_2": "FI",
+    "sub_divisions": [
+      "Ahvenanmaan maakunta",
+      "Etel\u00e4-Karjala",
+      "Etel\u00e4-Pohjanmaa",
+      "Etel\u00e4-Savo",
+      "Kainuu",
+      "Kanta-H\u00e4me",
+      "Keski-Pohjanmaa",
+      "Keski-Suomi",
+      "Kymenlaakso",
+      "Lappi",
+      "Pirkanmaa",
+      "Pohjanmaa",
+      "Pohjois-Karjala",
+      "Pohjois-Pohjanmaa",
+      "Pohjois-Savo",
+      "P\u00e4ij\u00e4t-H\u00e4me",
+      "Satakunta",
+      "Uusimaa",
+      "Varsinais-Suomi"
+    ]
+  },
+  "France": {
+    "latlong": [
+      46.0,
+      2.0
+    ],
+    "dial_code": "33",
+    "alpha_2": "FR",
+    "sub_divisions": [
+      "Ain",
+      "Aisne",
+      "Allier",
+      "Alpes-Maritimes",
+      "Alpes-de-Haute-Provence",
+      "Ardennes",
+      "Ard\u00e8che",
+      "Ari\u00e8ge",
+      "Aube",
+      "Aude",
+      "Auvergne-Rh\u00f4ne-Alpes",
+      "Aveyron",
+      "Bas-Rhin",
+      "Bouches-du-Rh\u00f4ne",
+      "Bourgogne-Franche-Comt\u00e9",
+      "Bretagne",
+      "Calvados",
+      "Cantal",
+      "Centre-Val de Loire",
+      "Charente",
+      "Charente-Maritime",
+      "Cher",
+      "Clipperton",
+      "Corr\u00e8ze",
+      "Corse",
+      "Corse-du-Sud",
+      "Creuse",
+      "C\u00f4te-d'Or",
+      "C\u00f4tes-d'Armor",
+      "Deux-S\u00e8vres",
+      "Dordogne",
+      "Doubs",
+      "Dr\u00f4me",
+      "Essonne",
+      "Eure",
+      "Eure-et-Loir",
+      "Finist\u00e8re",
+      "Gard",
+      "Gers",
+      "Gironde",
+      "Grand-Est",
+      "Guadeloupe",
+      "Guadeloupe",
+      "Guyane (fran\u00e7aise)",
+      "Haut-Rhin",
+      "Haute-Corse",
+      "Haute-Garonne",
+      "Haute-Loire",
+      "Haute-Marne",
+      "Haute-Savoie",
+      "Haute-Sa\u00f4ne",
+      "Haute-Vienne",
+      "Hautes-Alpes",
+      "Hautes-Pyr\u00e9n\u00e9es",
+      "Hauts-de-France",
+      "Hauts-de-Seine",
+      "H\u00e9rault",
+      "Ille-et-Vilaine",
+      "Indre",
+      "Indre-et-Loire",
+      "Is\u00e8re",
+      "Jura",
+      "La R\u00e9union",
+      "La R\u00e9union",
+      "Landes",
+      "Loir-et-Cher",
+      "Loire",
+      "Loire-Atlantique",
+      "Loiret",
+      "Lot",
+      "Lot-et-Garonne",
+      "Loz\u00e8re",
+      "Maine-et-Loire",
+      "Manche",
+      "Marne",
+      "Martinique",
+      "Mayenne",
+      "Mayotte",
+      "Mayotte",
+      "Meurthe-et-Moselle",
+      "Meuse",
+      "Morbihan",
+      "Moselle",
+      "Ni\u00e8vre",
+      "Nord",
+      "Normandie",
+      "Nouvelle-Aquitaine",
+      "Nouvelle-Cal\u00e9donie",
+      "Occitanie",
+      "Oise",
+      "Orne",
+      "Paris",
+      "Pas-de-Calais",
+      "Pays-de-la-Loire",
+      "Polyn\u00e9sie fran\u00e7aise",
+      "Provence-Alpes-C\u00f4te-d\u2019Azur",
+      "Puy-de-D\u00f4me",
+      "Pyr\u00e9n\u00e9es-Atlantiques",
+      "Pyr\u00e9n\u00e9es-Orientales",
+      "Rh\u00f4ne",
+      "Saint-Barth\u00e9lemy",
+      "Saint-Martin",
+      "Saint-Pierre-et-Miquelon",
+      "Sarthe",
+      "Savoie",
+      "Sa\u00f4ne-et-Loire",
+      "Seine-Maritime",
+      "Seine-Saint-Denis",
+      "Seine-et-Marne",
+      "Somme",
+      "Tarn",
+      "Tarn-et-Garonne",
+      "Terres australes fran\u00e7aises",
+      "Territoire de Belfort",
+      "Val-d'Oise",
+      "Val-de-Marne",
+      "Var",
+      "Vaucluse",
+      "Vend\u00e9e",
+      "Vienne",
+      "Vosges",
+      "Wallis-et-Futuna",
+      "Yonne",
+      "Yvelines",
+      "\u00cele-de-France"
+    ]
+  },
+  "French Guiana": {
+    "latlong": [
+      4.0,
+      -53.0
+    ],
+    "dial_code": "594",
+    "alpha_2": "GF",
+    "sub_divisions": [
+      "French Guiana"
+    ]
+  },
+  "French Polynesia": {
+    "latlong": [
+      -15.0,
+      -140.0
+    ],
+    "dial_code": "689",
+    "alpha_2": "PF",
+    "sub_divisions": [
+      "French Polynesia"
+    ]
+  },
+  "French Southern Territories": {
+    "latlong": [
+      -49.25,
+      69.167
+    ],
+    "dial_code": "262",
+    "alpha_2": "TF",
+    "sub_divisions": [
+      "French Southern Territories"
+    ]
+  },
+  "Gabon": {
+    "latlong": [
+      -1.0,
+      11.75
+    ],
+    "dial_code": "241",
+    "alpha_2": "GA",
+    "sub_divisions": [
+      "Estuaire",
+      "Haut-Ogoou\u00e9",
+      "Moyen-Ogoou\u00e9",
+      "Ngouni\u00e9",
+      "Nyanga",
+      "Ogoou\u00e9-Ivindo",
+      "Ogoou\u00e9-Lolo",
+      "Ogoou\u00e9-Maritime",
+      "Woleu-Ntem"
+    ]
+  },
+  "Gambia": {
+    "latlong": [
+      13.46666666,
+      -16.56666666
+    ],
+    "dial_code": "220",
+    "alpha_2": "GM",
+    "sub_divisions": [
+      "Banjul",
+      "Central River",
+      "Lower River",
+      "North Bank",
+      "Upper River",
+      "Western"
+    ]
+  },
+  "Georgia": {
+    "latlong": [
+      42.0,
+      43.5
+    ],
+    "dial_code": "995",
+    "alpha_2": "GE",
+    "sub_divisions": [
+      "Abkhazia",
+      "Ajaria",
+      "Guria",
+      "Imeret\u2019i",
+      "Kakhet\u2019i",
+      "K\u2019vemo K\u2019art\u2019li",
+      "Mts\u2019khet\u2019a-Mt\u2019ianet\u2019i",
+      "Racha-Lech\u2019khumi-K\u2019vemo Svanet\u2019i",
+      "Samegrelo-Zemo Svanet\u2019i",
+      "Samts\u2019khe-Javakhet\u2019i",
+      "Shida K\u2019art\u2019li",
+      "T\u2019bilisi"
+    ]
+  },
+  "Germany": {
+    "latlong": [
+      51.0,
+      9.0
+    ],
+    "dial_code": "49",
+    "alpha_2": "DE",
+    "sub_divisions": [
+      "Baden-W\u00fcrttemberg",
+      "Bayern",
+      "Berlin",
+      "Brandenburg",
+      "Bremen",
+      "Hamburg",
+      "Hessen",
+      "Mecklenburg-Vorpommern",
+      "Niedersachsen",
+      "Nordrhein-Westfalen",
+      "Rheinland-Pfalz",
+      "Saarland",
+      "Sachsen",
+      "Sachsen-Anhalt",
+      "Schleswig-Holstein",
+      "Th\u00fcringen"
+    ]
+  },
+  "Ghana": {
+    "latlong": [
+      8.0,
+      -2.0
+    ],
+    "dial_code": "233",
+    "alpha_2": "GH",
+    "sub_divisions": [
+      "Ashanti",
+      "Brong-Ahafo",
+      "Central",
+      "Eastern",
+      "Greater Accra",
+      "Northern",
+      "Upper East",
+      "Upper West",
+      "Volta",
+      "Western"
+    ]
+  },
+  "Gibraltar": {
+    "latlong": [
+      36.13333333,
+      -5.35
+    ],
+    "dial_code": "350",
+    "alpha_2": "GI",
+    "sub_divisions": [
+      "Gibraltar"
+    ]
+  },
+  "Greece": {
+    "latlong": [
+      39.0,
+      22.0
+    ],
+    "dial_code": "30",
+    "alpha_2": "GR",
+    "sub_divisions": [
+      "Acha\u00efa",
+      "Agio Oros",
+      "Aitolia kai Akarnania",
+      "Anatoliki Makedonia kai Thraki",
+      "Argolida",
+      "Arkadia",
+      "Arta",
+      "Attiki",
+      "Attiki",
+      "Chalkidiki",
+      "Chania",
+      "Chios",
+      "Dodekanisos",
+      "Drama",
+      "Dytiki Ellada",
+      "Dytiki Makedonia",
+      "Evros",
+      "Evrytania",
+      "Evvoias",
+      "Florina",
+      "Fokida",
+      "Fthiotida",
+      "Grevena",
+      "Ileia",
+      "Imathia",
+      "Ioannina",
+      "Ionia Nisia",
+      "Ipeiros",
+      "Irakleio",
+      "Karditsa",
+      "Kastoria",
+      "Kavala",
+      "Kefallonia",
+      "Kentriki Makedonia",
+      "Kerkyra",
+      "Kilkis",
+      "Korinthia",
+      "Kozani",
+      "Kriti",
+      "Kyklades",
+      "Lakonia",
+      "Larisa",
+      "Lasithi",
+      "Lefkada",
+      "Lesvos",
+      "Magnisia",
+      "Messinia",
+      "Notio Aigaio",
+      "Pella",
+      "Peloponnisos",
+      "Pieria",
+      "Preveza",
+      "Rethymno",
+      "Rodopi",
+      "Samos",
+      "Serres",
+      "Sterea Ellada",
+      "Thesprotia",
+      "Thessalia",
+      "Thessaloniki",
+      "Trikala",
+      "Voiotia",
+      "Voreio Aigaio",
+      "Xanthi",
+      "Zakynthos"
+    ]
+  },
+  "Greenland": {
+    "latlong": [
+      72.0,
+      -40.0
+    ],
+    "dial_code": "299",
+    "alpha_2": "GL",
+    "sub_divisions": [
+      "Kommune Kujalleq",
+      "Kommuneqarfik Sermersooq",
+      "Qaasuitsup Kommunia",
+      "Qeqqata Kommunia"
+    ]
+  },
+  "Grenada": {
+    "latlong": [
+      12.11666666,
+      -61.66666666
+    ],
+    "dial_code": "1473",
+    "alpha_2": "GD",
+    "sub_divisions": [
+      "Saint Andrew",
+      "Saint David",
+      "Saint George",
+      "Saint John",
+      "Saint Mark",
+      "Saint Patrick",
+      "Southern Grenadine Islands"
+    ]
+  },
+  "Guadeloupe": {
+    "latlong": [
+      16.25,
+      -61.583333
+    ],
+    "dial_code": "590",
+    "alpha_2": "GP",
+    "sub_divisions": [
+      "Guadeloupe"
+    ]
+  },
+  "Guam": {
+    "latlong": [
+      13.46666666,
+      144.78333333
+    ],
+    "dial_code": "1671",
+    "alpha_2": "GU",
+    "sub_divisions": [
+      "Guam"
+    ]
+  },
+  "Guatemala": {
+    "latlong": [
+      15.5,
+      -90.25
+    ],
+    "dial_code": "502",
+    "alpha_2": "GT",
+    "sub_divisions": [
+      "Alta Verapaz",
+      "Baja Verapaz",
+      "Chimaltenango",
+      "Chiquimula",
+      "El Progreso",
+      "Escuintla",
+      "Guatemala",
+      "Huehuetenango",
+      "Izabal",
+      "Jalapa",
+      "Jutiapa",
+      "Pet\u00e9n",
+      "Quetzaltenango",
+      "Quich\u00e9",
+      "Retalhuleu",
+      "Sacatep\u00e9quez",
+      "San Marcos",
+      "Santa Rosa",
+      "Solol\u00e1",
+      "Suchitep\u00e9quez",
+      "Totonicap\u00e1n",
+      "Zacapa"
+    ]
+  },
+  "Guernsey": {
+    "latlong": [
+      49.46666666,
+      -2.58333333
+    ],
+    "dial_code": "44",
+    "alpha_2": "GG",
+    "sub_divisions": [
+      "Guernsey"
+    ]
+  },
+  "Guinea": {
+    "latlong": [
+      11.0,
+      -10.0
+    ],
+    "dial_code": "224",
+    "alpha_2": "GN",
+    "sub_divisions": [
+      "Beyla",
+      "Boffa",
+      "Bok\u00e9",
+      "Bok\u00e9",
+      "Conakry",
+      "Coyah",
+      "Dabola",
+      "Dalaba",
+      "Dinguiraye",
+      "Dubr\u00e9ka",
+      "Faranah",
+      "Faranah",
+      "For\u00e9cariah",
+      "Fria",
+      "Gaoual",
+      "Gu\u00e9k\u00e9dou",
+      "Kankan",
+      "Kankan",
+      "Kindia",
+      "Kindia",
+      "Kissidougou",
+      "Koubia",
+      "Koundara",
+      "Kouroussa",
+      "K\u00e9rouan\u00e9",
+      "Lab\u00e9",
+      "Lab\u00e9",
+      "Lola",
+      "L\u00e9louma",
+      "Macenta",
+      "Mali",
+      "Mamou",
+      "Mamou",
+      "Mandiana",
+      "Nz\u00e9r\u00e9kor\u00e9",
+      "Nz\u00e9r\u00e9kor\u00e9",
+      "Pita",
+      "Siguiri",
+      "Tougu\u00e9",
+      "T\u00e9lim\u00e9l\u00e9",
+      "Yomou"
+    ]
+  },
+  "Guinea-Bissau": {
+    "latlong": [
+      12.0,
+      -15.0
+    ],
+    "dial_code": "245",
+    "alpha_2": "GW",
+    "sub_divisions": [
+      "Bafat\u00e1",
+      "Biombo",
+      "Bissau",
+      "Bolama",
+      "Cacheu",
+      "Gab\u00fa",
+      "Leste",
+      "Norte",
+      "Oio",
+      "Quinara",
+      "Sul",
+      "Tombali"
+    ]
+  },
+  "Guyana": {
+    "latlong": [
+      5.0,
+      -59.0
+    ],
+    "dial_code": "592",
+    "alpha_2": "GY",
+    "sub_divisions": [
+      "Barima-Waini",
+      "Cuyuni-Mazaruni",
+      "Demerara-Mahaica",
+      "East Berbice-Corentyne",
+      "Essequibo Islands-West Demerara",
+      "Mahaica-Berbice",
+      "Pomeroon-Supenaam",
+      "Potaro-Siparuni",
+      "Upper Demerara-Berbice",
+      "Upper Takutu-Upper Essequibo"
+    ]
+  },
+  "Haiti": {
+    "latlong": [
+      19.0,
+      -72.41666666
+    ],
+    "dial_code": "509",
+    "alpha_2": "HT",
+    "sub_divisions": [
+      "Artibonite",
+      "Centre",
+      "Grande-Anse",
+      "Nord",
+      "Nord-Est",
+      "Nord-Ouest",
+      "Ouest",
+      "Sud",
+      "Sud-Est"
+    ]
+  },
+  "Heard Island and McDonald Islands": {
+    "latlong": [
+      -53.1,
+      72.51666666
+    ],
+    "dial_code": "0",
+    "alpha_2": "HM",
+    "sub_divisions": [
+      "Heard Island and McDonald Islands"
+    ]
+  },
+  "Holy See (Vatican City State)": {
+    "latlong": [
+      41.9,
+      12.45
+    ],
+    "dial_code": "379",
+    "alpha_2": "VA",
+    "sub_divisions": [
+      "Holy See (Vatican City State)"
+    ]
+  },
+  "Honduras": {
+    "latlong": [
+      15.0,
+      -86.5
+    ],
+    "dial_code": "504",
+    "alpha_2": "HN",
+    "sub_divisions": [
+      "Atl\u00e1ntida",
+      "Choluteca",
+      "Col\u00f3n",
+      "Comayagua",
+      "Cop\u00e1n",
+      "Cort\u00e9s",
+      "El Para\u00edso",
+      "Francisco Moraz\u00e1n",
+      "Gracias a Dios",
+      "Intibuc\u00e1",
+      "Islas de la Bah\u00eda",
+      "La Paz",
+      "Lempira",
+      "Ocotepeque",
+      "Olancho",
+      "Santa B\u00e1rbara",
+      "Valle",
+      "Yoro"
+    ]
+  },
+  "Hong Kong": {
+    "latlong": [
+      22.25,
+      114.16666666
+    ],
+    "dial_code": "852",
+    "alpha_2": "HK",
+    "sub_divisions": [
+      "Hong Kong"
+    ]
+  },
+  "Hungary": {
+    "latlong": [
+      47.0,
+      20.0
+    ],
+    "dial_code": "36",
+    "alpha_2": "HU",
+    "sub_divisions": [
+      "Baranya",
+      "Borsod-Aba\u00faj-Zempl\u00e9n",
+      "Budapest",
+      "B\u00e1cs-Kiskun",
+      "B\u00e9k\u00e9s",
+      "B\u00e9k\u00e9scsaba",
+      "Csongr\u00e1d",
+      "Debrecen",
+      "Duna\u00fajv\u00e1ros",
+      "Eger",
+      "Fej\u00e9r",
+      "Gy\u0151r",
+      "Gy\u0151r-Moson-Sopron",
+      "Hajd\u00fa-Bihar",
+      "Heves",
+      "H\u00f3dmez\u0151v\u00e1s\u00e1rhely",
+      "J\u00e1sz-Nagykun-Szolnok",
+      "Kaposv\u00e1r",
+      "Kecskem\u00e9t",
+      "Kom\u00e1rom-Esztergom",
+      "Miskolc",
+      "Nagykanizsa",
+      "Ny\u00edregyh\u00e1za",
+      "N\u00f3gr\u00e1d",
+      "Pest",
+      "P\u00e9cs",
+      "Salg\u00f3tarj\u00e1n",
+      "Somogy",
+      "Sopron",
+      "Szabolcs-Szatm\u00e1r-Bereg",
+      "Szeged",
+      "Szeksz\u00e1rd",
+      "Szolnok",
+      "Szombathely",
+      "Sz\u00e9kesfeh\u00e9rv\u00e1r",
+      "Tatab\u00e1nya",
+      "Tolna",
+      "Vas",
+      "Veszpr\u00e9m",
+      "Veszpr\u00e9m (county)",
+      "Zala",
+      "Zalaegerszeg",
+      "\u00c9rd"
+    ]
+  },
+  "Iceland": {
+    "latlong": [
+      65.0,
+      -18.0
+    ],
+    "dial_code": "354",
+    "alpha_2": "IS",
+    "sub_divisions": [
+      "Austurland",
+      "H\u00f6fu\u00f0borgarsv\u00e6\u00f0i\u00f0",
+      "Nor\u00f0urland eystra",
+      "Nor\u00f0urland vestra",
+      "Reykjav\u00edk",
+      "Su\u00f0urland",
+      "Su\u00f0urnes",
+      "Vestfir\u00f0ir",
+      "Vesturland"
+    ]
+  },
+  "India": {
+    "latlong": [
+      20.0,
+      77.0
+    ],
+    "dial_code": "91",
+    "alpha_2": "IN",
+    "sub_divisions": [
+      "Andaman and Nicobar Islands",
+      "Andhra Pradesh",
+      "Arunachal Pradesh",
+      "Assam",
+      "Bihar",
+      "Chandigarh",
+      "Chhattisgarh",
+      "Dadra and Nagar Haveli",
+      "Daman and Diu",
+      "Delhi",
+      "Goa",
+      "Gujarat",
+      "Haryana",
+      "Himachal Pradesh",
+      "Jammu and Kashmir",
+      "Jharkhand",
+      "Karnataka",
+      "Kerala",
+      "Lakshadweep",
+      "Madhya Pradesh",
+      "Maharashtra",
+      "Manipur",
+      "Meghalaya",
+      "Mizoram",
+      "Nagaland",
+      "Odisha",
+      "Puducherry",
+      "Punjab",
+      "Rajasthan",
+      "Sikkim",
+      "Tamil Nadu",
+      "Telangana",
+      "Tripura",
+      "Uttar Pradesh",
+      "Uttarakhand",
+      "West Bengal"
+    ]
+  },
+  "Indonesia": {
+    "latlong": [
+      -5.0,
+      120.0
+    ],
+    "dial_code": "62",
+    "alpha_2": "ID",
+    "sub_divisions": [
+      "Aceh",
+      "Bali",
+      "Bangka Belitung",
+      "Banten",
+      "Bengkulu",
+      "Gorontalo",
+      "Jakarta Raya",
+      "Jambi",
+      "Jawa",
+      "Jawa Barat",
+      "Jawa Tengah",
+      "Jawa Timur",
+      "Kalimantan",
+      "Kalimantan Barat",
+      "Kalimantan Selatan",
+      "Kalimantan Tengah",
+      "Kalimantan Timur",
+      "Kepulauan Riau",
+      "Lampung",
+      "Maluku",
+      "Maluku",
+      "Maluku Utara",
+      "Nusa Tenggara",
+      "Nusa Tenggara Barat",
+      "Nusa Tenggara Timur",
+      "Papua",
+      "Papua",
+      "Papua Barat",
+      "Riau",
+      "Sulawesi",
+      "Sulawesi Barat",
+      "Sulawesi Selatan",
+      "Sulawesi Tengah",
+      "Sulawesi Tenggara",
+      "Sulawesi Utara",
+      "Sumatera",
+      "Sumatera Utara",
+      "Sumatra Barat",
+      "Sumatra Selatan",
+      "Yogyakarta"
+    ]
+  },
+  "Iran, Islamic Republic of": {
+    "latlong": [
+      32.0,
+      53.0
+    ],
+    "dial_code": "98",
+    "alpha_2": "IR",
+    "sub_divisions": [
+      "Ardab\u012bl",
+      "B\u016bshehr",
+      "Chah\u0101r Mah\u0101ll va Bakht\u012b\u0101r\u012b",
+      "E\u015ffah\u0101n",
+      "F\u0101rs",
+      "Golest\u0101n",
+      "G\u012bl\u0101n",
+      "Hamad\u0101n",
+      "Hormozg\u0101n",
+      "Kerm\u0101n",
+      "Kerm\u0101nsh\u0101h",
+      "Khor\u0101s\u0101n-e Jan\u016bb\u012b",
+      "Khor\u0101s\u0101n-e Razav\u012b",
+      "Khor\u0101s\u0101n-e Shem\u0101l\u012b",
+      "Kh\u016bzest\u0101n",
+      "Kohg\u012bl\u016byeh va B\u016byer Ahmad",
+      "Kordest\u0101n",
+      "Lorest\u0101n",
+      "Markaz\u012b",
+      "M\u0101zandar\u0101n",
+      "Qazv\u012bn",
+      "Qom",
+      "Semn\u0101n",
+      "S\u012bst\u0101n va Bal\u016bchest\u0101n",
+      "Tehr\u0101n",
+      "Yazd",
+      "Zanj\u0101n",
+      "\u0100zarb\u0101yj\u0101n-e Gharb\u012b",
+      "\u0100zarb\u0101yj\u0101n-e Sharq\u012b",
+      "\u012al\u0101m"
+    ]
+  },
+  "Iraq": {
+    "latlong": [
+      33.0,
+      44.0
+    ],
+    "dial_code": "964",
+    "alpha_2": "IQ",
+    "sub_divisions": [
+      "Al Anbar",
+      "Al Basrah",
+      "Al Muthanna",
+      "Al Qadisiyah",
+      "An Najef",
+      "Arbil",
+      "As Sulaymaniyah",
+      "At Ta'mim",
+      "Babil",
+      "Baghdad",
+      "Dahuk",
+      "Dhi Qar",
+      "Diyala",
+      "Karbala'",
+      "Maysan",
+      "Ninawa",
+      "Salah ad Din",
+      "Wasit"
+    ]
+  },
+  "Ireland": {
+    "latlong": [
+      53.0,
+      -8.0
+    ],
+    "dial_code": "353",
+    "alpha_2": "IE",
+    "sub_divisions": [
+      "Carlow",
+      "Cavan",
+      "Clare",
+      "Connacht",
+      "Cork",
+      "Donegal",
+      "Dublin",
+      "Galway",
+      "Kerry",
+      "Kildare",
+      "Kilkenny",
+      "Laois",
+      "Leinster",
+      "Leitrim",
+      "Limerick",
+      "Longford",
+      "Louth",
+      "Mayo",
+      "Meath",
+      "Monaghan",
+      "Munster",
+      "Offaly",
+      "Roscommon",
+      "Sligo",
+      "Tipperary",
+      "Ulster",
+      "Waterford",
+      "Westmeath",
+      "Wexford",
+      "Wicklow"
+    ]
+  },
+  "Isle of Man": {
+    "latlong": [
+      54.25,
+      -4.5
+    ],
+    "dial_code": "44",
+    "alpha_2": "IM",
+    "sub_divisions": [
+      "Isle of Man"
+    ]
+  },
+  "Israel": {
+    "latlong": [
+      31.5,
+      34.75
+    ],
+    "dial_code": "972",
+    "alpha_2": "IL",
+    "sub_divisions": [
+      "HaDarom",
+      "HaMerkaz",
+      "HaZafon",
+      "Hefa",
+      "Tel-Aviv",
+      "Yerushalayim Al Quds"
+    ]
+  },
+  "Italy": {
+    "latlong": [
+      42.83333333,
+      12.83333333
+    ],
+    "dial_code": "39",
+    "alpha_2": "IT",
+    "sub_divisions": [
+      "Abruzzo",
+      "Agrigento",
+      "Alessandria",
+      "Ancona",
+      "Aosta",
+      "Arezzo",
+      "Ascoli Piceno",
+      "Asti",
+      "Avellino",
+      "Bari",
+      "Barletta-Andria-Trani",
+      "Basilicata",
+      "Belluno",
+      "Benevento",
+      "Bergamo",
+      "Biella",
+      "Bologna",
+      "Bolzano",
+      "Brescia",
+      "Brindisi",
+      "Cagliari",
+      "Calabria",
+      "Caltanissetta",
+      "Campania",
+      "Campobasso",
+      "Carbonia-Iglesias",
+      "Caserta",
+      "Catania",
+      "Catanzaro",
+      "Chieti",
+      "Como",
+      "Cosenza",
+      "Cremona",
+      "Crotone",
+      "Cuneo",
+      "Emilia-Romagna",
+      "Enna",
+      "Fermo",
+      "Ferrara",
+      "Firenze",
+      "Foggia",
+      "Forl\u00ec-Cesena",
+      "Friuli-Venezia Giulia",
+      "Frosinone",
+      "Genova",
+      "Gorizia",
+      "Grosseto",
+      "Imperia",
+      "Isernia",
+      "L'Aquila",
+      "La Spezia",
+      "Latina",
+      "Lazio",
+      "Lecce",
+      "Lecco",
+      "Liguria",
+      "Livorno",
+      "Lodi",
+      "Lombardia",
+      "Lucca",
+      "Macerata",
+      "Mantova",
+      "Marche",
+      "Massa-Carrara",
+      "Matera",
+      "Medio Campidano",
+      "Messina",
+      "Milano",
+      "Modena",
+      "Molise",
+      "Monza e Brianza",
+      "Napoli",
+      "Novara",
+      "Nuoro",
+      "Ogliastra",
+      "Olbia-Tempio",
+      "Oristano",
+      "Padova",
+      "Palermo",
+      "Parma",
+      "Pavia",
+      "Perugia",
+      "Pesaro e Urbino",
+      "Pescara",
+      "Piacenza",
+      "Piemonte",
+      "Pisa",
+      "Pistoia",
+      "Pordenone",
+      "Potenza",
+      "Prato",
+      "Puglia",
+      "Ragusa",
+      "Ravenna",
+      "Reggio Calabria",
+      "Reggio Emilia",
+      "Rieti",
+      "Rimini",
+      "Roma",
+      "Rovigo",
+      "Salerno",
+      "Sardegna",
+      "Sassari",
+      "Savona",
+      "Sicilia",
+      "Siena",
+      "Siracusa",
+      "Sondrio",
+      "Taranto",
+      "Teramo",
+      "Terni",
+      "Torino",
+      "Toscana",
+      "Trapani",
+      "Trentino-Alto Adige",
+      "Trento",
+      "Treviso",
+      "Trieste",
+      "Udine",
+      "Umbria",
+      "Valle d'Aosta",
+      "Varese",
+      "Veneto",
+      "Venezia",
+      "Verbano-Cusio-Ossola",
+      "Vercelli",
+      "Verona",
+      "Vibo Valentia",
+      "Vicenza",
+      "Viterbo"
+    ]
+  },
+  "Jamaica": {
+    "latlong": [
+      18.25,
+      -77.5
+    ],
+    "dial_code": "1876",
+    "alpha_2": "JM",
+    "sub_divisions": [
+      "Clarendon",
+      "Hanover",
+      "Kingston",
+      "Manchester",
+      "Portland",
+      "Saint Andrew",
+      "Saint Ann",
+      "Saint Catherine",
+      "Saint Elizabeth",
+      "Saint James",
+      "Saint Mary",
+      "Saint Thomas",
+      "Trelawny",
+      "Westmoreland"
+    ]
+  },
+  "Japan": {
+    "latlong": [
+      36.0,
+      138.0
+    ],
+    "dial_code": "81",
+    "alpha_2": "JP",
+    "sub_divisions": [
+      "Aichi",
+      "Akita",
+      "Aomori",
+      "Chiba",
+      "Ehime",
+      "Fukui",
+      "Fukuoka",
+      "Fukushima",
+      "Gifu",
+      "Gunma",
+      "Hiroshima",
+      "Hokkaido",
+      "Hyogo",
+      "Ibaraki",
+      "Ishikawa",
+      "Iwate",
+      "Kagawa",
+      "Kagoshima",
+      "Kanagawa",
+      "Kochi",
+      "Kumamoto",
+      "Kyoto",
+      "Mie",
+      "Miyagi",
+      "Miyazaki",
+      "Nagano",
+      "Nagasaki",
+      "Nara",
+      "Niigata",
+      "Oita",
+      "Okayama",
+      "Okinawa",
+      "Osaka",
+      "Saga",
+      "Saitama",
+      "Shiga",
+      "Shimane",
+      "Shizuoka",
+      "Tochigi",
+      "Tokushima",
+      "Tokyo",
+      "Tottori",
+      "Toyama",
+      "Wakayama",
+      "Yamagata",
+      "Yamaguchi",
+      "Yamanashi"
+    ]
+  },
+  "Jersey": {
+    "latlong": [
+      49.25,
+      -2.16666666
+    ],
+    "dial_code": "44",
+    "alpha_2": "JE",
+    "sub_divisions": [
+      "Jersey"
+    ]
+  },
+  "Jordan": {
+    "latlong": [
+      31.0,
+      36.0
+    ],
+    "dial_code": "962",
+    "alpha_2": "JO",
+    "sub_divisions": [
+      "Al Balq\u0101'",
+      "Al Karak",
+      "Al Mafraq",
+      "Al \u2018Aqabah",
+      "Az Zarq\u0101'",
+      "A\u0163 \u0162af\u012blah",
+      "Irbid",
+      "Jarash",
+      "Ma\u2018\u0101n",
+      "M\u0101dab\u0101",
+      "\u2018Ajl\u016bn",
+      "\u2018Amm\u0101n (Al \u2018A\u015fimah)"
+    ]
+  },
+  "Kazakhstan": {
+    "latlong": [
+      48.0,
+      68.0
+    ],
+    "dial_code": "76",
+    "alpha_2": "KZ",
+    "sub_divisions": [
+      "Almaty",
+      "Almaty oblysy",
+      "Aqmola oblysy",
+      "Aqt\u00f6be oblysy",
+      "Astana",
+      "Atyra\u016b oblysy",
+      "Batys Quzaqstan oblysy",
+      "Mangghysta\u016b oblysy",
+      "Ongt\u00fcstik Qazaqstan oblysy",
+      "Pavlodar oblysy",
+      "Qaraghandy oblysy",
+      "Qostanay oblysy",
+      "Qyzylorda oblysy",
+      "Shyghys Qazaqstan oblysy",
+      "Solt\u00fcstik Quzaqstan oblysy",
+      "Zhambyl oblysy"
+    ]
+  },
+  "Kenya": {
+    "latlong": [
+      1.0,
+      38.0
+    ],
+    "dial_code": "254",
+    "alpha_2": "KE",
+    "sub_divisions": [
+      "Central",
+      "Coast",
+      "Eastern",
+      "Nairobi Municipality",
+      "North-Eastern Kaskazini Mashariki",
+      "Rift Valley",
+      "Western Magharibi"
+    ]
+  },
+  "Kiribati": {
+    "latlong": [
+      1.41666666,
+      173.0
+    ],
+    "dial_code": "686",
+    "alpha_2": "KI",
+    "sub_divisions": [
+      "Gilbert Islands",
+      "Line Islands",
+      "Phoenix Islands"
+    ]
+  },
+  "Korea, Democratic People's Republic of": {
+    "latlong": [
+      40.0,
+      127.0
+    ],
+    "dial_code": "850",
+    "alpha_2": "KP",
+    "sub_divisions": [
+      "Chagang-do",
+      "Hamgy\u014fng-bukto",
+      "Hamgy\u014fng-namdo",
+      "Hwanghae-bukto",
+      "Hwanghae-namdo",
+      "Kangw\u014fn-do",
+      "Nas\u014fn (Najin-S\u014fnbong)",
+      "P\u2019y\u014fngan-bukto",
+      "P\u2019y\u014fngan-namdo",
+      "P\u2019y\u014fngyang",
+      "Yanggang-do"
+    ]
+  },
+  "Korea, Republic of": {
+    "latlong": [
+      37.0,
+      127.5
+    ],
+    "dial_code": "82",
+    "alpha_2": "KR",
+    "sub_divisions": [
+      "Busan Gwang'yeogsi",
+      "Chungcheongbukdo",
+      "Chungcheongnamdo",
+      "Daegu Gwang'yeogsi",
+      "Daejeon Gwang'yeogsi",
+      "Gang'weondo",
+      "Gwangju Gwang'yeogsi",
+      "Gyeonggido",
+      "Gyeongsangbukdo",
+      "Gyeongsangnamdo",
+      "Incheon Gwang'yeogsi",
+      "Jejudo",
+      "Jeonrabukdo",
+      "Jeonranamdo",
+      "Seoul Teugbyeolsi",
+      "Ulsan Gwang'yeogsi"
+    ]
+  },
+  "Kuwait": {
+    "latlong": [
+      29.5,
+      45.75
+    ],
+    "dial_code": "965",
+    "alpha_2": "KW",
+    "sub_divisions": [
+      "Al Ahmadi",
+      "Al Farw\u0101n\u012byah",
+      "Al Jahrr\u0101\u2019",
+      "Al Kuwayt (Al \u2018\u0100\u015fimah)",
+      "Hawall\u012b",
+      "Mub\u0101rak al Kab\u012br"
+    ]
+  },
+  "Kyrgyzstan": {
+    "latlong": [
+      41.0,
+      75.0
+    ],
+    "dial_code": "996",
+    "alpha_2": "KG",
+    "sub_divisions": [
+      "Batken",
+      "Bishkek",
+      "Ch\u00fc",
+      "Jalal-Abad",
+      "Naryn",
+      "Osh",
+      "Talas",
+      "Ysyk-K\u00f6l"
+    ]
+  },
+  "Lao People's Democratic Republic": {
+    "latlong": [
+      18.0,
+      105.0
+    ],
+    "dial_code": "856",
+    "alpha_2": "LA",
+    "sub_divisions": [
+      "Attapu",
+      "Bok\u00e8o",
+      "Bolikhamxai",
+      "Champasak",
+      "Houaphan",
+      "Khammouan",
+      "Louang Namtha",
+      "Louangphabang",
+      "Oud\u00f4mxai",
+      "Ph\u00f4ngsali",
+      "Salavan",
+      "Savannakh\u00e9t",
+      "Vientiane",
+      "Vientiane",
+      "Xaignabouli",
+      "Xais\u00f4mboun",
+      "Xiangkhouang",
+      "X\u00e9kong"
+    ]
+  },
+  "Latvia": {
+    "latlong": [
+      57.0,
+      25.0
+    ],
+    "dial_code": "371",
+    "alpha_2": "LV",
+    "sub_divisions": [
+      "Aglonas novads",
+      "Aizkraukles novads",
+      "Aizputes novads",
+      "Akn\u012bstes novads",
+      "Alojas novads",
+      "Alsungas novads",
+      "Al\u016bksnes novads",
+      "Amatas novads",
+      "Apes novads",
+      "Auces novads",
+      "Bab\u012btes novads",
+      "Baldones novads",
+      "Baltinavas novads",
+      "Balvu novads",
+      "Bauskas novads",
+      "Bever\u012bnas novads",
+      "Broc\u0113nu novads",
+      "Burtnieku novads",
+      "Carnikavas novads",
+      "Cesvaines novads",
+      "Ciblas novads",
+      "C\u0113su novads",
+      "Dagdas novads",
+      "Daugavpils",
+      "Daugavpils novads",
+      "Dobeles novads",
+      "Dundagas novads",
+      "Durbes novads",
+      "Engures novads",
+      "Garkalnes novads",
+      "Grobi\u0146as novads",
+      "Gulbenes novads",
+      "Iecavas novads",
+      "Ik\u0161\u0137iles novads",
+      "Il\u016bkstes novads",
+      "In\u010dukalna novads",
+      "Jaunjelgavas novads",
+      "Jaunpiebalgas novads",
+      "Jaunpils novads",
+      "Jelgava",
+      "Jelgavas novads",
+      "J\u0113kabpils",
+      "J\u0113kabpils novads",
+      "J\u016brmala",
+      "Kandavas novads",
+      "Koc\u0113nu novads",
+      "Kokneses novads",
+      "Krimuldas novads",
+      "Krustpils novads",
+      "Kr\u0101slavas novads",
+      "Kuld\u012bgas novads",
+      "K\u0101rsavas novads",
+      "Lielv\u0101rdes novads",
+      "Liep\u0101ja",
+      "Limba\u017eu novads",
+      "Lub\u0101nas novads",
+      "Ludzas novads",
+      "L\u012bgatnes novads",
+      "L\u012bv\u0101nu novads",
+      "Madonas novads",
+      "Mazsalacas novads",
+      "M\u0101lpils novads",
+      "M\u0101rupes novads",
+      "M\u0113rsraga novads",
+      "Nauk\u0161\u0113nu novads",
+      "Neretas novads",
+      "N\u012bcas novads",
+      "Ogres novads",
+      "Olaines novads",
+      "Ozolnieku novads",
+      "Prei\u013cu novads",
+      "Priekules novads",
+      "Prieku\u013cu novads",
+      "P\u0101rgaujas novads",
+      "P\u0101vilostas novads",
+      "P\u013cavi\u0146u novads",
+      "Raunas novads",
+      "Riebi\u0146u novads",
+      "Rojas novads",
+      "Ropa\u017eu novads",
+      "Rucavas novads",
+      "Rug\u0101ju novads",
+      "Rund\u0101les novads",
+      "R\u0113zekne",
+      "R\u0113zeknes novads",
+      "R\u012bga",
+      "R\u016bjienas novads",
+      "Salacgr\u012bvas novads",
+      "Salas novads",
+      "Salaspils novads",
+      "Saldus novads",
+      "Saulkrastu novads",
+      "Siguldas novads",
+      "Skrundas novads",
+      "Skr\u012bveru novads",
+      "Smiltenes novads",
+      "Stopi\u0146u novads",
+      "Stren\u010du novads",
+      "S\u0113jas novads",
+      "Talsu novads",
+      "Tukuma novads",
+      "T\u0113rvetes novads",
+      "Vai\u0146odes novads",
+      "Valkas novads",
+      "Valmiera",
+      "Varak\u013c\u0101nu novads",
+      "Vecpiebalgas novads",
+      "Vecumnieku novads",
+      "Ventspils",
+      "Ventspils novads",
+      "Vies\u012btes novads",
+      "Vi\u013cakas novads",
+      "Vi\u013c\u0101nu novads",
+      "V\u0101rkavas novads",
+      "Zilupes novads",
+      "\u0100da\u017eu novads",
+      "\u0112rg\u013cu novads",
+      "\u0136eguma novads",
+      "\u0136ekavas novads"
+    ]
+  },
+  "Lebanon": {
+    "latlong": [
+      33.83333333,
+      35.83333333
+    ],
+    "dial_code": "961",
+    "alpha_2": "LB",
+    "sub_divisions": [
+      "Aakk\u00e2r",
+      "Baalbek-Hermel",
+      "Beyrouth",
+      "B\u00e9qaa",
+      "Liban-Nord",
+      "Liban-Sud",
+      "Mont-Liban",
+      "Nabat\u00eey\u00e9"
+    ]
+  },
+  "Lesotho": {
+    "latlong": [
+      -29.5,
+      28.5
+    ],
+    "dial_code": "266",
+    "alpha_2": "LS",
+    "sub_divisions": [
+      "Berea",
+      "Butha-Buthe",
+      "Leribe",
+      "Mafeteng",
+      "Maseru",
+      "Mohale's Hoek",
+      "Mokhotlong",
+      "Qacha's Nek",
+      "Quthing",
+      "Thaba-Tseka"
+    ]
+  },
+  "Liberia": {
+    "latlong": [
+      6.5,
+      -9.5
+    ],
+    "dial_code": "231",
+    "alpha_2": "LR",
+    "sub_divisions": [
+      "Bomi",
+      "Bong",
+      "Grand Bassa",
+      "Grand Cape Mount",
+      "Grand Gedeh",
+      "Grand Kru",
+      "Lofa",
+      "Margibi",
+      "Maryland",
+      "Montserrado",
+      "Nimba",
+      "Rivercess",
+      "Sinoe"
+    ]
+  },
+  "Libya": {
+    "latlong": [
+      25.0,
+      17.0
+    ],
+    "dial_code": "218",
+    "alpha_2": "LY",
+    "sub_divisions": [
+      "Al Bu\u0163n\u0101n",
+      "Al Jabal al Akh\u1e11ar",
+      "Al Jabal al Gharb\u012b",
+      "Al Jif\u0101rah",
+      "Al Jufrah",
+      "Al Kufrah",
+      "Al Marj",
+      "Al Marqab",
+      "Al W\u0101h\u0327\u0101t",
+      "An Nuqa\u0163 al Khams",
+      "Az Z\u0101wiyah",
+      "Bangh\u0101z\u012b",
+      "Darnah",
+      "Gh\u0101t",
+      "Jaghb\u016bb",
+      "Mi\u015fr\u0101tah",
+      "Murzuq",
+      "N\u0101l\u016bt",
+      "Sabh\u0101",
+      "Surt",
+      "W\u0101d\u012b al \u1e28ay\u0101t",
+      "W\u0101d\u012b ash Sh\u0101\u0163i\u02be",
+      "\u0162ar\u0101bulus"
+    ]
+  },
+  "Liechtenstein": {
+    "latlong": [
+      47.26666666,
+      9.53333333
+    ],
+    "dial_code": "423",
+    "alpha_2": "LI",
+    "sub_divisions": [
+      "Balzers",
+      "Eschen",
+      "Gamprin",
+      "Mauren",
+      "Planken",
+      "Ruggell",
+      "Schaan",
+      "Schellenberg",
+      "Triesen",
+      "Triesenberg",
+      "Vaduz"
+    ]
+  },
+  "Lithuania": {
+    "latlong": [
+      56.0,
+      24.0
+    ],
+    "dial_code": "370",
+    "alpha_2": "LT",
+    "sub_divisions": [
+      "Alytaus Apskritis",
+      "Kauno Apskritis",
+      "Klaip\u0117dos Apskritis",
+      "Marijampol\u0117s Apskritis",
+      "Panev\u0117\u017eio Apskritis",
+      "Taurag\u00e9s Apskritis",
+      "Tel\u0161i\u0173 Apskritis",
+      "Utenos Apskritis",
+      "Vilniaus Apskritis",
+      "\u0160iauli\u0173 Apskritis"
+    ]
+  },
+  "Luxembourg": {
+    "latlong": [
+      49.75,
+      6.16666666
+    ],
+    "dial_code": "352",
+    "alpha_2": "LU",
+    "sub_divisions": [
+      "Diekirch",
+      "Grevenmacher",
+      "Luxembourg"
+    ]
+  },
+  "Macao": {
+    "latlong": [
+      22.16666666,
+      113.55
+    ],
+    "dial_code": "853",
+    "alpha_2": "MO",
+    "sub_divisions": [
+      "Macao"
+    ]
+  },
+  "Madagascar": {
+    "latlong": [
+      -20.0,
+      47.0
+    ],
+    "dial_code": "261",
+    "alpha_2": "MG",
+    "sub_divisions": [
+      "Antananarivo",
+      "Antsiranana",
+      "Fianarantsoa",
+      "Mahajanga",
+      "Toamasina",
+      "Toliara"
+    ]
+  },
+  "Malawi": {
+    "latlong": [
+      -13.5,
+      34.0
+    ],
+    "dial_code": "265",
+    "alpha_2": "MW",
+    "sub_divisions": [
+      "Balaka",
+      "Blantyre",
+      "Central Region",
+      "Chikwawa",
+      "Chiradzulu",
+      "Chitipa",
+      "Dedza",
+      "Dowa",
+      "Karonga",
+      "Kasungu",
+      "Likoma",
+      "Lilongwe",
+      "Machinga",
+      "Mangochi",
+      "Mchinji",
+      "Mulanje",
+      "Mwanza",
+      "Mzimba",
+      "Neno",
+      "Nkhata Bay",
+      "Nkhotakota",
+      "Northern Region",
+      "Nsanje",
+      "Ntcheu",
+      "Ntchisi",
+      "Phalombe",
+      "Rumphi",
+      "Salima",
+      "Southern Region",
+      "Thyolo",
+      "Zomba"
+    ]
+  },
+  "Malaysia": {
+    "latlong": [
+      2.5,
+      112.5
+    ],
+    "dial_code": "60",
+    "alpha_2": "MY",
+    "sub_divisions": [
+      "Johor",
+      "Kedah",
+      "Kelantan",
+      "Melaka",
+      "Negeri Sembilan",
+      "Pahang",
+      "Perak",
+      "Perlis",
+      "Pulau Pinang",
+      "Sabah",
+      "Sarawak",
+      "Selangor",
+      "Terengganu",
+      "Wilayah Persekutuan Kuala Lumpur",
+      "Wilayah Persekutuan Labuan",
+      "Wilayah Persekutuan Putrajaya"
+    ]
+  },
+  "Maldives": {
+    "latlong": [
+      3.25,
+      73.0
+    ],
+    "dial_code": "960",
+    "alpha_2": "MV",
+    "sub_divisions": [
+      "Alifu Alifu",
+      "Alifu Dhaalu",
+      "Baa",
+      "Central",
+      "Dhaalu",
+      "Faafu",
+      "Gaafu Alifu",
+      "Gaafu Dhaalu",
+      "Gnaviyani",
+      "Haa Alifu",
+      "Haa Dhaalu",
+      "Kaafu",
+      "Laamu",
+      "Lhaviyani",
+      "Male",
+      "Meemu",
+      "Noonu",
+      "North",
+      "North Central",
+      "Raa",
+      "Seenu",
+      "Shaviyani",
+      "South",
+      "South Central",
+      "Thaa",
+      "Upper North",
+      "Upper South",
+      "Vaavu"
+    ]
+  },
+  "Mali": {
+    "latlong": [
+      17.0,
+      -4.0
+    ],
+    "dial_code": "223",
+    "alpha_2": "ML",
+    "sub_divisions": [
+      "Bamako",
+      "Gao",
+      "Kayes",
+      "Kidal",
+      "Koulikoro",
+      "Mopti",
+      "Sikasso",
+      "S\u00e9gou",
+      "Tombouctou"
+    ]
+  },
+  "Malta": {
+    "latlong": [
+      35.83333333,
+      14.58333333
+    ],
+    "dial_code": "356",
+    "alpha_2": "MT",
+    "sub_divisions": [
+      "Attard",
+      "Balzan",
+      "Birgu",
+      "Birkirkara",
+      "Bir\u017cebbu\u0121a",
+      "Bormla",
+      "Dingli",
+      "Fgura",
+      "Floriana",
+      "Fontana",
+      "Gudja",
+      "G\u0127ajnsielem",
+      "G\u0127arb",
+      "G\u0127arg\u0127ur",
+      "G\u0127asri",
+      "G\u0127axaq",
+      "G\u017cira",
+      "Iklin",
+      "Isla",
+      "Kalkara",
+      "Ker\u010bem",
+      "Kirkop",
+      "Lija",
+      "Luqa",
+      "Marsa",
+      "Marsaskala",
+      "Marsaxlokk",
+      "Mdina",
+      "Mellie\u0127a",
+      "Mosta",
+      "Mqabba",
+      "Msida",
+      "Mtarfa",
+      "Munxar",
+      "M\u0121arr",
+      "Nadur",
+      "Naxxar",
+      "Paola",
+      "Pembroke",
+      "Piet\u00e0",
+      "Qala",
+      "Qormi",
+      "Qrendi",
+      "Rabat G\u0127awdex",
+      "Rabat Malta",
+      "Safi",
+      "San Lawrenz",
+      "San Pawl il-Ba\u0127ar",
+      "San \u0120iljan",
+      "San \u0120wann",
+      "Sannat",
+      "Santa Lu\u010bija",
+      "Santa Venera",
+      "Si\u0121\u0121iewi",
+      "Sliema",
+      "Swieqi",
+      "Tarxien",
+      "Ta\u2019 Xbiex",
+      "Valletta",
+      "Xag\u0127ra",
+      "Xewkija",
+      "Xg\u0127ajra",
+      "\u0126amrun",
+      "\u017babbar",
+      "\u017bebbu\u0121 G\u0127awdex",
+      "\u017bebbu\u0121 Malta",
+      "\u017bejtun",
+      "\u017burrieq"
+    ]
+  },
+  "Marshall Islands": {
+    "latlong": [
+      9.0,
+      168.0
+    ],
+    "dial_code": "692",
+    "alpha_2": "MH",
+    "sub_divisions": [
+      "Ailinglaplap",
+      "Ailuk",
+      "Arno",
+      "Aur",
+      "Ebon",
+      "Enewetak",
+      "Jabat",
+      "Jaluit",
+      "Kili",
+      "Kwajalein",
+      "Lae",
+      "Lib",
+      "Likiep",
+      "Majuro",
+      "Maloelap",
+      "Mejit",
+      "Mili",
+      "Namdrik",
+      "Namu",
+      "Ralik chain",
+      "Ratak chain",
+      "Rongelap",
+      "Ujae",
+      "Utirik",
+      "Wotho",
+      "Wotje"
+    ]
+  },
+  "Martinique": {
+    "latlong": [
+      14.666667,
+      -61.0
+    ],
+    "dial_code": "596",
+    "alpha_2": "MQ",
+    "sub_divisions": [
+      "Martinique"
+    ]
+  },
+  "Mauritania": {
+    "latlong": [
+      20.0,
+      -12.0
+    ],
+    "dial_code": "222",
+    "alpha_2": "MR",
+    "sub_divisions": [
+      "Adrar",
+      "Assaba",
+      "Brakna",
+      "Dakhlet Nouadhibou",
+      "Gorgol",
+      "Guidimaka",
+      "Hodh ech Chargui",
+      "Hodh el Charbi",
+      "Inchiri",
+      "Nouakchott",
+      "Tagant",
+      "Tiris Zemmour",
+      "Trarza"
+    ]
+  },
+  "Mauritius": {
+    "latlong": [
+      -20.28333333,
+      57.55
+    ],
+    "dial_code": "230",
+    "alpha_2": "MU",
+    "sub_divisions": [
+      "Agalega Islands",
+      "Beau Bassin-Rose Hill",
+      "Black River",
+      "Cargados Carajos Shoals",
+      "Curepipe",
+      "Flacq",
+      "Grand Port",
+      "Moka",
+      "Pamplemousses",
+      "Plaines Wilhems",
+      "Port Louis",
+      "Port Louis",
+      "Quatre Bornes",
+      "Rivi\u00e8re du Rempart",
+      "Rodrigues Island",
+      "Savanne",
+      "Vacoas-Phoenix"
+    ]
+  },
+  "Mayotte": {
+    "latlong": [
+      -12.83333333,
+      45.16666666
+    ],
+    "dial_code": "262",
+    "alpha_2": "YT",
+    "sub_divisions": [
+      "Mayotte"
+    ]
+  },
+  "Mexico": {
+    "latlong": [
+      23.0,
+      -102.0
+    ],
+    "dial_code": "52",
+    "alpha_2": "MX",
+    "sub_divisions": [
+      "Aguascalientes",
+      "Baja California",
+      "Baja California Sur",
+      "Campeche",
+      "Chiapas",
+      "Chihuahua",
+      "Ciudad de M\u00e9xico",
+      "Coahuila de Zaragoza",
+      "Colima",
+      "Durango",
+      "Guanajuato",
+      "Guerrero",
+      "Hidalgo",
+      "Jalisco",
+      "Michoac\u00e1n de Ocampo",
+      "Morelos",
+      "M\u00e9xico",
+      "Nayarit",
+      "Nuevo Le\u00f3n",
+      "Oaxaca",
+      "Puebla",
+      "Quer\u00e9taro",
+      "Quintana Roo",
+      "San Luis Potos\u00ed",
+      "Sinaloa",
+      "Sonora",
+      "Tabasco",
+      "Tamaulipas",
+      "Tlaxcala",
+      "Veracruz de Ignacio de la Llave",
+      "Yucat\u00e1n",
+      "Zacatecas"
+    ]
+  },
+  "Micronesia, Federated States of": {
+    "latlong": [
+      6.91666666,
+      158.25
+    ],
+    "dial_code": "691",
+    "alpha_2": "FM",
+    "sub_divisions": [
+      "Chuuk",
+      "Kosrae",
+      "Pohnpei",
+      "Yap"
+    ]
+  },
+  "Moldova, Republic of": {
+    "latlong": [
+      47.0,
+      29.0
+    ],
+    "dial_code": "373",
+    "alpha_2": "MD",
+    "sub_divisions": [
+      "Anenii Noi",
+      "Basarabeasca",
+      "Briceni",
+      "B\u0103l\u021bi",
+      "Cahul",
+      "Cantemir",
+      "Chi\u0219in\u0103u",
+      "Cimi\u0219lia",
+      "Criuleni",
+      "C\u0103l\u0103ra\u0219i",
+      "C\u0103u\u0219eni",
+      "Dondu\u0219eni",
+      "Drochia",
+      "Dub\u0103sari",
+      "Edine\u021b",
+      "Flore\u0219ti",
+      "F\u0103le\u0219ti",
+      "Glodeni",
+      "G\u0103g\u0103uzia, Unitatea teritorial\u0103 autonom\u0103",
+      "H\u00eence\u0219ti",
+      "Ialoveni",
+      "Leova",
+      "Nisporeni",
+      "Ocni\u021ba",
+      "Orhei",
+      "Rezina",
+      "R\u00ee\u0219cani",
+      "Soroca",
+      "Str\u0103\u0219eni",
+      "St\u00eenga Nistrului, unitatea teritorial\u0103 din",
+      "S\u00eengerei",
+      "Taraclia",
+      "Telene\u0219ti",
+      "Tighina",
+      "Ungheni",
+      "\u0218old\u0103ne\u0219ti",
+      "\u0218tefan Vod\u0103"
+    ]
+  },
+  "Monaco": {
+    "latlong": [
+      43.73333333,
+      7.4
+    ],
+    "dial_code": "377",
+    "alpha_2": "MC",
+    "sub_divisions": [
+      "Fontvieille",
+      "Jardin Exotique",
+      "La Colle",
+      "La Condamine",
+      "La Gare",
+      "La Source",
+      "Larvotto",
+      "Malbousquet",
+      "Monaco-Ville",
+      "Moneghetti",
+      "Monte-Carlo",
+      "Moulins",
+      "Port-Hercule",
+      "Saint-Roman",
+      "Sainte-D\u00e9vote",
+      "Sp\u00e9lugues",
+      "Vallon de la Rousse"
+    ]
+  },
+  "Mongolia": {
+    "latlong": [
+      46.0,
+      105.0
+    ],
+    "dial_code": "976",
+    "alpha_2": "MN",
+    "sub_divisions": [
+      "Arhangay",
+      "Bayan-\u00d6lgiy",
+      "Bayanhongor",
+      "Bulgan",
+      "Darhan uul",
+      "Dornod",
+      "Dornogovi",
+      "Dundgovi",
+      "Dzavhan",
+      "Govi-Altay",
+      "Govi-Sumber",
+      "Hentiy",
+      "Hovd",
+      "H\u00f6vsg\u00f6l",
+      "Orhon",
+      "Selenge",
+      "S\u00fchbaatar",
+      "T\u00f6v",
+      "Ulanbaatar",
+      "Uvs",
+      "\u00d6mn\u00f6govi",
+      "\u00d6v\u00f6rhangay"
+    ]
+  },
+  "Montenegro": {
+    "latlong": [
+      42.5,
+      19.3
+    ],
+    "dial_code": "382",
+    "alpha_2": "ME",
+    "sub_divisions": [
+      "Andrijevica",
+      "Bar",
+      "Berane",
+      "Bijelo Polje",
+      "Budva",
+      "Cetinje",
+      "Danilovgrad",
+      "Herceg-Novi",
+      "Kola\u0161in",
+      "Kotor",
+      "Mojkovac",
+      "Nik\u0161i\u0107",
+      "Plav",
+      "Pljevlja",
+      "Plu\u017eine",
+      "Podgorica",
+      "Ro\u017eaje",
+      "Tivat",
+      "Ulcinj",
+      "\u0160avnik",
+      "\u017dabljak"
+    ]
+  },
+  "Montserrat": {
+    "latlong": [
+      16.75,
+      -62.2
+    ],
+    "dial_code": "1664",
+    "alpha_2": "MS",
+    "sub_divisions": [
+      "Montserrat"
+    ]
+  },
+  "Morocco": {
+    "latlong": [
+      32.0,
+      -5.0
+    ],
+    "dial_code": "212",
+    "alpha_2": "MA",
+    "sub_divisions": [
+      "Agadir-Ida-Ou-Tanane",
+      "Al Haouz",
+      "Al Hoce\u00efma",
+      "Aousserd (EH)",
+      "Assa-Zag (EH-partial)",
+      "Azilal",
+      "Benslimane",
+      "Berkane",
+      "Berrechid",
+      "Boujdour (EH)",
+      "Boulemane",
+      "B\u00e9ni Mellal",
+      "B\u00e9ni Mellal-Kh\u00e9nifra",
+      "Casablanca",
+      "Casablanca-Settat",
+      "Chefchaouen",
+      "Chichaoua",
+      "Chtouka-Ait Baha",
+      "Dakhla-Oued Ed-Dahab (EH)",
+      "Driouch",
+      "Dr\u00e2a-Tafilalet",
+      "El Hajeb",
+      "El Jadida",
+      "El Kel\u00e2a des Sraghna",
+      "Errachidia",
+      "Es-Semara (EH-partial)",
+      "Essaouira",
+      "Fahs-Anjra",
+      "Figuig",
+      "Fquih Ben Salah",
+      "F\u00e8s",
+      "F\u00e8s-Mekn\u00e8s",
+      "Guelmim",
+      "Guelmim-Oued Noun (EH-partial)",
+      "Guercif",
+      "Ifrane",
+      "Inezgane-Ait Melloul",
+      "Jerada",
+      "Khemisset",
+      "Khenifra",
+      "Khouribga",
+      "K\u00e9nitra",
+      "L'Oriental",
+      "Larache",
+      "La\u00e2youne (EH)",
+      "La\u00e2youne-Sakia El Hamra (EH-partial)",
+      "Marrakech",
+      "Marrakech-Safi",
+      "Mekn\u00e8s",
+      "Midelt",
+      "Mohammadia",
+      "Moulay Yacoub",
+      "M\u00e9diouna",
+      "M\u2019diq-Fnideq",
+      "Nador",
+      "Nouaceur",
+      "Ouarzazate",
+      "Oued Ed-Dahab (EH)",
+      "Ouezzane",
+      "Oujda-Angad",
+      "Rabat",
+      "Rabat-Sal\u00e9-K\u00e9nitra",
+      "Rehamna",
+      "Safi",
+      "Sal\u00e9",
+      "Sefrou",
+      "Settat",
+      "Sidi Bennour",
+      "Sidi Ifni",
+      "Sidi Kacem",
+      "Sidi Slimane",
+      "Skhirate-T\u00e9mara",
+      "Souss-Massa",
+      "Tan-Tan (EH-partial)",
+      "Tanger-Assilah",
+      "Tanger-T\u00e9touan-Al Hoce\u00efma",
+      "Taounate",
+      "Taourirt",
+      "Tarfaya (EH-partial)",
+      "Taroudant",
+      "Tata",
+      "Taza",
+      "Tinghir",
+      "Tiznit",
+      "T\u00e9touan",
+      "Youssoufia",
+      "Zagora"
+    ]
+  },
+  "Mozambique": {
+    "latlong": [
+      -18.25,
+      35.0
+    ],
+    "dial_code": "258",
+    "alpha_2": "MZ",
+    "sub_divisions": [
+      "Cabo Delgado",
+      "Gaza",
+      "Inhambane",
+      "Manica",
+      "Maputo",
+      "Maputo (city)",
+      "Niassa",
+      "Numpula",
+      "Sofala",
+      "Tete",
+      "Zambezia"
+    ]
+  },
+  "Myanmar": {
+    "latlong": [
+      22.0,
+      98.0
+    ],
+    "dial_code": "95",
+    "alpha_2": "MM",
+    "sub_divisions": [
+      "Ayeyarwady",
+      "Bago",
+      "Chin",
+      "Kachin",
+      "Kayah",
+      "Kayin",
+      "Magway",
+      "Mandalay",
+      "Mon",
+      "Rakhine",
+      "Sagaing",
+      "Shan",
+      "Tanintharyi",
+      "Yangon"
+    ]
+  },
+  "Namibia": {
+    "latlong": [
+      -22.0,
+      17.0
+    ],
+    "dial_code": "264",
+    "alpha_2": "NA",
+    "sub_divisions": [
+      "Caprivi",
+      "Erongo",
+      "Hardap",
+      "Karas",
+      "Khomas",
+      "Kunene",
+      "Ohangwena",
+      "Okavango",
+      "Omaheke",
+      "Omusati",
+      "Oshana",
+      "Oshikoto",
+      "Otjozondjupa"
+    ]
+  },
+  "Nauru": {
+    "latlong": [
+      -0.53333333,
+      166.91666666
+    ],
+    "dial_code": "674",
+    "alpha_2": "NR",
+    "sub_divisions": [
+      "Aiwo",
+      "Anabar",
+      "Anetan",
+      "Anibare",
+      "Baiti",
+      "Boe",
+      "Buada",
+      "Denigomodu",
+      "Ewa",
+      "Ijuw",
+      "Meneng",
+      "Nibok",
+      "Uaboe",
+      "Yaren"
+    ]
+  },
+  "Nepal": {
+    "latlong": [
+      28.0,
+      84.0
+    ],
+    "dial_code": "977",
+    "alpha_2": "NP",
+    "sub_divisions": [
+      "Bagmati",
+      "Bheri",
+      "Dhawalagiri",
+      "Gandaki",
+      "Janakpur",
+      "Karnali",
+      "Kosi",
+      "Lumbini",
+      "Madhya Pashchimanchal",
+      "Madhyamanchal",
+      "Mahakali",
+      "Mechi",
+      "Narayani",
+      "Pashchimanchal",
+      "Purwanchal",
+      "Rapti",
+      "Sagarmatha",
+      "Seti",
+      "Sudur Pashchimanchal"
+    ]
+  },
+  "Netherlands": {
+    "latlong": [
+      52.5,
+      5.75
+    ],
+    "dial_code": "31",
+    "alpha_2": "NL",
+    "sub_divisions": [
+      "Aruba",
+      "Bonaire",
+      "Cura\u00e7ao",
+      "Drenthe",
+      "Flevoland",
+      "Friesland",
+      "Gelderland",
+      "Groningen",
+      "Limburg",
+      "Noord-Brabant",
+      "Noord-Holland",
+      "Overijssel",
+      "Saba",
+      "Sint Eustatius",
+      "Sint Maarten",
+      "Utrecht",
+      "Zeeland",
+      "Zuid-Holland"
+    ]
+  },
+  "New Caledonia": {
+    "latlong": [
+      -21.5,
+      165.5
+    ],
+    "dial_code": "687",
+    "alpha_2": "NC",
+    "sub_divisions": [
+      "New Caledonia"
+    ]
+  },
+  "New Zealand": {
+    "latlong": [
+      -41.0,
+      174.0
+    ],
+    "dial_code": "64",
+    "alpha_2": "NZ",
+    "sub_divisions": [
+      "Auckland",
+      "Bay of Plenty",
+      "Canterbury",
+      "Chatham Islands Territory",
+      "Gisborne District",
+      "Hawke's Bay",
+      "Manawatu-Wanganui",
+      "Marlborough District",
+      "Nelson City",
+      "North Island",
+      "Northland",
+      "Otago",
+      "South Island",
+      "Southland",
+      "Taranaki",
+      "Tasman District",
+      "Waikato",
+      "Wellington",
+      "West Coast"
+    ]
+  },
+  "Nicaragua": {
+    "latlong": [
+      13.0,
+      -85.0
+    ],
+    "dial_code": "505",
+    "alpha_2": "NI",
+    "sub_divisions": [
+      "Atl\u00e1ntico Norte",
+      "Atl\u00e1ntico Sur",
+      "Boaco",
+      "Carazo",
+      "Chinandega",
+      "Chontales",
+      "Estel\u00ed",
+      "Granada",
+      "Jinotega",
+      "Le\u00f3n",
+      "Madriz",
+      "Managua",
+      "Masaya",
+      "Matagalpa",
+      "Nueva Segovia",
+      "Rivas",
+      "R\u00edo San Juan"
+    ]
+  },
+  "Niger": {
+    "latlong": [
+      16.0,
+      8.0
+    ],
+    "dial_code": "227",
+    "alpha_2": "NE",
+    "sub_divisions": [
+      "Agadez",
+      "Diffa",
+      "Dosso",
+      "Maradi",
+      "Niamey",
+      "Tahoua",
+      "Tillab\u00e9ri",
+      "Zinder"
+    ]
+  },
+  "Nigeria": {
+    "latlong": [
+      10.0,
+      8.0
+    ],
+    "dial_code": "234",
+    "alpha_2": "NG",
+    "sub_divisions": [
+      "Abia",
+      "Abuja Capital Territory",
+      "Adamawa",
+      "Akwa Ibom",
+      "Anambra",
+      "Bauchi",
+      "Bayelsa",
+      "Benue",
+      "Borno",
+      "Cross River",
+      "Delta",
+      "Ebonyi",
+      "Edo",
+      "Ekiti",
+      "Enugu",
+      "Gombe",
+      "Imo",
+      "Jigawa",
+      "Kaduna",
+      "Kano",
+      "Katsina",
+      "Kebbi",
+      "Kogi",
+      "Kwara",
+      "Lagos",
+      "Nassarawa",
+      "Niger",
+      "Ogun",
+      "Ondo",
+      "Osun",
+      "Oyo",
+      "Plateau",
+      "Rivers",
+      "Sokoto",
+      "Taraba",
+      "Yobe",
+      "Zamfara"
+    ]
+  },
+  "Niue": {
+    "latlong": [
+      -19.03333333,
+      -169.86666666
+    ],
+    "dial_code": "683",
+    "alpha_2": "NU",
+    "sub_divisions": [
+      "Niue"
+    ]
+  },
+  "Norfolk Island": {
+    "latlong": [
+      -29.03333333,
+      167.95
+    ],
+    "dial_code": "672",
+    "alpha_2": "NF",
+    "sub_divisions": [
+      "Norfolk Island"
+    ]
+  },
+  "North Macedonia": {
+    "latlong": [
+      41.83333333,
+      22.0
+    ],
+    "dial_code": "389",
+    "alpha_2": "MK",
+    "sub_divisions": [
+      "Aerodrom",
+      "Ara\u010dinovo",
+      "Berovo",
+      "Bitola",
+      "Bogdanci",
+      "Bogovinje",
+      "Bosilovo",
+      "Brvenica",
+      "Butel",
+      "Centar",
+      "Centar \u017dupa",
+      "Debar",
+      "Debarca",
+      "Del\u010devo",
+      "Demir Hisar",
+      "Demir Kapija",
+      "Dojran",
+      "Dolneni",
+      "Drugovo",
+      "Gazi Baba",
+      "Gevgelija",
+      "Gjor\u010de Petrov",
+      "Gostivar",
+      "Gradsko",
+      "Ilinden",
+      "Jegunovce",
+      "Karbinci",
+      "Karpo\u0161",
+      "Kavadarci",
+      "Kisela Voda",
+      "Ki\u010devo",
+      "Kon\u010de",
+      "Ko\u010dani",
+      "Kratovo",
+      "Kriva Palanka",
+      "Krivoga\u0161tani",
+      "Kru\u0161evo",
+      "Kumanovo",
+      "Lipkovo",
+      "Lozovo",
+      "Makedonska Kamenica",
+      "Makedonski Brod",
+      "Mavrovo-i-Rostu\u0161a",
+      "Mogila",
+      "Negotino",
+      "Novaci",
+      "Novo Selo",
+      "Ohrid",
+      "Oslomej",
+      "Peh\u010devo",
+      "Petrovec",
+      "Plasnica",
+      "Prilep",
+      "Probi\u0161tip",
+      "Radovi\u0161",
+      "Rankovce",
+      "Resen",
+      "Rosoman",
+      "Saraj",
+      "Sopi\u0161te",
+      "Staro Nagori\u010dane",
+      "Struga",
+      "Strumica",
+      "Studeni\u010dani",
+      "Sveti Nikole",
+      "Tearce",
+      "Tetovo",
+      "Valandovo",
+      "Vasilevo",
+      "Veles",
+      "Vev\u010dani",
+      "Vinica",
+      "Vrane\u0161tica",
+      "Vrap\u010di\u0161te",
+      "Zajas",
+      "Zelenikovo",
+      "Zrnovci",
+      "\u010cair",
+      "\u010ca\u0161ka",
+      "\u010ce\u0161inovo-Oble\u0161evo",
+      "\u010cu\u010der Sandevo",
+      "\u0160tip",
+      "\u0160uto Orizari",
+      "\u017delino"
+    ]
+  },
+  "Northern Mariana Islands": {
+    "latlong": [
+      15.2,
+      145.75
+    ],
+    "dial_code": "1670",
+    "alpha_2": "MP",
+    "sub_divisions": [
+      "Northern Mariana Islands"
+    ]
+  },
+  "Norway": {
+    "latlong": [
+      62.0,
+      10.0
+    ],
+    "dial_code": "47",
+    "alpha_2": "NO",
+    "sub_divisions": [
+      "Akershus",
+      "Aust-Agder",
+      "Buskerud",
+      "Finnmark",
+      "Hedmark",
+      "Hordaland",
+      "Jan Mayen (Arctic Region)",
+      "M\u00f8re og Romsdal",
+      "Nord-Tr\u00f8ndelag",
+      "Nordland",
+      "Oppland",
+      "Oslo",
+      "Rogaland",
+      "Sogn og Fjordane",
+      "Svalbard (Arctic Region)",
+      "S\u00f8r-Tr\u00f8ndelag",
+      "Telemark",
+      "Troms",
+      "Vest-Agder",
+      "Vestfold",
+      "\u00d8stfold"
+    ]
+  },
+  "Oman": {
+    "latlong": [
+      21.0,
+      57.0
+    ],
+    "dial_code": "968",
+    "alpha_2": "OM",
+    "sub_divisions": [
+      "Ad D\u0101khil\u012bya",
+      "Al Buraym\u012b",
+      "Al B\u0101\u0163inah",
+      "Al Wus\u0163\u00e1",
+      "Ash Sharq\u012byah",
+      "Az\u0327 Z\u0327\u0101hirah",
+      "Masqa\u0163",
+      "Musandam",
+      "Z\u0327uf\u0101r"
+    ]
+  },
+  "Pakistan": {
+    "latlong": [
+      30.0,
+      70.0
+    ],
+    "dial_code": "92",
+    "alpha_2": "PK",
+    "sub_divisions": [
+      "Azad Kashmir",
+      "Balochistan",
+      "Federally Administered Tribal Areas",
+      "Gilgit-Baltistan",
+      "Islamabad",
+      "Khyber Pakhtunkhwa",
+      "Punjab",
+      "Sindh"
+    ]
+  },
+  "Palau": {
+    "latlong": [
+      7.5,
+      134.5
+    ],
+    "dial_code": "680",
+    "alpha_2": "PW",
+    "sub_divisions": [
+      "Aimeliik",
+      "Airai",
+      "Angaur",
+      "Hatobohei",
+      "Kayangel",
+      "Koror",
+      "Melekeok",
+      "Ngaraard",
+      "Ngarchelong",
+      "Ngardmau",
+      "Ngatpang",
+      "Ngchesar",
+      "Ngeremlengui",
+      "Ngiwal",
+      "Peleliu",
+      "Sonsorol"
+    ]
+  },
+  "Palestine, State of": {
+    "latlong": [
+      31.9,
+      35.2
+    ],
+    "dial_code": "970",
+    "alpha_2": "PS",
+    "sub_divisions": [
+      "Bethlehem",
+      "Deir El Balah",
+      "Gaza",
+      "Hebron",
+      "Jenin",
+      "Jericho - Al Aghwar",
+      "Jerusalem",
+      "Khan Yunis",
+      "Nablus",
+      "North Gaza",
+      "Qalqilya",
+      "Rafah",
+      "Ramallah",
+      "Salfit",
+      "Tubas",
+      "Tulkarm"
+    ]
+  },
+  "Panama": {
+    "latlong": [
+      9.0,
+      -80.0
+    ],
+    "dial_code": "507",
+    "alpha_2": "PA",
+    "sub_divisions": [
+      "Bocas del Toro",
+      "Chiriqu\u00ed",
+      "Cocl\u00e9",
+      "Col\u00f3n",
+      "Dari\u00e9n",
+      "Ember\u00e1",
+      "Herrera",
+      "Kuna Yala",
+      "Los Santos",
+      "Ng\u00f6be-Bugl\u00e9",
+      "Panam\u00e1",
+      "Veraguas"
+    ]
+  },
+  "Papua New Guinea": {
+    "latlong": [
+      -6.0,
+      147.0
+    ],
+    "dial_code": "675",
+    "alpha_2": "PG",
+    "sub_divisions": [
+      "Bougainville",
+      "Central",
+      "Chimbu",
+      "East New Britain",
+      "East Sepik",
+      "Eastern Highlands",
+      "Enga",
+      "Gulf",
+      "Madang",
+      "Manus",
+      "Milne Bay",
+      "Morobe",
+      "National Capital District (Port Moresby)",
+      "New Ireland",
+      "Northern",
+      "Sandaun",
+      "Southern Highlands",
+      "West New Britain",
+      "Western",
+      "Western Highlands"
+    ]
+  },
+  "Paraguay": {
+    "latlong": [
+      -23.0,
+      -58.0
+    ],
+    "dial_code": "595",
+    "alpha_2": "PY",
+    "sub_divisions": [
+      "Alto Paraguay",
+      "Alto Paran\u00e1",
+      "Amambay",
+      "Asunci\u00f3n",
+      "Boquer\u00f3n",
+      "Caaguaz\u00fa",
+      "Caazap\u00e1",
+      "Canindey\u00fa",
+      "Central",
+      "Concepci\u00f3n",
+      "Cordillera",
+      "Guair\u00e1",
+      "Itap\u00faa",
+      "Misiones",
+      "Paraguar\u00ed",
+      "Presidente Hayes",
+      "San Pedro",
+      "\u00d1eembuc\u00fa"
+    ]
+  },
+  "Peru": {
+    "latlong": [
+      -10.0,
+      -76.0
+    ],
+    "dial_code": "51",
+    "alpha_2": "PE",
+    "sub_divisions": [
+      "Amazonas",
+      "Ancash",
+      "Apur\u00edmac",
+      "Arequipa",
+      "Ayacucho",
+      "Cajamarca",
+      "Cusco [Cuzco]",
+      "El Callao",
+      "Huancavelica",
+      "Hu\u00e1nuco",
+      "Ica",
+      "Jun\u00edn",
+      "La Libertad",
+      "Lambayeque",
+      "Lima",
+      "Loreto",
+      "Madre de Dios",
+      "Moquegua",
+      "Municipalidad Metropolitana de Lima",
+      "Pasco",
+      "Piura",
+      "Puno",
+      "San Mart\u00edn",
+      "Tacna",
+      "Tumbes",
+      "Ucayali"
+    ]
+  },
+  "Philippines": {
+    "latlong": [
+      13.0,
+      122.0
+    ],
+    "dial_code": "63",
+    "alpha_2": "PH",
+    "sub_divisions": [
+      "Abra",
+      "Agusan del Norte",
+      "Agusan del Sur",
+      "Aklan",
+      "Albay",
+      "Antique",
+      "Apayao",
+      "Aurora",
+      "Autonomous Region in Muslim Mindanao (ARMM)",
+      "Basilan",
+      "Batanes",
+      "Batangas",
+      "Batasn",
+      "Benguet",
+      "Bicol (Region V)",
+      "Biliran",
+      "Bohol",
+      "Bukidnon",
+      "Bulacan",
+      "CALABARZON (Region IV-A)",
+      "Cagayan",
+      "Cagayan Valley (Region II)",
+      "Camarines Norte",
+      "Camarines Sur",
+      "Camiguin",
+      "Capiz",
+      "Caraga (Region XIII)",
+      "Catanduanes",
+      "Cavite",
+      "Cebu",
+      "Central Luzon (Region III)",
+      "Central Visayas (Region VII)",
+      "Compostela Valley",
+      "Cordillera Administrative Region (CAR)",
+      "Davao (Region XI)",
+      "Davao Oriental",
+      "Davao del Norte",
+      "Davao del Sur",
+      "Dinagat Islands",
+      "Eastern Samar",
+      "Eastern Visayas (Region VIII)",
+      "Guimaras",
+      "Ifugao",
+      "Ilocos (Region I)",
+      "Ilocos Norte",
+      "Ilocos Sur",
+      "Iloilo",
+      "Isabela",
+      "Kalinga-Apayso",
+      "La Union",
+      "Laguna",
+      "Lanao del Norte",
+      "Lanao del Sur",
+      "Leyte",
+      "MIMAROPA (Region IV-B)",
+      "Maguindanao",
+      "Marinduque",
+      "Masbate",
+      "Mindoro Occidental",
+      "Mindoro Oriental",
+      "Misamis Occidental",
+      "Misamis Oriental",
+      "Mountain Province",
+      "National Capital Region",
+      "Negros Occidental",
+      "Negros Oriental",
+      "North Cotabato",
+      "Northern Mindanao (Region X)",
+      "Northern Samar",
+      "Nueva Ecija",
+      "Nueva Vizcaya",
+      "Palawan",
+      "Pampanga",
+      "Pangasinan",
+      "Quezon",
+      "Quirino",
+      "Rizal",
+      "Romblon",
+      "Sarangani",
+      "Siquijor",
+      "Soccsksargen (Region XII)",
+      "Sorsogon",
+      "South Cotabato",
+      "Southern Leyte",
+      "Sultan Kudarat",
+      "Sulu",
+      "Surigao del Norte",
+      "Surigao del Sur",
+      "Tarlac",
+      "Tawi-Tawi",
+      "Western Samar",
+      "Western Visayas (Region VI)",
+      "Zambales",
+      "Zamboanga Peninsula (Region IX)",
+      "Zamboanga Sibugay",
+      "Zamboanga del Norte",
+      "Zamboanga del Sur"
+    ]
+  },
+  "Pitcairn": {
+    "latlong": [
+      -25.06666666,
+      -130.1
+    ],
+    "dial_code": "64",
+    "alpha_2": "PN",
+    "sub_divisions": [
+      "Pitcairn"
+    ]
+  },
+  "Poland": {
+    "latlong": [
+      52.0,
+      20.0
+    ],
+    "dial_code": "48",
+    "alpha_2": "PL",
+    "sub_divisions": [
+      "Dolno\u015bl\u0105skie",
+      "Kujawsko-pomorskie",
+      "Lubelskie",
+      "Lubuskie",
+      "Mazowieckie",
+      "Ma\u0142opolskie",
+      "Opolskie",
+      "Podkarpackie",
+      "Podlaskie",
+      "Pomorskie",
+      "Warmi\u0144sko-mazurskie",
+      "Wielkopolskie",
+      "Zachodniopomorskie",
+      "\u0141\u00f3dzkie",
+      "\u015al\u0105skie",
+      "\u015awi\u0119tokrzyskie"
+    ]
+  },
+  "Portugal": {
+    "latlong": [
+      39.5,
+      -8.0
+    ],
+    "dial_code": "351",
+    "alpha_2": "PT",
+    "sub_divisions": [
+      "Aveiro",
+      "Beja",
+      "Braga",
+      "Bragan\u00e7a",
+      "Castelo Branco",
+      "Coimbra",
+      "Faro",
+      "Guarda",
+      "Leiria",
+      "Lisboa",
+      "Portalegre",
+      "Porto",
+      "Regi\u00e3o Aut\u00f3noma da Madeira",
+      "Regi\u00e3o Aut\u00f3noma dos A\u00e7ores",
+      "Santar\u00e9m",
+      "Set\u00fabal",
+      "Viana do Castelo",
+      "Vila Real",
+      "Viseu",
+      "\u00c9vora"
+    ]
+  },
+  "Puerto Rico": {
+    "latlong": [
+      18.25,
+      -66.5
+    ],
+    "dial_code": "1787",
+    "alpha_2": "PR",
+    "sub_divisions": [
+      "Puerto Rico"
+    ]
+  },
+  "Qatar": {
+    "latlong": [
+      25.5,
+      51.25
+    ],
+    "dial_code": "974",
+    "alpha_2": "QA",
+    "sub_divisions": [
+      "Ad Dawhah",
+      "Al Khawr wa adh Dhakh\u012brah",
+      "Al Wakrah",
+      "Ar Rayyan",
+      "Ash Shamal",
+      "Az\u0327 Z\u0327a\u2018\u0101yin",
+      "Umm Salal"
+    ]
+  },
+  "Romania": {
+    "latlong": [
+      46.0,
+      25.0
+    ],
+    "dial_code": "40",
+    "alpha_2": "RO",
+    "sub_divisions": [
+      "Alba",
+      "Arad",
+      "Arge\u0219",
+      "Bac\u0103u",
+      "Bihor",
+      "Bistri\u021ba-N\u0103s\u0103ud",
+      "Boto\u0219ani",
+      "Bra\u0219ov",
+      "Br\u0103ila",
+      "Bucure\u0219ti",
+      "Buz\u0103u",
+      "Cara\u0219-Severin",
+      "Cluj",
+      "Constan\u021ba",
+      "Covasna",
+      "C\u0103l\u0103ra\u0219i",
+      "Dolj",
+      "D\u00e2mbovi\u021ba",
+      "Gala\u021bi",
+      "Giurgiu",
+      "Gorj",
+      "Harghita",
+      "Hunedoara",
+      "Ialomi\u021ba",
+      "Ia\u0219i",
+      "Ilfov",
+      "Maramure\u0219",
+      "Mehedin\u021bi",
+      "Mure\u0219",
+      "Neam\u021b",
+      "Olt",
+      "Prahova",
+      "Satu Mare",
+      "Sibiu",
+      "Suceava",
+      "S\u0103laj",
+      "Teleorman",
+      "Timi\u0219",
+      "Tulcea",
+      "Vaslui",
+      "Vrancea",
+      "V\u00e2lcea"
+    ]
+  },
+  "Russian Federation": {
+    "latlong": [
+      60.0,
+      100.0
+    ],
+    "dial_code": "7",
+    "alpha_2": "RU",
+    "sub_divisions": [
+      "Adygeya, Respublika",
+      "Altay, Respublika",
+      "Altayskiy kray",
+      "Amurskaya oblast'",
+      "Arkhangel'skaya oblast'",
+      "Astrakhanskaya oblast'",
+      "Bashkortostan, Respublika",
+      "Belgorodskaya oblast'",
+      "Bryanskaya oblast'",
+      "Buryatiya, Respublika",
+      "Chechenskaya Respublika",
+      "Chelyabinskaya oblast'",
+      "Chukotskiy avtonomnyy okrug",
+      "Chuvashskaya Respublika",
+      "Dagestan, Respublika",
+      "Irkutiskaya oblast'",
+      "Ivanovskaya oblast'",
+      "Kabardino-Balkarskaya Respublika",
+      "Kaliningradskaya oblast'",
+      "Kalmykiya, Respublika",
+      "Kaluzhskaya oblast'",
+      "Kamchatskiy kray",
+      "Karachayevo-Cherkesskaya Respublika",
+      "Kareliya, Respublika",
+      "Kemerovskaya oblast'",
+      "Khabarovskiy kray",
+      "Khakasiya, Respublika",
+      "Khanty-Mansiysky avtonomnyy okrug-Yugra",
+      "Kirovskaya oblast'",
+      "Komi, Respublika",
+      "Kostromskaya oblast'",
+      "Krasnodarskiy kray",
+      "Krasnoyarskiy kray",
+      "Kurganskaya oblast'",
+      "Kurskaya oblast'",
+      "Leningradskaya oblast'",
+      "Lipetskaya oblast'",
+      "Magadanskaya oblast'",
+      "Mariy El, Respublika",
+      "Mordoviya, Respublika",
+      "Moskovskaya oblast'",
+      "Moskva",
+      "Murmanskaya oblast'",
+      "Nenetskiy avtonomnyy okrug",
+      "Nizhegorodskaya oblast'",
+      "Novgorodskaya oblast'",
+      "Novosibirskaya oblast'",
+      "Omskaya oblast'",
+      "Orenburgskaya oblast'",
+      "Orlovskaya oblast'",
+      "Penzenskaya oblast'",
+      "Permskiy kray",
+      "Primorskiy kray",
+      "Pskovskaya oblast'",
+      "Respublika Ingushetiya",
+      "Rostovskaya oblast'",
+      "Ryazanskaya oblast'",
+      "Sakha, Respublika [Yakutiya]",
+      "Sakhalinskaya oblast'",
+      "Samaraskaya oblast'",
+      "Sankt-Peterburg",
+      "Saratovskaya oblast'",
+      "Severnaya Osetiya-Alaniya, Respublika",
+      "Smolenskaya oblast'",
+      "Stavropol'skiy kray",
+      "Sverdlovskaya oblast'",
+      "Tambovskaya oblast'",
+      "Tatarstan, Respublika",
+      "Tomskaya oblast'",
+      "Tul'skaya oblast'",
+      "Tverskaya oblast'",
+      "Tyumenskaya oblast'",
+      "Tyva, Respublika [Tuva]",
+      "Udmurtskaya Respublika",
+      "Ul'yanovskaya oblast'",
+      "Vladimirskaya oblast'",
+      "Volgogradskaya oblast'",
+      "Vologodskaya oblast'",
+      "Voronezhskaya oblast'",
+      "Yamalo-Nenetskiy avtonomnyy okrug",
+      "Yaroslavskaya oblast'",
+      "Yevreyskaya avtonomnaya oblast'",
+      "Zabajkal'skij kraj"
+    ]
+  },
+  "Rwanda": {
+    "latlong": [
+      -2.0,
+      30.0
+    ],
+    "dial_code": "250",
+    "alpha_2": "RW",
+    "sub_divisions": [
+      "Est",
+      "Nord",
+      "Ouest",
+      "Sud",
+      "Ville de Kigali"
+    ]
+  },
+  "R\u00e9union": {
+    "latlong": [
+      -21.15,
+      55.5
+    ],
+    "dial_code": "262",
+    "alpha_2": "RE",
+    "sub_divisions": [
+      "R\u00e9union"
+    ]
+  },
+  "Saint Barth\u00e9lemy": {
+    "latlong": [
+      18.5,
+      -63.41666666
+    ],
+    "dial_code": "590",
+    "alpha_2": "BL",
+    "sub_divisions": [
+      "Saint Barth\u00e9lemy"
+    ]
+  },
+  "Saint Helena, Ascension and Tristan da Cunha": {
+    "latlong": [
+      -15.95,
+      -5.7
+    ],
+    "dial_code": "290",
+    "alpha_2": "SH",
+    "sub_divisions": [
+      "Ascension",
+      "Saint Helena",
+      "Tristan da Cunha"
+    ]
+  },
+  "Saint Kitts and Nevis": {
+    "latlong": [
+      17.33333333,
+      -62.75
+    ],
+    "dial_code": "1869",
+    "alpha_2": "KN",
+    "sub_divisions": [
+      "Christ Church Nichola Town",
+      "Nevis",
+      "Saint Anne Sandy Point",
+      "Saint George Basseterre",
+      "Saint George Gingerland",
+      "Saint James Windward",
+      "Saint John Capisterre",
+      "Saint John Figtree",
+      "Saint Kitts",
+      "Saint Mary Cayon",
+      "Saint Paul Capisterre",
+      "Saint Paul Charlestown",
+      "Saint Peter Basseterre",
+      "Saint Thomas Lowland",
+      "Saint Thomas Middle Island",
+      "Trinity Palmetto Point"
+    ]
+  },
+  "Saint Lucia": {
+    "latlong": [
+      13.88333333,
+      -60.96666666
+    ],
+    "dial_code": "1758",
+    "alpha_2": "LC",
+    "sub_divisions": [
+      "Saint Lucia"
+    ]
+  },
+  "Saint Martin (French part)": {
+    "latlong": [
+      18.08333333,
+      -63.95
+    ],
+    "dial_code": "590",
+    "alpha_2": "MF",
+    "sub_divisions": [
+      "Saint Martin (French part)"
+    ]
+  },
+  "Saint Pierre and Miquelon": {
+    "latlong": [
+      46.83333333,
+      -56.33333333
+    ],
+    "dial_code": "508",
+    "alpha_2": "PM",
+    "sub_divisions": [
+      "Saint Pierre and Miquelon"
+    ]
+  },
+  "Saint Vincent and the Grenadines": {
+    "latlong": [
+      13.25,
+      -61.2
+    ],
+    "dial_code": "1784",
+    "alpha_2": "VC",
+    "sub_divisions": [
+      "Charlotte",
+      "Grenadines",
+      "Saint Andrew",
+      "Saint David",
+      "Saint George",
+      "Saint Patrick"
+    ]
+  },
+  "Samoa": {
+    "latlong": [
+      -13.58333333,
+      -172.33333333
+    ],
+    "dial_code": "685",
+    "alpha_2": "WS",
+    "sub_divisions": [
+      "A'ana",
+      "Aiga-i-le-Tai",
+      "Atua",
+      "Fa'asaleleaga",
+      "Gaga'emauga",
+      "Gagaifomauga",
+      "Palauli",
+      "Satupa'itea",
+      "Tuamasaga",
+      "Va'a-o-Fonoti",
+      "Vaisigano"
+    ]
+  },
+  "San Marino": {
+    "latlong": [
+      43.76666666,
+      12.41666666
+    ],
+    "dial_code": "378",
+    "alpha_2": "SM",
+    "sub_divisions": [
+      "Acquaviva",
+      "Borgo Maggiore",
+      "Chiesanuova",
+      "Domagnano",
+      "Faetano",
+      "Fiorentino",
+      "Montegiardino",
+      "San Marino",
+      "Serravalle"
+    ]
+  },
+  "Sao Tome and Principe": {
+    "latlong": [
+      1.0,
+      7.0
+    ],
+    "dial_code": "239",
+    "alpha_2": "ST",
+    "sub_divisions": [
+      "Pr\u00edncipe",
+      "S\u00e3o Tom\u00e9"
+    ]
+  },
+  "Saudi Arabia": {
+    "latlong": [
+      25.0,
+      45.0
+    ],
+    "dial_code": "966",
+    "alpha_2": "SA",
+    "sub_divisions": [
+      "Al B\u0101hah",
+      "Al Jawf",
+      "Al Mad\u012bnah",
+      "Al Qa\u015f\u012bm",
+      "Al \u1e24ud\u016bd ash Sham\u0101liyah",
+      "Ar Riy\u0101\u1e0d",
+      "Ash Sharq\u012byah",
+      "J\u012bzan",
+      "Makkah",
+      "Najr\u0101n",
+      "Tab\u016bk",
+      "`As\u012br",
+      "\u1e24\u0101'il"
+    ]
+  },
+  "Senegal": {
+    "latlong": [
+      14.0,
+      -14.0
+    ],
+    "dial_code": "221",
+    "alpha_2": "SN",
+    "sub_divisions": [
+      "Dakar",
+      "Diourbel",
+      "Fatick",
+      "Kaffrine",
+      "Kaolack",
+      "Kolda",
+      "K\u00e9dougou",
+      "Louga",
+      "Matam",
+      "Saint-Louis",
+      "S\u00e9dhiou",
+      "Tambacounda",
+      "Thi\u00e8s",
+      "Ziguinchor"
+    ]
+  },
+  "Serbia": {
+    "latlong": [
+      44.0,
+      21.0
+    ],
+    "dial_code": "381",
+    "alpha_2": "RS",
+    "sub_divisions": [
+      "Beograd",
+      "Borski okrug",
+      "Brani\u010devski okrug",
+      "Jablani\u010dki okrug",
+      "Ju\u017enobanatski okrug",
+      "Ju\u017enoba\u010dki okrug",
+      "Kolubarski okrug",
+      "Kosovo-Metohija",
+      "Kosovski okrug",
+      "Kosovsko-Mitrova\u010dki okrug",
+      "Kosovsko-Pomoravski okrug",
+      "Ma\u010dvanski okrug",
+      "Moravi\u010dki okrug",
+      "Ni\u0161avski okrug",
+      "Pe\u0107ki okrug",
+      "Pirotski okrug",
+      "Podunavski okrug",
+      "Pomoravski okrug",
+      "Prizrenski okrug",
+      "P\u010dinjski okrug",
+      "Rasinski okrug",
+      "Ra\u0161ki okrug",
+      "Severnobanatski okrug",
+      "Severnoba\u010dki okrug",
+      "Srednjebanatski okrug",
+      "Sremski okrug",
+      "Topli\u010dki okrug",
+      "Vojvodina",
+      "Zaje\u010darski okrug",
+      "Zapadnoba\u010dki okrug",
+      "Zlatiborski okrug",
+      "\u0160umadijski okrug"
+    ]
+  },
+  "Seychelles": {
+    "latlong": [
+      -4.58333333,
+      55.66666666
+    ],
+    "dial_code": "248",
+    "alpha_2": "SC",
+    "sub_divisions": [
+      "Anse Boileau",
+      "Anse Etoile",
+      "Anse Louis",
+      "Anse Royale",
+      "Anse aux Pins",
+      "Baie Lazare",
+      "Baie Sainte Anne",
+      "Beau Vallon",
+      "Bel Air",
+      "Bel Ombre",
+      "Cascade",
+      "English River",
+      "Glacis",
+      "Grand Anse Mahe",
+      "Grand Anse Praslin",
+      "La Digue",
+      "Les Mamelles",
+      "Mont Buxton",
+      "Mont Fleuri",
+      "Plaisance",
+      "Pointe Larue",
+      "Port Glaud",
+      "Roche Caiman",
+      "Saint Louis",
+      "Takamaka"
+    ]
+  },
+  "Sierra Leone": {
+    "latlong": [
+      8.5,
+      -11.5
+    ],
+    "dial_code": "232",
+    "alpha_2": "SL",
+    "sub_divisions": [
+      "Eastern",
+      "Northern",
+      "Southern (Sierra Leone)",
+      "Western Area (Freetown)"
+    ]
+  },
+  "Singapore": {
+    "latlong": [
+      1.36666666,
+      103.8
+    ],
+    "dial_code": "65",
+    "alpha_2": "SG",
+    "sub_divisions": [
+      "Central Singapore",
+      "North East",
+      "North West",
+      "South East",
+      "South West"
+    ]
+  },
+  "Sint Maarten (Dutch part)": {
+    "latlong": [
+      18.033333,
+      -63.05
+    ],
+    "dial_code": "1721",
+    "alpha_2": "SX",
+    "sub_divisions": [
+      "Sint Maarten (Dutch part)"
+    ]
+  },
+  "Slovakia": {
+    "latlong": [
+      48.66666666,
+      19.5
+    ],
+    "dial_code": "421",
+    "alpha_2": "SK",
+    "sub_divisions": [
+      "Banskobystrick\u00fd kraj",
+      "Bratislavsk\u00fd kraj",
+      "Ko\u0161ick\u00fd kraj",
+      "Nitriansky kraj",
+      "Pre\u0161ovsk\u00fd kraj",
+      "Tren\u010diansky kraj",
+      "Trnavsk\u00fd kraj",
+      "\u017dilinsk\u00fd kraj"
+    ]
+  },
+  "Slovenia": {
+    "latlong": [
+      46.11666666,
+      14.81666666
+    ],
+    "dial_code": "386",
+    "alpha_2": "SI",
+    "sub_divisions": [
+      "Ajdov\u0161\u010dina",
+      "Apa\u010de",
+      "Beltinci",
+      "Benedikt",
+      "Bistrica ob Sotli",
+      "Bled",
+      "Bloke",
+      "Bohinj",
+      "Borovnica",
+      "Bovec",
+      "Braslov\u010de",
+      "Brda",
+      "Brezovica",
+      "Bre\u017eice",
+      "Cankova",
+      "Celje",
+      "Cerklje na Gorenjskem",
+      "Cerknica",
+      "Cerkno",
+      "Cerkvenjak",
+      "Cirkulane",
+      "Destrnik",
+      "Diva\u010da",
+      "Dobje",
+      "Dobrepolje",
+      "Dobrna",
+      "Dobrova-Polhov Gradec",
+      "Dobrovnik/Dobronak",
+      "Dol pri Ljubljani",
+      "Dolenjske Toplice",
+      "Dom\u017eale",
+      "Dornava",
+      "Dravograd",
+      "Duplek",
+      "Gorenja vas-Poljane",
+      "Gori\u0161nica",
+      "Gorje",
+      "Gornja Radgona",
+      "Gornji Grad",
+      "Gornji Petrovci",
+      "Grad",
+      "Grosuplje",
+      "Hajdina",
+      "Hodo\u0161/Hodos",
+      "Horjul",
+      "Ho\u010de-Slivnica",
+      "Hrastnik",
+      "Hrpelje-Kozina",
+      "Idrija",
+      "Ig",
+      "Ilirska Bistrica",
+      "Ivan\u010dna Gorica",
+      "Izola/Isola",
+      "Jesenice",
+      "Jezersko",
+      "Jur\u0161inci",
+      "Kamnik",
+      "Kanal",
+      "Kidri\u010devo",
+      "Kobarid",
+      "Kobilje",
+      "Komen",
+      "Komenda",
+      "Koper/Capodistria",
+      "Kosanjevica na Krki",
+      "Kostel",
+      "Kozje",
+      "Ko\u010devje",
+      "Kranj",
+      "Kranjska Gora",
+      "Kri\u017eevci",
+      "Kr\u0161ko",
+      "Kungota",
+      "Kuzma",
+      "La\u0161ko",
+      "Lenart",
+      "Lendava/Lendva",
+      "Litija",
+      "Ljubljana",
+      "Ljubno",
+      "Ljutomer",
+      "Log-Dragomer",
+      "Logatec",
+      "Lovrenc na Pohorju",
+      "Lo\u0161ka dolina",
+      "Lo\u0161ki Potok",
+      "Lukovica",
+      "Lu\u010de",
+      "Maj\u0161perk",
+      "Makole",
+      "Maribor",
+      "Markovci",
+      "Medvode",
+      "Menge\u0161",
+      "Metlika",
+      "Me\u017eica",
+      "Miklav\u017e na Dravskem polju",
+      "Miren-Kostanjevica",
+      "Mirna Pe\u010d",
+      "Mislinja",
+      "Mokronog-Trebelno",
+      "Moravske Toplice",
+      "Morav\u010de",
+      "Mozirje",
+      "Murska Sobota",
+      "Muta",
+      "Naklo",
+      "Nazarje",
+      "Nova Gorica",
+      "Novo mesto",
+      "Odranci",
+      "Oplotnica",
+      "Ormo\u017e",
+      "Osilnica",
+      "Pesnica",
+      "Piran/Pirano",
+      "Pivka",
+      "Podlehnik",
+      "Podvelka",
+      "Pod\u010detrtek",
+      "Polj\u010dane",
+      "Polzela",
+      "Postojna",
+      "Prebold",
+      "Preddvor",
+      "Prevalje",
+      "Ptuj",
+      "Puconci",
+      "Radenci",
+      "Rade\u010de",
+      "Radlje ob Dravi",
+      "Radovljica",
+      "Ravne na Koro\u0161kem",
+      "Razkri\u017eje",
+      "Ra\u010de-Fram",
+      "Ren\u010de-Vogrsko",
+      "Re\u010dica ob Savinji",
+      "Ribnica",
+      "Ribnica na Pohorju",
+      "Rogatec",
+      "Roga\u0161ka Slatina",
+      "Roga\u0161ovci",
+      "Ru\u0161e",
+      "Selnica ob Dravi",
+      "Semi\u010d",
+      "Sevnica",
+      "Se\u017eana",
+      "Slovenj Gradec",
+      "Slovenska Bistrica",
+      "Slovenske Konjice",
+      "Sodra\u017eica",
+      "Sol\u010dava",
+      "Sredi\u0161\u010de ob Dravi",
+      "Star\u010de",
+      "Stra\u017ea",
+      "Sveta Ana",
+      "Sveta Andra\u017e v Slovenskih Goricah",
+      "Sveta Trojica v Slovenskih Goricah",
+      "Sveti Jurij",
+      "Sveti Jurij v Slovenskih Goricah",
+      "Sveti Toma\u017e",
+      "Tabor",
+      "Ti\u0161ina",
+      "Tolmin",
+      "Trbovlje",
+      "Trebnje",
+      "Trnovska vas",
+      "Trzin",
+      "Tr\u017ei\u010d",
+      "Turni\u0161\u010de",
+      "Velenje",
+      "Velika Polana",
+      "Velike La\u0161\u010de",
+      "Ver\u017eej",
+      "Videm",
+      "Vipava",
+      "Vitanje",
+      "Vodice",
+      "Vojnik",
+      "Vransko",
+      "Vrhnika",
+      "Vuzenica",
+      "Zagorje ob Savi",
+      "Zavr\u010d",
+      "Zre\u010de",
+      "\u010cren\u0161ovci",
+      "\u010crna na Koro\u0161kem",
+      "\u010crnomelj",
+      "\u0160alovci",
+      "\u0160empeter-Vrtojba",
+      "\u0160entilj",
+      "\u0160entjernej",
+      "\u0160entjur",
+      "\u0160entrupert",
+      "\u0160en\u010dur",
+      "\u0160kocjan",
+      "\u0160kofja Loka",
+      "\u0160kofljica",
+      "\u0160marje pri Jel\u0161ah",
+      "\u0160marjeske Topli\u010de",
+      "\u0160martno ob Paki",
+      "\u0160martno pri Litiji",
+      "\u0160o\u0161tanj",
+      "\u0160tore",
+      "\u017dalec",
+      "\u017delezniki",
+      "\u017detale",
+      "\u017diri",
+      "\u017dirovnica",
+      "\u017du\u017eemberk"
+    ]
+  },
+  "Solomon Islands": {
+    "latlong": [
+      -8.0,
+      159.0
+    ],
+    "dial_code": "677",
+    "alpha_2": "SB",
+    "sub_divisions": [
+      "Capital Territory (Honiara)",
+      "Central",
+      "Choiseul",
+      "Guadalcanal",
+      "Isabel",
+      "Makira",
+      "Malaita",
+      "Rennell and Bellona",
+      "Temotu",
+      "Western"
+    ]
+  },
+  "Somalia": {
+    "latlong": [
+      10.0,
+      49.0
+    ],
+    "dial_code": "252",
+    "alpha_2": "SO",
+    "sub_divisions": [
+      "Awdal",
+      "Bakool",
+      "Banaadir",
+      "Bari",
+      "Bay",
+      "Galguduud",
+      "Gedo",
+      "Hiirsan",
+      "Jubbada Dhexe",
+      "Jubbada Hoose",
+      "Mudug",
+      "Nugaal",
+      "Saneag",
+      "Shabeellaha Dhexe",
+      "Shabeellaha Hoose",
+      "Sool",
+      "Togdheer",
+      "Woqooyi Galbeed"
+    ]
+  },
+  "South Africa": {
+    "latlong": [
+      -29.0,
+      24.0
+    ],
+    "dial_code": "27",
+    "alpha_2": "ZA",
+    "sub_divisions": [
+      "Eastern Cape",
+      "Free State",
+      "Gauteng",
+      "Kwazulu-Natal",
+      "Limpopo",
+      "Mpumalanga",
+      "North-West (South Africa)",
+      "Northern Cape",
+      "Western Cape"
+    ]
+  },
+  "South Georgia and the South Sandwich Islands": {
+    "latlong": [
+      -54.5,
+      -37.0
+    ],
+    "dial_code": "500",
+    "alpha_2": "GS",
+    "sub_divisions": [
+      "South Georgia and the South Sandwich Islands"
+    ]
+  },
+  "South Sudan": {
+    "latlong": [
+      7.0,
+      30.0
+    ],
+    "dial_code": "211",
+    "alpha_2": "SS",
+    "sub_divisions": [
+      "Central Equatoria",
+      "Eastern Equatoria",
+      "Jonglei",
+      "Lakes",
+      "Northern Bahr el-Ghazal",
+      "Unity",
+      "Upper Nile",
+      "Warrap",
+      "Western Bahr el-Ghazal",
+      "Western Equatoria"
+    ]
+  },
+  "Spain": {
+    "latlong": [
+      40.0,
+      -4.0
+    ],
+    "dial_code": "34",
+    "alpha_2": "ES",
+    "sub_divisions": [
+      "A Coru\u00f1a",
+      "Albacete",
+      "Alicante",
+      "Almer\u00eda",
+      "Andaluc\u00eda",
+      "Arag\u00f3n",
+      "Asturias",
+      "Asturias, Principado de",
+      "Badajoz",
+      "Balears",
+      "Barcelona",
+      "Bizkaia",
+      "Burgos",
+      "Canarias",
+      "Cantabria",
+      "Cantabria",
+      "Castell\u00f3n",
+      "Castilla y Le\u00f3n",
+      "Castilla-La Mancha",
+      "Catalunya",
+      "Ceuta",
+      "Ciudad Real",
+      "Cuenca",
+      "C\u00e1ceres",
+      "C\u00e1diz",
+      "C\u00f3rdoba",
+      "Extremadura",
+      "Galicia",
+      "Gipuzkoa",
+      "Girona",
+      "Granada",
+      "Guadalajara",
+      "Huelva",
+      "Huesca",
+      "Illes Balears",
+      "Ja\u00e9n",
+      "La Rioja",
+      "La Rioja",
+      "Las Palmas",
+      "Le\u00f3n",
+      "Lleida",
+      "Lugo",
+      "Madrid",
+      "Madrid, Comunidad de",
+      "Melilla",
+      "Murcia",
+      "Murcia, Regi\u00f3n de",
+      "M\u00e1laga",
+      "Navarra / Nafarroa",
+      "Navarra, Comunidad Foral de / Nafarroako Foru Komunitatea",
+      "Ourense",
+      "Palencia",
+      "Pa\u00eds Vasco / Euskal Herria",
+      "Pontevedra",
+      "Salamanca",
+      "Santa Cruz de Tenerife",
+      "Segovia",
+      "Sevilla",
+      "Soria",
+      "Tarragona",
+      "Teruel",
+      "Toledo",
+      "Valencia / Val\u00e8ncia",
+      "Valenciana, Comunidad / Valenciana, Comunitat",
+      "Valladolid",
+      "Zamora",
+      "Zaragoza",
+      "\u00c1lava",
+      "\u00c1vila"
+    ]
+  },
+  "Sri Lanka": {
+    "latlong": [
+      7.0,
+      81.0
+    ],
+    "dial_code": "94",
+    "alpha_2": "LK",
+    "sub_divisions": [
+      "Amp\u0101ara",
+      "Anur\u0101dhapura",
+      "Badulla",
+      "Basn\u0101hira pa\u1e37\u0101ta",
+      "Daku\u1e47u pa\u1e37\u0101ta",
+      "Gampaha",
+      "G\u0101lla",
+      "Hambant\u014f\u1e6da",
+      "Ka\u1e37utara",
+      "Kilin\u014fchchi",
+      "Kuru\u1e47\u00e6gala",
+      "K\u00e6galla",
+      "K\u014f\u1e37amba",
+      "Madhyama pa\u1e37\u0101ta",
+      "Mahanuvara",
+      "Mann\u0101rama",
+      "Ma\u1e0dakalapuva",
+      "Mulativ",
+      "M\u0101tale",
+      "M\u0101tara",
+      "M\u014f\u1e47ar\u0101gala",
+      "Nuvara \u0114liya",
+      "N\u00e6\u0306g\u0115nahira pa\u1e37\u0101ta",
+      "Puttalama",
+      "P\u014f\u1e37\u014fnnaruva",
+      "Ratnapura",
+      "Sabaragamuva pa\u1e37\u0101ta",
+      "Triku\u1e47\u0101malaya",
+      "Uturu pa\u1e37\u0101ta",
+      "Uturum\u00e6\u0306da pa\u1e37\u0101ta",
+      "Vavuniy\u0101va",
+      "Vayamba pa\u1e37\u0101ta",
+      "Y\u0101panaya",
+      "\u016ava pa\u1e37\u0101ta"
+    ]
+  },
+  "Sudan": {
+    "latlong": [
+      15.0,
+      30.0
+    ],
+    "dial_code": "249",
+    "alpha_2": "SD",
+    "sub_divisions": [
+      "Al Ba\u1e29r al A\u1e29mar",
+      "Al Jaz\u012brah",
+      "Al Khar\u0163\u016bm",
+      "Al Qa\u1e11\u0101rif",
+      "An N\u012bl",
+      "An N\u012bl al Abya\u1e11",
+      "An N\u012bl al Azraq",
+      "Ash Sham\u0101l\u012byah",
+      "Gharb D\u0101rf\u016br",
+      "Jan\u016bb D\u0101rf\u016br",
+      "Jan\u016bb Kurduf\u0101n",
+      "Kassal\u0101",
+      "Sham\u0101l D\u0101rf\u016br",
+      "Sham\u0101l Kurduf\u0101n",
+      "Sharq D\u0101rf\u016br",
+      "Sinn\u0101r",
+      "Zalingei"
+    ]
+  },
+  "Suriname": {
+    "latlong": [
+      4.0,
+      -56.0
+    ],
+    "dial_code": "597",
+    "alpha_2": "SR",
+    "sub_divisions": [
+      "Brokopondo",
+      "Commewijne",
+      "Coronie",
+      "Marowijne",
+      "Nickerie",
+      "Para",
+      "Paramaribo",
+      "Saramacca",
+      "Sipaliwini",
+      "Wanica"
+    ]
+  },
+  "Svalbard and Jan Mayen": {
+    "latlong": [
+      78.0,
+      20.0
+    ],
+    "dial_code": "4779",
+    "alpha_2": "SJ",
+    "sub_divisions": [
+      "Svalbard and Jan Mayen"
+    ]
+  },
+  "Sweden": {
+    "latlong": [
+      62.0,
+      15.0
+    ],
+    "dial_code": "46",
+    "alpha_2": "SE",
+    "sub_divisions": [
+      "Blekinge l\u00e4n",
+      "Dalarnas l\u00e4n",
+      "Gotlands l\u00e4n",
+      "G\u00e4vleborgs l\u00e4n",
+      "Hallands l\u00e4n",
+      "J\u00e4mtlands l\u00e4n",
+      "J\u00f6nk\u00f6pings l\u00e4n",
+      "Kalmar l\u00e4n",
+      "Kronobergs l\u00e4n",
+      "Norrbottens l\u00e4n",
+      "Sk\u00e5ne l\u00e4n",
+      "Stockholms l\u00e4n",
+      "S\u00f6dermanlands l\u00e4n",
+      "Uppsala l\u00e4n",
+      "V\u00e4rmlands l\u00e4n",
+      "V\u00e4sterbottens l\u00e4n",
+      "V\u00e4sternorrlands l\u00e4n",
+      "V\u00e4stmanlands l\u00e4n",
+      "V\u00e4stra G\u00f6talands l\u00e4n",
+      "\u00d6rebro l\u00e4n",
+      "\u00d6sterg\u00f6tlands l\u00e4n"
+    ]
+  },
+  "Switzerland": {
+    "latlong": [
+      47.0,
+      8.0
+    ],
+    "dial_code": "41",
+    "alpha_2": "CH",
+    "sub_divisions": [
+      "Aargau",
+      "Appenzell Ausserrhoden",
+      "Appenzell Innerrhoden",
+      "Basel-Landschaft",
+      "Basel-Stadt",
+      "Bern",
+      "Fribourg",
+      "Gen\u00e8ve",
+      "Glarus",
+      "Graub\u00fcnden",
+      "Jura",
+      "Luzern",
+      "Neuch\u00e2tel",
+      "Nidwalden",
+      "Obwalden",
+      "Sankt Gallen",
+      "Schaffhausen",
+      "Schwyz",
+      "Solothurn",
+      "Thurgau",
+      "Ticino",
+      "Uri",
+      "Valais",
+      "Vaud",
+      "Zug",
+      "Z\u00fcrich"
+    ]
+  },
+  "Syrian Arab Republic": {
+    "latlong": [
+      35.0,
+      38.0
+    ],
+    "dial_code": "963",
+    "alpha_2": "SY",
+    "sub_divisions": [
+      "Al Hasakah",
+      "Al Ladhiqiyah",
+      "Al Qunaytirah",
+      "Ar Raqqah",
+      "As Suwayda'",
+      "Dar'a",
+      "Dayr az Zawr",
+      "Dimashq",
+      "Halab",
+      "Hamah",
+      "Homs",
+      "Idlib",
+      "Rif Dimashq",
+      "Tartus"
+    ]
+  },
+  "Taiwan, Province of China": {
+    "latlong": [
+      23.5,
+      121.0
+    ],
+    "dial_code": "886",
+    "alpha_2": "TW",
+    "sub_divisions": [
+      "Changhua",
+      "Chiay City",
+      "Chiayi",
+      "Hsinchu",
+      "Hsinchui City",
+      "Hualien",
+      "Ilan",
+      "Kaohsiung",
+      "Kaohsiung City",
+      "Keelung City",
+      "Miaoli",
+      "Nantou",
+      "Penghu",
+      "Pingtung",
+      "Taichung",
+      "Taichung City",
+      "Tainan",
+      "Tainan City",
+      "Taipei",
+      "Taipei City",
+      "Taitung",
+      "Taoyuan",
+      "Yunlin"
+    ]
+  },
+  "Tajikistan": {
+    "latlong": [
+      39.0,
+      71.0
+    ],
+    "dial_code": "992",
+    "alpha_2": "TJ",
+    "sub_divisions": [
+      "Gorno-Badakhshan",
+      "Khatlon",
+      "Sughd"
+    ]
+  },
+  "Tanzania, United Republic of": {
+    "latlong": [
+      -6.0,
+      35.0
+    ],
+    "dial_code": "255",
+    "alpha_2": "TZ",
+    "sub_divisions": [
+      "Arusha",
+      "Dar-es-Salaam",
+      "Dodoma",
+      "Iringa",
+      "Kagera",
+      "Kaskazini Pemba",
+      "Kaskazini Unguja",
+      "Kigoma",
+      "Kilimanjaro",
+      "Kusini Pemba",
+      "Kusini Unguja",
+      "Lindi",
+      "Manyara",
+      "Mara",
+      "Mbeya",
+      "Mjini Magharibi",
+      "Morogoro",
+      "Mtwara",
+      "Mwanza",
+      "Pwani",
+      "Rukwa",
+      "Ruvuma",
+      "Shinyanga",
+      "Singida",
+      "Tabora",
+      "Tanga"
+    ]
+  },
+  "Thailand": {
+    "latlong": [
+      15.0,
+      100.0
+    ],
+    "dial_code": "66",
+    "alpha_2": "TH",
+    "sub_divisions": [
+      "Amnat Charoen",
+      "Ang Thong",
+      "Buri Ram",
+      "Chachoengsao",
+      "Chai Nat",
+      "Chaiyaphum",
+      "Chanthaburi",
+      "Chiang Mai",
+      "Chiang Rai",
+      "Chon Buri",
+      "Chumphon",
+      "Kalasin",
+      "Kamphaeng Phet",
+      "Kanchanaburi",
+      "Khon Kaen",
+      "Krabi",
+      "Krung Thep Maha Nakhon Bangkok",
+      "Lampang",
+      "Lamphun",
+      "Loei",
+      "Lop Buri",
+      "Mae Hong Son",
+      "Maha Sarakham",
+      "Mukdahan",
+      "Nakhon Nayok",
+      "Nakhon Pathom",
+      "Nakhon Phanom",
+      "Nakhon Ratchasima",
+      "Nakhon Sawan",
+      "Nakhon Si Thammarat",
+      "Nan",
+      "Narathiwat",
+      "Nong Bua Lam Phu",
+      "Nong Khai",
+      "Nonthaburi",
+      "Pathum Thani",
+      "Pattani",
+      "Phangnga",
+      "Phatthalung",
+      "Phatthaya",
+      "Phayao",
+      "Phetchabun",
+      "Phetchaburi",
+      "Phichit",
+      "Phitsanulok",
+      "Phra Nakhon Si Ayutthaya",
+      "Phrae",
+      "Phuket",
+      "Prachin Buri",
+      "Prachuap Khiri Khan",
+      "Ranong",
+      "Ratchaburi",
+      "Rayong",
+      "Roi Et",
+      "Sa Kaeo",
+      "Sakon Nakhon",
+      "Samut Prakan",
+      "Samut Sakhon",
+      "Samut Songkhram",
+      "Saraburi",
+      "Satun",
+      "Si Sa Ket",
+      "Sing Buri",
+      "Songkhla",
+      "Sukhothai",
+      "Suphan Buri",
+      "Surat Thani",
+      "Surin",
+      "Tak",
+      "Trang",
+      "Trat",
+      "Ubon Ratchathani",
+      "Udon Thani",
+      "Uthai Thani",
+      "Uttaradit",
+      "Yala",
+      "Yasothon"
+    ]
+  },
+  "Timor-Leste": {
+    "latlong": [
+      -8.83333333,
+      125.91666666
+    ],
+    "dial_code": "670",
+    "alpha_2": "TL",
+    "sub_divisions": [
+      "Aileu",
+      "Ainaro",
+      "Baucau",
+      "Bobonaro",
+      "Cova Lima",
+      "D\u00edli",
+      "Ermera",
+      "Lautem",
+      "Liqui\u00e7a",
+      "Manatuto",
+      "Manufahi",
+      "Oecussi",
+      "Viqueque"
+    ]
+  },
+  "Togo": {
+    "latlong": [
+      8.0,
+      1.16666666
+    ],
+    "dial_code": "228",
+    "alpha_2": "TG",
+    "sub_divisions": [
+      "R\u00e9gion Maritime",
+      "R\u00e9gion de la Kara",
+      "R\u00e9gion des Plateaux",
+      "R\u00e9gion des Savannes",
+      "R\u00e9gion du Centre"
+    ]
+  },
+  "Tokelau": {
+    "latlong": [
+      -9.0,
+      -172.0
+    ],
+    "dial_code": "690",
+    "alpha_2": "TK",
+    "sub_divisions": [
+      "Tokelau"
+    ]
+  },
+  "Tonga": {
+    "latlong": [
+      -20.0,
+      -175.0
+    ],
+    "dial_code": "676",
+    "alpha_2": "TO",
+    "sub_divisions": [
+      "'Eua",
+      "Ha'apai",
+      "Niuas",
+      "Tongatapu",
+      "Vava'u"
+    ]
+  },
+  "Trinidad and Tobago": {
+    "latlong": [
+      11.0,
+      -61.0
+    ],
+    "dial_code": "1868",
+    "alpha_2": "TT",
+    "sub_divisions": [
+      "Arima",
+      "Chaguanas",
+      "Couva-Tabaquite-Talparo",
+      "Diego Martin",
+      "Eastern Tobago",
+      "Penal-Debe",
+      "Point Fortin",
+      "Port of Spain",
+      "Princes Town",
+      "Rio Claro-Mayaro",
+      "San Fernando",
+      "San Juan-Laventille",
+      "Sangre Grande",
+      "Siparia",
+      "Tunapuna-Piarco",
+      "Western Tobago"
+    ]
+  },
+  "Tunisia": {
+    "latlong": [
+      34.0,
+      9.0
+    ],
+    "dial_code": "216",
+    "alpha_2": "TN",
+    "sub_divisions": [
+      "Ariana",
+      "Ben Arous",
+      "Bizerte",
+      "B\u00e9ja",
+      "Gab\u00e8s",
+      "Gafsa",
+      "Jendouba",
+      "Kairouan",
+      "Kasserine",
+      "Kebili",
+      "La Manouba",
+      "Le Kef",
+      "Mahdia",
+      "Medenine",
+      "Monastir",
+      "Nabeul",
+      "Sfax",
+      "Sidi Bouzid",
+      "Siliana",
+      "Sousse",
+      "Tataouine",
+      "Tozeur",
+      "Tunis",
+      "Zaghouan"
+    ]
+  },
+  "Turkey": {
+    "latlong": [
+      39.0,
+      35.0
+    ],
+    "dial_code": "90",
+    "alpha_2": "TR",
+    "sub_divisions": [
+      "Adana",
+      "Ad\u0131yaman",
+      "Afyonkarahisar",
+      "Aksaray",
+      "Amasya",
+      "Ankara",
+      "Antalya",
+      "Ardahan",
+      "Artvin",
+      "Ayd\u0131n",
+      "A\u011fr\u0131",
+      "Bal\u0131kesir",
+      "Bart\u0131n",
+      "Batman",
+      "Bayburt",
+      "Bilecik",
+      "Bing\u00f6l",
+      "Bitlis",
+      "Bolu",
+      "Burdur",
+      "Bursa",
+      "Denizli",
+      "Diyarbak\u0131r",
+      "D\u00fczce",
+      "Edirne",
+      "Elaz\u0131\u011f",
+      "Erzincan",
+      "Erzurum",
+      "Eski\u015fehir",
+      "Gaziantep",
+      "Giresun",
+      "G\u00fcm\u00fc\u015fhane",
+      "Hakk\u00e2ri",
+      "Hatay",
+      "Isparta",
+      "I\u011fd\u0131r",
+      "Kahramanmara\u015f",
+      "Karab\u00fck",
+      "Karaman",
+      "Kars",
+      "Kastamonu",
+      "Kayseri",
+      "Kilis",
+      "Kocaeli",
+      "Konya",
+      "K\u00fctahya",
+      "K\u0131rklareli",
+      "K\u0131r\u0131kkale",
+      "K\u0131r\u015fehir",
+      "Malatya",
+      "Manisa",
+      "Mardin",
+      "Mersin",
+      "Mu\u011fla",
+      "Mu\u015f",
+      "Nev\u015fehir",
+      "Ni\u011fde",
+      "Ordu",
+      "Osmaniye",
+      "Rize",
+      "Sakarya",
+      "Samsun",
+      "Siirt",
+      "Sinop",
+      "Sivas",
+      "Tekirda\u011f",
+      "Tokat",
+      "Trabzon",
+      "Tunceli",
+      "U\u015fak",
+      "Van",
+      "Yalova",
+      "Yozgat",
+      "Zonguldak",
+      "\u00c7anakkale",
+      "\u00c7ank\u0131r\u0131",
+      "\u00c7orum",
+      "\u0130stanbul",
+      "\u0130zmir",
+      "\u015eanl\u0131urfa",
+      "\u015e\u0131rnak"
+    ]
+  },
+  "Turkmenistan": {
+    "latlong": [
+      40.0,
+      60.0
+    ],
+    "dial_code": "993",
+    "alpha_2": "TM",
+    "sub_divisions": [
+      "Ahal",
+      "A\u015fgabat",
+      "Balkan",
+      "Da\u015foguz",
+      "Lebap",
+      "Mary"
+    ]
+  },
+  "Turks and Caicos Islands": {
+    "latlong": [
+      21.75,
+      -71.58333333
+    ],
+    "dial_code": "1649",
+    "alpha_2": "TC",
+    "sub_divisions": [
+      "Turks and Caicos Islands"
+    ]
+  },
+  "Tuvalu": {
+    "latlong": [
+      -8.0,
+      178.0
+    ],
+    "dial_code": "688",
+    "alpha_2": "TV",
+    "sub_divisions": [
+      "Funafuti",
+      "Nanumanga",
+      "Nanumea",
+      "Niutao",
+      "Nui",
+      "Nukufetau",
+      "Nukulaelae",
+      "Vaitupu"
+    ]
+  },
+  "Uganda": {
+    "latlong": [
+      1.0,
+      32.0
+    ],
+    "dial_code": "256",
+    "alpha_2": "UG",
+    "sub_divisions": [
+      "Abim",
+      "Adjumani",
+      "Amolatar",
+      "Amuria",
+      "Amuru",
+      "Apac",
+      "Arua",
+      "Budaka",
+      "Bududa",
+      "Bugiri",
+      "Bukedea",
+      "Bukwa",
+      "Buliisa",
+      "Bundibugyo",
+      "Bushenyi",
+      "Busia",
+      "Butaleja",
+      "Central",
+      "Dokolo",
+      "Eastern",
+      "Gulu",
+      "Hoima",
+      "Ibanda",
+      "Iganga",
+      "Isingiro",
+      "Jinja",
+      "Kaabong",
+      "Kabale",
+      "Kabarole",
+      "Kaberamaido",
+      "Kagadi",
+      "Kalangala",
+      "Kaliro",
+      "Kampala",
+      "Kamuli",
+      "Kamwenge",
+      "Kanungu",
+      "Kapchorwa",
+      "Kasese",
+      "Katakwi",
+      "Kayunga",
+      "Kibaale",
+      "Kiboga",
+      "Kiruhura",
+      "Kisoro",
+      "Kitgum",
+      "Koboko",
+      "Kotido",
+      "Kumi",
+      "Kyenjojo",
+      "Lira",
+      "Luwero",
+      "Lyantonde",
+      "Manafwa",
+      "Maracha",
+      "Masaka",
+      "Masindi",
+      "Mayuge",
+      "Mbale",
+      "Mbarara",
+      "Mityana",
+      "Moroto",
+      "Moyo",
+      "Mpigi",
+      "Mubende",
+      "Mukono",
+      "Nakapiripirit",
+      "Nakaseke",
+      "Nakasongola",
+      "Namutumba",
+      "Nebbi",
+      "Northern",
+      "Ntungamo",
+      "Oyam",
+      "Pader",
+      "Pallisa",
+      "Rakai",
+      "Rukungiri",
+      "Sembabule",
+      "Sironko",
+      "Soroti",
+      "Tororo",
+      "Wakiso",
+      "Western",
+      "Yumbe"
+    ]
+  },
+  "Ukraine": {
+    "latlong": [
+      49.0,
+      32.0
+    ],
+    "dial_code": "380",
+    "alpha_2": "UA",
+    "sub_divisions": [
+      "Cherkas'ka Oblast'",
+      "Chernihivs'ka Oblast'",
+      "Chernivets'ka Oblast'",
+      "Dnipropetrovs'ka Oblast'",
+      "Donets'ka Oblast'",
+      "Ivano-Frankivs'ka Oblast'",
+      "Kharkivs'ka Oblast'",
+      "Khersons'ka Oblast'",
+      "Khmel'nyts'ka Oblast'",
+      "Kirovohrads'ka Oblast'",
+      "Ky\u00efvs'ka Oblast'",
+      "Ky\u00efvs'ka mis'ka rada",
+      "L'vivs'ka Oblast'",
+      "Luhans'ka Oblast'",
+      "Mykola\u00efvs'ka Oblast'",
+      "Odes'ka Oblast'",
+      "Poltavs'ka Oblast'",
+      "Respublika Krym",
+      "Rivnens'ka Oblast'",
+      "Sevastopol",
+      "Sums 'ka Oblast'",
+      "Ternopil's'ka Oblast'",
+      "Vinnyts'ka Oblast'",
+      "Volyns'ka Oblast'",
+      "Zakarpats'ka Oblast'",
+      "Zaporiz'ka Oblast'",
+      "Zhytomyrs'ka Oblast'"
+    ]
+  },
+  "United Arab Emirates": {
+    "latlong": [
+      24.0,
+      54.0
+    ],
+    "dial_code": "971",
+    "alpha_2": "AE",
+    "sub_divisions": [
+      "'Ajm\u0101n",
+      "Ab\u016b \u0224aby [Abu Dhabi]",
+      "Al Fujayrah",
+      "Ash Sh\u0101riqah",
+      "Dubayy",
+      "Ra\u2019s al Khaymah",
+      "Umm al Qaywayn"
+    ]
+  },
+  "United Kingdom": {
+    "latlong": [
+      54.0,
+      -2.0
+    ],
+    "dial_code": "44",
+    "alpha_2": "GB",
+    "sub_divisions": [
+      "Aberdeen City",
+      "Aberdeenshire",
+      "Angus",
+      "Antrim and Newtownabbey",
+      "Ards and North Down",
+      "Argyll and Bute",
+      "Armagh, Banbridge and Craigavon",
+      "Barking and Dagenham",
+      "Barnet",
+      "Barnsley",
+      "Bath and North East Somerset",
+      "Bedford",
+      "Belfast",
+      "Bexley",
+      "Birmingham",
+      "Blackburn with Darwen",
+      "Blackpool",
+      "Blaenau Gwent",
+      "Bolton",
+      "Bournemouth",
+      "Bracknell Forest",
+      "Bradford",
+      "Brent",
+      "Bridgend; Pen-y-bont ar Ogwr",
+      "Brighton and Hove",
+      "Bristol, City of",
+      "Bromley",
+      "Buckinghamshire",
+      "Bury",
+      "Caerphilly; Caerffili",
+      "Calderdale",
+      "Cambridgeshire",
+      "Camden",
+      "Cardiff; Caerdydd",
+      "Carmarthenshire; Sir Gaerfyrddin",
+      "Causeway Coast and Glens",
+      "Central Bedfordshire",
+      "Ceredigion; Sir Ceredigion",
+      "Cheshire East",
+      "Cheshire West and Chester",
+      "Clackmannanshire",
+      "Conwy",
+      "Cornwall",
+      "Coventry",
+      "Croydon",
+      "Cumbria",
+      "Darlington",
+      "Denbighshire; Sir Ddinbych",
+      "Derby",
+      "Derbyshire",
+      "Derry and Strabane",
+      "Devon",
+      "Doncaster",
+      "Dorset",
+      "Dudley",
+      "Dumfries and Galloway",
+      "Dundee City",
+      "Durham County",
+      "Ealing",
+      "East Ayrshire",
+      "East Dunbartonshire",
+      "East Lothian",
+      "East Renfrewshire",
+      "East Riding of Yorkshire",
+      "East Sussex",
+      "Edinburgh, City of",
+      "Eilean Siar",
+      "Enfield",
+      "England",
+      "England and Wales",
+      "Essex",
+      "Falkirk",
+      "Fermanagh and Omagh",
+      "Fife",
+      "Flintshire; Sir y Fflint",
+      "Gateshead",
+      "Glasgow City",
+      "Gloucestershire",
+      "Great Britain",
+      "Greenwich",
+      "Gwynedd",
+      "Hackney",
+      "Halton",
+      "Hammersmith and Fulham",
+      "Hampshire",
+      "Haringey",
+      "Harrow",
+      "Hartlepool",
+      "Havering",
+      "Herefordshire",
+      "Hertfordshire",
+      "Highland",
+      "Hillingdon",
+      "Hounslow",
+      "Inverclyde",
+      "Isle of Anglesey; Sir Ynys M\u00f4n",
+      "Isle of Wight",
+      "Isles of Scilly",
+      "Islington",
+      "Kensington and Chelsea",
+      "Kent",
+      "Kingston upon Hull",
+      "Kingston upon Thames",
+      "Kirklees",
+      "Knowsley",
+      "Lambeth",
+      "Lancashire",
+      "Leeds",
+      "Leicester",
+      "Leicestershire",
+      "Lewisham",
+      "Lincolnshire",
+      "Lisburn and Castlereagh",
+      "Liverpool",
+      "London, City of",
+      "Luton",
+      "Manchester",
+      "Medway",
+      "Merthyr Tydfil; Merthyr Tudful",
+      "Merton",
+      "Mid Ulster",
+      "Mid and East Antrim",
+      "Middlesbrough",
+      "Midlothian",
+      "Milton Keynes",
+      "Monmouthshire; Sir Fynwy",
+      "Moray",
+      "Neath Port Talbot; Castell-nedd Port Talbot",
+      "Newcastle upon Tyne",
+      "Newham",
+      "Newport; Casnewydd",
+      "Newry, Mourne and Down",
+      "Norfolk",
+      "North Ayrshire",
+      "North East Lincolnshire",
+      "North Lanarkshire",
+      "North Lincolnshire",
+      "North Somerset",
+      "North Tyneside",
+      "North Yorkshire",
+      "Northamptonshire",
+      "Northern Ireland",
+      "Northumberland",
+      "Nottingham",
+      "Nottinghamshire",
+      "Oldham",
+      "Orkney Islands",
+      "Oxfordshire",
+      "Pembrokeshire; Sir Benfro",
+      "Perth and Kinross",
+      "Peterborough",
+      "Plymouth",
+      "Poole",
+      "Portsmouth",
+      "Powys",
+      "Reading",
+      "Redbridge",
+      "Redcar and Cleveland",
+      "Renfrewshire",
+      "Rhondda, Cynon, Taff; Rhondda, Cynon, Taf",
+      "Richmond upon Thames",
+      "Rochdale",
+      "Rotherham",
+      "Rutland",
+      "Salford",
+      "Sandwell",
+      "Scotland",
+      "Scottish Borders, The",
+      "Sefton",
+      "Sheffield",
+      "Shetland Islands",
+      "Shropshire",
+      "Slough",
+      "Solihull",
+      "Somerset",
+      "South Ayrshire",
+      "South Gloucestershire",
+      "South Lanarkshire",
+      "South Tyneside",
+      "Southampton",
+      "Southend-on-Sea",
+      "Southwark",
+      "St. Helens",
+      "Staffordshire",
+      "Stirling",
+      "Stockport",
+      "Stockton-on-Tees",
+      "Stoke-on-Trent",
+      "Suffolk",
+      "Sunderland",
+      "Surrey",
+      "Sutton",
+      "Swansea; Abertawe",
+      "Swindon",
+      "Tameside",
+      "Telford and Wrekin",
+      "Thurrock",
+      "Torbay",
+      "Torfaen; Tor-faen",
+      "Tower Hamlets",
+      "Trafford",
+      "United Kingdom",
+      "Vale of Glamorgan, The; Bro Morgannwg",
+      "Wakefield",
+      "Wales; Cymru",
+      "Walsall",
+      "Waltham Forest",
+      "Wandsworth",
+      "Warrington",
+      "Warwickshire",
+      "West Berkshire",
+      "West Dunbartonshire",
+      "West Lothian",
+      "West Sussex",
+      "Westminster",
+      "Wigan",
+      "Wiltshire",
+      "Windsor and Maidenhead",
+      "Wirral",
+      "Wokingham",
+      "Wolverhampton",
+      "Worcestershire",
+      "Wrexham; Wrecsam",
+      "York"
+    ]
+  },
+  "United States": {
+    "latlong": [
+      38.0,
+      -97.0
+    ],
+    "dial_code": "1",
+    "alpha_2": "US",
+    "sub_divisions": [
+      "Alabama",
+      "Alaska",
+      "American Samoa",
+      "Arizona",
+      "Arkansas",
+      "California",
+      "Colorado",
+      "Connecticut",
+      "Delaware",
+      "District of Columbia",
+      "Florida",
+      "Georgia",
+      "Guam",
+      "Hawaii",
+      "Idaho",
+      "Illinois",
+      "Indiana",
+      "Iowa",
+      "Kansas",
+      "Kentucky",
+      "Louisiana",
+      "Maine",
+      "Maryland",
+      "Massachusetts",
+      "Michigan",
+      "Minnesota",
+      "Mississippi",
+      "Missouri",
+      "Montana",
+      "Nebraska",
+      "Nevada",
+      "New Hampshire",
+      "New Jersey",
+      "New Mexico",
+      "New York",
+      "North Carolina",
+      "North Dakota",
+      "Northern Mariana Islands",
+      "Ohio",
+      "Oklahoma",
+      "Oregon",
+      "Pennsylvania",
+      "Puerto Rico",
+      "Rhode Island",
+      "South Carolina",
+      "South Dakota",
+      "Tennessee",
+      "Texas",
+      "United States Minor Outlying Islands",
+      "Utah",
+      "Vermont",
+      "Virgin Islands",
+      "Virginia",
+      "Washington",
+      "West Virginia",
+      "Wisconsin",
+      "Wyoming"
+    ]
+  },
+  "United States Minor Outlying Islands": {
+    "latlong": [
+      38.0,
+      -97.0
+    ],
+    "dial_code": "246",
+    "alpha_2": "UM",
+    "sub_divisions": [
+      "Baker Island",
+      "Howland Island",
+      "Jarvis Island",
+      "Johnston Atoll",
+      "Kingman Reef",
+      "Midway Islands",
+      "Navassa Island",
+      "Palmyra Atoll",
+      "Wake Island"
+    ]
+  },
+  "Uruguay": {
+    "latlong": [
+      -33.0,
+      -56.0
+    ],
+    "dial_code": "598",
+    "alpha_2": "UY",
+    "sub_divisions": [
+      "Artigas",
+      "Canelones",
+      "Cerro Largo",
+      "Colonia",
+      "Durazno",
+      "Flores",
+      "Florida",
+      "Lavalleja",
+      "Maldonado",
+      "Montevideo",
+      "Paysand\u00fa",
+      "Rivera",
+      "Rocha",
+      "R\u00edo Negro",
+      "Salto",
+      "San Jos\u00e9",
+      "Soriano",
+      "Tacuaremb\u00f3",
+      "Treinta y Tres"
+    ]
+  },
+  "Uzbekistan": {
+    "latlong": [
+      41.0,
+      64.0
+    ],
+    "dial_code": "998",
+    "alpha_2": "UZ",
+    "sub_divisions": [
+      "Andijon",
+      "Buxoro",
+      "Farg'ona",
+      "Jizzax",
+      "Namangan",
+      "Navoiy",
+      "Qashqadaryo",
+      "Qoraqalpog'iston Respublikasi",
+      "Samarqand",
+      "Sirdaryo",
+      "Surxondaryo",
+      "Toshkent",
+      "Toshkent",
+      "Xorazm"
+    ]
+  },
+  "Vanuatu": {
+    "latlong": [
+      -16.0,
+      167.0
+    ],
+    "dial_code": "678",
+    "alpha_2": "VU",
+    "sub_divisions": [
+      "Malampa",
+      "P\u00e9nama",
+      "Sanma",
+      "Sh\u00e9fa",
+      "Taf\u00e9a",
+      "Torba"
+    ]
+  },
+  "Venezuela, Bolivarian Republic of": {
+    "latlong": [
+      8.0,
+      -66.0
+    ],
+    "dial_code": "58",
+    "alpha_2": "VE",
+    "sub_divisions": [
+      "Amazonas",
+      "Anzo\u00e1tegui",
+      "Apure",
+      "Aragua",
+      "Barinas",
+      "Bol\u00edvar",
+      "Carabobo",
+      "Cojedes",
+      "Delta Amacuro",
+      "Dependencias Federales",
+      "Distrito Federal",
+      "Falc\u00f3n",
+      "Gu\u00e1rico",
+      "Lara",
+      "Miranda",
+      "Monagas",
+      "M\u00e9rida",
+      "Nueva Esparta",
+      "Portuguesa",
+      "Sucre",
+      "Trujillo",
+      "T\u00e1chira",
+      "Vargas",
+      "Yaracuy",
+      "Zulia"
+    ]
+  },
+  "Vietnam": {
+    "latlong": [
+      16.16666666,
+      107.83333333
+    ],
+    "dial_code": "84",
+    "alpha_2": "VN",
+    "sub_divisions": [
+      "An Giang",
+      "B\u00e0 R\u1ecba-V\u0169ng T\u00e0u",
+      "B\u00ecnh D\u01b0\u01a1ng",
+      "B\u00ecnh Ph\u01b0\u1edbc",
+      "B\u00ecnh Thu\u1eadn",
+      "B\u00ecnh \u0110\u1ecbnh",
+      "B\u1ea1c Li\u00eau",
+      "B\u1eafc Giang",
+      "B\u1eafc K\u1ea1n",
+      "B\u1eafc Ninh",
+      "B\u1ebfn Tre",
+      "Cao B\u1eb1ng",
+      "C\u00e0 Mau",
+      "C\u1ea7n Th\u01a1",
+      "Gia Lai",
+      "Ho\u00e0 B\u00ecnh",
+      "H\u00e0 Giang",
+      "H\u00e0 Nam",
+      "H\u00e0 N\u1ed9i",
+      "H\u00e0 T\u00e2y",
+      "H\u00e0 T\u1ec9nh",
+      "H\u01b0ng Y\u00ean",
+      "H\u1ea3i Duong",
+      "H\u1ea3i Ph\u00f2ng",
+      "H\u1eadu Giang",
+      "H\u1ed3 Ch\u00ed Minh [S\u00e0i G\u00f2n]",
+      "Kh\u00e1nh H\u00f2a",
+      "Ki\u00ean Giang",
+      "Kon Tum",
+      "Lai Ch\u00e2u",
+      "Long An",
+      "L\u00e0o Cai",
+      "L\u00e2m \u0110\u1ed3ng",
+      "L\u1ea1ng S\u01a1n",
+      "Nam \u0110\u1ecbnh",
+      "Ngh\u1ec7 An",
+      "Ninh B\u00ecnh",
+      "Ninh Thu\u1eadn",
+      "Ph\u00fa Th\u1ecd",
+      "Ph\u00fa Y\u00ean",
+      "Qu\u1ea3ng B\u00ecnh",
+      "Qu\u1ea3ng Nam",
+      "Qu\u1ea3ng Ng\u00e3i",
+      "Qu\u1ea3ng Ninh",
+      "Qu\u1ea3ng Tr\u1ecb",
+      "S\u00f3c Tr\u0103ng",
+      "S\u01a1n La",
+      "Thanh H\u00f3a",
+      "Th\u00e1i B\u00ecnh",
+      "Th\u00e1i Nguy\u00ean",
+      "Th\u1eeba Thi\u00ean-Hu\u1ebf",
+      "Ti\u1ec1n Giang",
+      "Tr\u00e0 Vinh",
+      "Tuy\u00ean Quang",
+      "T\u00e2y Ninh",
+      "V\u0129nh Long",
+      "V\u0129nh Ph\u00fac",
+      "Y\u00ean B\u00e1i",
+      "\u0110i\u1ec7n Bi\u00ean",
+      "\u0110\u00e0 N\u1eb5ng",
+      "\u0110\u1eafc L\u1eafk",
+      "\u0110\u1eafk N\u00f4ng",
+      "\u0110\u1ed3ng Nai",
+      "\u0110\u1ed3ng Th\u00e1p"
+    ]
+  },
+  "Virgin Islands, British": {
+    "latlong": [
+      18.431383,
+      -64.62305
+    ],
+    "dial_code": "1284",
+    "alpha_2": "VG",
+    "sub_divisions": [
+      "Virgin Islands, British"
+    ]
+  },
+  "Virgin Islands, U.S.": {
+    "latlong": [
+      18.34,
+      -64.93
+    ],
+    "dial_code": "1340",
+    "alpha_2": "VI",
+    "sub_divisions": [
+      "Virgin Islands, U.S."
+    ]
+  },
+  "Wallis and Futuna": {
+    "latlong": [
+      -13.3,
+      -176.2
+    ],
+    "dial_code": "681",
+    "alpha_2": "WF",
+    "sub_divisions": [
+      "Wallis and Futuna"
+    ]
+  },
+  "Western Sahara": {
+    "latlong": [
+      24.5,
+      -13.0
+    ],
+    "dial_code": "212",
+    "alpha_2": "EH",
+    "sub_divisions": [
+      "Western Sahara"
+    ]
+  },
+  "Yemen": {
+    "latlong": [
+      15.0,
+      48.0
+    ],
+    "dial_code": "967",
+    "alpha_2": "YE",
+    "sub_divisions": [
+      "'Adan",
+      "'Amr\u0101n",
+      "Aby\u0101n",
+      "Ad\u0327 D\u0327\u0101li\u2018",
+      "Al Bay\u1e11\u0101'",
+      "Al Jawf",
+      "Al Mahrah",
+      "Al Ma\u1e29w\u012bt",
+      "Al \u1e28udaydah",
+      "Dham\u0101r",
+      "Ibb",
+      "La\u1e29ij",
+      "Ma'rib",
+      "Raymah",
+      "Shabwah",
+      "T\u0101'izz",
+      "\u015ea'dah",
+      "\u015ean'\u0101'",
+      "\u1e28ajjah",
+      "\u1e28a\u1e11ramawt"
+    ]
+  },
+  "Zambia": {
+    "latlong": [
+      -15.0,
+      30.0
+    ],
+    "dial_code": "260",
+    "alpha_2": "ZM",
+    "sub_divisions": [
+      "Central",
+      "Copperbelt",
+      "Eastern",
+      "Luapula",
+      "Lusaka",
+      "North-Western",
+      "Northern",
+      "Southern (Zambia)",
+      "Western"
+    ]
+  },
+  "Zimbabwe": {
+    "latlong": [
+      -20.0,
+      30.0
+    ],
+    "dial_code": "263",
+    "alpha_2": "ZW",
+    "sub_divisions": [
+      "Bulawayo",
+      "Harare",
+      "Manicaland",
+      "Mashonaland Central",
+      "Mashonaland East",
+      "Mashonaland West",
+      "Masvingo",
+      "Matabeleland North",
+      "Matabeleland South",
+      "Midlands"
+    ]
+  }
+}

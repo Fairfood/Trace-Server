@@ -1,0 +1,322 @@
+"""Currency constants are defined here."""
+CURRENCY_USD = "USD"
+CURRENCY_EUR = "EUR"
+CURRENCY_ETB = "ETB"
+CURRENCY_IDR = "IDR"
+CURRENCY_JPY = "JPY"
+CURRENCY_GBP = "GBP"
+CURRENCY_AED = "AED"
+CURRENCY_AFN = "AFN"
+CURRENCY_ALL = "ALL"
+CURRENCY_AMD = "AMD"
+CURRENCY_ANG = "ANG"
+CURRENCY_AOA = "AOA"
+CURRENCY_ARS = "ARS"
+CURRENCY_AUD = "AUD"
+CURRENCY_AWG = "AWG"
+CURRENCY_AZN = "AZN"
+CURRENCY_BAM = "BAM"
+CURRENCY_BBD = "BBD"
+CURRENCY_BDT = "BDT"
+CURRENCY_BGN = "BGN"
+CURRENCY_BHD = "BHD"
+CURRENCY_BIF = "BIF"
+CURRENCY_BMD = "BMD"
+CURRENCY_BND = "BND"
+CURRENCY_BOB = "BOB"
+CURRENCY_BRL = "BRL"
+CURRENCY_BSD = "BSD"
+CURRENCY_BTN = "BTN"
+CURRENCY_BWP = "BWP"
+CURRENCY_BYN = "BYN"
+CURRENCY_BZD = "BZD"
+CURRENCY_CAD = "CAD"
+CURRENCY_CDF = "CDF"
+CURRENCY_CHF = "CHF"
+CURRENCY_CLP = "CLP"
+CURRENCY_CNY = "CNY"
+CURRENCY_COP = "COP"
+CURRENCY_CRC = "CRC"
+CURRENCY_CUC = "CUC"
+CURRENCY_CUP = "CUP"
+CURRENCY_CVE = "CVE"
+CURRENCY_CZK = "CZK"
+CURRENCY_DJF = "DJF"
+CURRENCY_DKK = "DKK"
+CURRENCY_DOP = "DOP"
+CURRENCY_DZD = "DZD"
+CURRENCY_EGP = "EGP"
+CURRENCY_ERN = "ERN"
+CURRENCY_FJD = "FJD"
+CURRENCY_FKP = "FKP"
+CURRENCY_GEL = "GEL"
+CURRENCY_GGP = "GGP"
+CURRENCY_GHS = "GHS"
+CURRENCY_GIP = "GIP"
+CURRENCY_GMD = "GMD"
+CURRENCY_GNF = "GNF"
+CURRENCY_GTQ = "GTQ"
+CURRENCY_GYD = "GYD"
+CURRENCY_HKD = "HKD"
+CURRENCY_HNL = "HNL"
+CURRENCY_HRK = "HRK"
+CURRENCY_HTG = "HTG"
+CURRENCY_HUF = "HUF"
+CURRENCY_ILS = "ILS"
+CURRENCY_IMP = "IMP"
+CURRENCY_INR = "INR"
+CURRENCY_IQD = "IQD"
+CURRENCY_IRR = "IRR"
+CURRENCY_ISK = "ISK"
+CURRENCY_JEP = "JEP"
+CURRENCY_JMD = "JMD"
+CURRENCY_JOD = "JOD"
+CURRENCY_KES = "KES"
+CURRENCY_KGS = "KGS"
+CURRENCY_KHR = "KHR"
+CURRENCY_KID = "KID"
+CURRENCY_KMF = "KMF"
+CURRENCY_KPW = "KPW"
+CURRENCY_KRW = "KRW"
+CURRENCY_KWD = "KWD"
+CURRENCY_KYD = "KYD"
+CURRENCY_KZT = "KZT"
+CURRENCY_LAK = "LAK"
+CURRENCY_LBP = "LBP"
+CURRENCY_LKR = "LKR"
+CURRENCY_LRD = "LRD"
+CURRENCY_LSL = "LSL"
+CURRENCY_LYD = "LYD"
+CURRENCY_MAD = "MAD"
+CURRENCY_MDL = "MDL"
+CURRENCY_MGA = "MGA"
+CURRENCY_MKD = "MKD"
+CURRENCY_MMK = "MMK"
+CURRENCY_MNT = "MNT"
+CURRENCY_MOP = "MOP"
+CURRENCY_MRU = "MRU"
+CURRENCY_MUR = "MUR"
+CURRENCY_MVR = "MVR"
+CURRENCY_MWK = "MWK"
+CURRENCY_MXN = "MXN"
+CURRENCY_MYR = "MYR"
+CURRENCY_MZN = "MZN"
+CURRENCY_NAD = "NAD"
+CURRENCY_NGN = "NGN"
+CURRENCY_NIO = "NIO"
+CURRENCY_NOK = "NOK"
+CURRENCY_NPR = "NPR"
+CURRENCY_NZD = "NZD"
+CURRENCY_OMR = "OMR"
+CURRENCY_PAB = "PAB"
+CURRENCY_PEN = "PEN"
+CURRENCY_PGK = "PGK"
+CURRENCY_PHP = "PHP"
+CURRENCY_PKR = "PKR"
+CURRENCY_PLN = "PLN"
+CURRENCY_PRB = "PRB"
+CURRENCY_PYG = "PYG"
+CURRENCY_QAR = "QAR"
+CURRENCY_RON = "RON"
+CURRENCY_RSD = "RSD"
+CURRENCY_RUB = "RUB"
+CURRENCY_RWF = "RWF"
+CURRENCY_SAR = "SAR"
+CURRENCY_SEK = "SEK"
+CURRENCY_SGD = "SGD"
+CURRENCY_SHP = "SHP"
+CURRENCY_SLL = "SLL"
+CURRENCY_SLS = "SLS"
+CURRENCY_SOS = "SOS"
+CURRENCY_SRD = "SRD"
+CURRENCY_SSP = "SSP"
+CURRENCY_STN = "STN"
+CURRENCY_SYP = "SYP"
+CURRENCY_SZL = "SZL"
+CURRENCY_THB = "THB"
+CURRENCY_TJS = "TJS"
+CURRENCY_TMT = "TMT"
+CURRENCY_TND = "TND"
+CURRENCY_TOP = "TOP"
+CURRENCY_TRY = "TRY"
+CURRENCY_TTD = "TTD"
+CURRENCY_TVD = "TVD"
+CURRENCY_TWD = "TWD"
+CURRENCY_TZS = "TZS"
+CURRENCY_UAH = "UAH"
+CURRENCY_UGX = "UGX"
+CURRENCY_UYU = "UYU"
+CURRENCY_UZS = "UZS"
+CURRENCY_VES = "VES"
+CURRENCY_VND = "VND"
+CURRENCY_VUV = "VUV"
+CURRENCY_WST = "WST"
+CURRENCY_XAF = "XAF"
+CURRENCY_XCD = "XCD"
+CURRENCY_XOF = "XOF"
+CURRENCY_XPF = "XPF"
+CURRENCY_ZAR = "ZAR"
+CURRENCY_ZMW = "ZMW"
+CURRENCY_ZWB = "ZWB"
+
+CURRENCY_CHOICES = (
+    (CURRENCY_USD, "United States dollar"),
+    (CURRENCY_EUR, "EURO"),
+    (CURRENCY_ETB, "Ethiopian birr"),
+    (CURRENCY_IDR, "Indonesian rupiah"),
+    (CURRENCY_GBP, "British pound"),
+    (CURRENCY_AED, "United Arab Emirates dirham"),
+    (CURRENCY_ALL, "Albanian lek"),
+    (CURRENCY_AMD, "Armenian dram"),
+    (CURRENCY_ANG, "Netherlands Antillean guilder"),
+    (CURRENCY_AOA, "Angolan kwanza"),
+    (CURRENCY_ARS, "Argentine peso"),
+    (CURRENCY_AUD, "Australian dollar"),
+    (CURRENCY_AWG, "Aruban florin"),
+    (CURRENCY_AZN, "Azerbaijani manat"),
+    (CURRENCY_BAM, "Bosnia and Herzegovina convertible mark"),
+    (CURRENCY_BBD, "Barbadian dollar"),
+    (CURRENCY_BDT, "Bangladeshi taka"),
+    (CURRENCY_BGN, "Bulgarian lev"),
+    (CURRENCY_BHD, "Bahraini dinar"),
+    (CURRENCY_BIF, "Burundian franc"),
+    (CURRENCY_BMD, "Bermudian dollar"),
+    (CURRENCY_BND, "Brunei dollar"),
+    (CURRENCY_BOB, "Bolivian boliviano"),
+    (CURRENCY_BRL, "Brazilian real"),
+    (CURRENCY_BSD, "Bahamian dollar"),
+    (CURRENCY_BTN, "Bhutanese ngultrum"),
+    (CURRENCY_BWP, "Botswana pula"),
+    (CURRENCY_BYN, "Belarusian ruble"),
+    (CURRENCY_BZD, "Belize dollar"),
+    (CURRENCY_CAD, "Canadian dollar"),
+    (CURRENCY_CDF, "Congolese franc"),
+    (CURRENCY_CHF, "Swiss franc"),
+    (CURRENCY_CLP, "Chilean peso"),
+    (CURRENCY_CNY, "Chinese yuan"),
+    (CURRENCY_COP, "Colombian peso"),
+    (CURRENCY_CRC, "Costa Rican colón"),
+    (CURRENCY_CUC, "Cuban convertible peso"),
+    (CURRENCY_CUP, "Cuban peso"),
+    (CURRENCY_CVE, "Cape Verdean escudo"),
+    (CURRENCY_CZK, "Czech koruna"),
+    (CURRENCY_DJF, "Djiboutian franc"),
+    (CURRENCY_DKK, "Danish krone"),
+    (CURRENCY_DOP, "Dominican peso"),
+    (CURRENCY_DZD, "Algerian dinar"),
+    (CURRENCY_EGP, "Egyptian pound"),
+    (CURRENCY_ERN, "Eritrean nakfa"),
+    (CURRENCY_JPY, "Japanese yen"),
+    (CURRENCY_FJD, "Fijian dollar"),
+    (CURRENCY_FKP, "Falkland Islands pound"),
+    (CURRENCY_GEL, "Georgian lari"),
+    (CURRENCY_GGP, "Guernsey pound"),
+    (CURRENCY_GHS, "Ghanaian cedi"),
+    (CURRENCY_GIP, "Gibraltar pound"),
+    (CURRENCY_GMD, "Gambian dalasi"),
+    (CURRENCY_GNF, "Guinean franc"),
+    (CURRENCY_GTQ, "Guatemalan quetzal"),
+    (CURRENCY_GYD, "Guyanese dollar"),
+    (CURRENCY_HKD, "Hong Kong dollar"),
+    (CURRENCY_HNL, "Honduran lempira"),
+    (CURRENCY_HRK, "Croatian kuna"),
+    (CURRENCY_HTG, "Haitian gourde"),
+    (CURRENCY_HUF, "Hungarian forint"),
+    (CURRENCY_AFN, "Afghan afghani"),
+    (CURRENCY_ILS, "Israeli new shekel"),
+    (CURRENCY_IMP, "Manx pound"),
+    (CURRENCY_INR, "Indian rupee"),
+    (CURRENCY_IQD, "Iraqi dinar"),
+    (CURRENCY_IRR, "Iranian rial"),
+    (CURRENCY_ISK, "Icelandic króna"),
+    (CURRENCY_JEP, "Jersey pound"),
+    (CURRENCY_JMD, "Jamaican dollar"),
+    (CURRENCY_JOD, "Jordanian dinar"),
+    (CURRENCY_KES, "Kenyan shilling"),
+    (CURRENCY_KGS, "Kyrgyzstani som"),
+    (CURRENCY_KHR, "Cambodian riel"),
+    (CURRENCY_KID, "Kiribati dollar"),
+    (CURRENCY_KMF, "Comorian franc"),
+    (CURRENCY_KPW, "North Korean won"),
+    (CURRENCY_KRW, "South Korean won"),
+    (CURRENCY_KWD, "Kuwaiti dinar"),
+    (CURRENCY_KYD, "Cayman Islands dollar"),
+    (CURRENCY_KZT, "Kazakhstani tenge"),
+    (CURRENCY_LAK, "Lao kip"),
+    (CURRENCY_LBP, "Lebanese pound"),
+    (CURRENCY_LKR, "Sri Lankan rupee"),
+    (CURRENCY_LRD, "Liberian dollar"),
+    (CURRENCY_LSL, "Lesotho loti"),
+    (CURRENCY_LYD, "Libyan dinar"),
+    (CURRENCY_MAD, "Moroccan dirham"),
+    (CURRENCY_MDL, "Moldovan leu"),
+    (CURRENCY_MGA, "Malagasy ariary"),
+    (CURRENCY_MKD, "Macedonian denar"),
+    (CURRENCY_MMK, "Burmese kyat"),
+    (CURRENCY_MNT, "Mongolian tögrög"),
+    (CURRENCY_MOP, "Macanese pataca"),
+    (CURRENCY_MRU, "Mauritanian ouguiya"),
+    (CURRENCY_MUR, "Mauritian rupee"),
+    (CURRENCY_MVR, "Maldivian rufiyaa"),
+    (CURRENCY_MWK, "Malawian kwacha"),
+    (CURRENCY_MXN, "Mexican peso"),
+    (CURRENCY_MYR, "Malaysian ringgit"),
+    (CURRENCY_MZN, "Mozambican metical"),
+    (CURRENCY_NAD, "Namibian dollar"),
+    (CURRENCY_NGN, "Nigerian naira"),
+    (CURRENCY_NIO, "Nicaraguan córdoba"),
+    (CURRENCY_NOK, "Norwegian krone"),
+    (CURRENCY_NPR, "Nepalese rupee"),
+    (CURRENCY_NZD, "New Zealand dollar"),
+    (CURRENCY_OMR, "Omani rial"),
+    (CURRENCY_PAB, "Panamanian balboa"),
+    (CURRENCY_PEN, "Peruvian sol"),
+    (CURRENCY_PGK, "Papua New Guinean kina"),
+    (CURRENCY_PHP, "Philippine peso"),
+    (CURRENCY_PKR, "Pakistani rupee"),
+    (CURRENCY_PLN, "Polish złoty"),
+    (CURRENCY_PRB, "Transnistrian ruble"),
+    (CURRENCY_PYG, "Paraguayan guaraní"),
+    (CURRENCY_QAR, "Qatari riyal"),
+    (CURRENCY_RON, "Romanian leu"),
+    (CURRENCY_RSD, "Serbian dinar"),
+    (CURRENCY_RUB, "Russian ruble"),
+    (CURRENCY_RWF, "Rwandan franc"),
+    (CURRENCY_SAR, "Saudi riyal"),
+    (CURRENCY_SEK, "Swedish krona"),
+    (CURRENCY_SGD, "Singapore dollar"),
+    (CURRENCY_SHP, "Saint Helena pound"),
+    (CURRENCY_SLL, "Sierra Leonean leone"),
+    (CURRENCY_SLS, "Somaliland shilling"),
+    (CURRENCY_SOS, "Somali shilling"),
+    (CURRENCY_SRD, "Surinamese dollar"),
+    (CURRENCY_SSP, "South Sudanese pound"),
+    (CURRENCY_STN, "São Tomé and Príncipe dobra"),
+    (CURRENCY_SYP, "Syrian pound"),
+    (CURRENCY_SZL, "Swazi lilangeni"),
+    (CURRENCY_THB, "Thai baht"),
+    (CURRENCY_TJS, "Tajikistani somoni"),
+    (CURRENCY_TMT, "Turkmenistan manat"),
+    (CURRENCY_TND, "Tunisian dinar"),
+    (CURRENCY_TOP, "Tongan paʻanga"),
+    (CURRENCY_TRY, "Turkish lira"),
+    (CURRENCY_TTD, "Trinidad and Tobago dollar"),
+    (CURRENCY_TVD, "Tuvaluan dollar"),
+    (CURRENCY_TWD, "New Taiwan dollar"),
+    (CURRENCY_TZS, "Tanzanian shilling"),
+    (CURRENCY_UAH, "Ukrainian hryvnia"),
+    (CURRENCY_UGX, "Ugandan shilling"),
+    (CURRENCY_UYU, "Uruguayan peso"),
+    (CURRENCY_UZS, "Uzbekistani soʻm"),
+    (CURRENCY_VES, "Venezuelan bolívar soberano"),
+    (CURRENCY_VND, "Vietnamese đồng"),
+    (CURRENCY_VUV, "Vanuatu vatu"),
+    (CURRENCY_WST, "Samoan tālā"),
+    (CURRENCY_XAF, "Central African CFA franc"),
+    (CURRENCY_XCD, "Eastern Caribbean dollar"),
+    (CURRENCY_XOF, "West African CFA franc"),
+    (CURRENCY_XPF, "CFP franc"),
+    (CURRENCY_ZAR, "South African rand"),
+    (CURRENCY_ZMW, "Zambian kwacha"),
+    (CURRENCY_ZWB, "Zimbabwean bonds"),
+)

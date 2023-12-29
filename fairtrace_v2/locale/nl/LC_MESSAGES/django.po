@@ -1,0 +1,74 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-21 15:53+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: common/library.py:474
+msgid "and"
+msgstr "en"
+
+#: fairtrace_v2/settings/base.py:333
+msgid "English"
+msgstr "Engels"
+
+#: fairtrace_v2/settings/base.py:334
+msgid "Spanish"
+msgstr "Spaans"
+
+#: fairtrace_v2/settings/base.py:335
+msgid "French"
+msgstr "Frans"
+
+#: fairtrace_v2/settings/base.py:336
+msgid "Dutch"
+msgstr "Nederlands"
+
+#: v2/dashboard/models.py:298 v2/supply_chains/models/profile.py:655
+msgid "Language(s) not defined in the system"
+msgstr "Taal (talen) niet gedefinieerd in het systeem"
+
+#: v2/products/constants.py:47
+#, python-format
+msgid "Outgoing to %s"
+msgstr "Uitgaand naar %s"
+
+#: v2/products/constants.py:48
+#, python-format
+msgid "Incoming from %s"
+msgstr "Inkomend van %s"
+
+#: v2/products/constants.py:49
+#, python-format
+msgid "Processed by %s"
+msgstr "Verwerkt door %s"
+
+#: v2/products/constants.py:51
+msgid "Outgoing"
+msgstr "Uitgaand"
+
+#: v2/products/constants.py:52
+msgid "Incoming"
+msgstr "Inkomend"
+
+#: v2/products/constants.py:53
+msgid "Processed"
+msgstr "Verwerkt"
+
+#: v2/products/constants.py:54
+msgid "Incoming and Outgoing"
+msgstr "Inkomend en uitgaand"

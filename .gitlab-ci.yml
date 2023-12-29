@@ -1,0 +1,66 @@
+#image: python:3.8.3-slim
+#services:
+#  - postgres:9.6.17
+#variables:
+#  POSTGRES_HOST_AUTH_METHOD: trust
+#  BASE_ENV_FILE: project/.env
+#cache:
+#  paths:
+#    - ~/.cache/pip/
+#    - venv/
+#stages:
+#  - deploy
+#
+#deploy_dev:
+#  stage: deploy
+#  variables:
+#    STATUS: $?
+#    EXTERNAL_BACKUP: "true"
+#  environment:
+#    name: development
+#  script:
+#    - . cicd/deploy.sh
+#    - deploy
+#
+#  after_script:
+#    # Send slack notification
+#    - . cicd/slacknotifier.sh
+#    - slack_notify
+#  only:
+#    - development
+#
+#
+#deploy_stage:
+#  stage: deploy
+#  variables:
+#    STATUS: $?
+#    EXTERNAL_BACKUP: "false"
+#  environment:
+#    name: staging
+#  script:
+#    - . cicd/deploy.sh
+#    - deploy
+#  after_script:
+#    # Send slack notification
+#    - . cicd/slacknotifier.sh
+#    - slack_notify
+#  only:
+#    - staging
+#
+#
+#deploy_prod:
+#  stage: deploy
+#  variables:
+#    STATUS: $?
+#    EXTERNAL_BACKUP: "true"
+#  environment:
+#    name: production
+#  script:
+#    - . cicd/deploy.sh
+#    - deploy
+#  after_script:
+#    # Send slack notification
+#    - . cicd/slacknotifier.sh
+#    - slack_notify
+#  only:
+#    - production
