@@ -2,7 +2,8 @@
 from common.drf_custom import fields as custom_fields
 from common.drf_custom.fields import IdencodeField
 from common.drf_custom.serializers import IdencodeModelSerializer
-from common.exceptions import AccessForbidden
+from common.exceptions import AccessForbidden, BadRequest
+from common.library import is_valid_gtin
 from django.conf import settings
 from rest_framework import serializers
 from v2.claims.serializers import product_claims
@@ -96,6 +97,7 @@ class BatchSerializer(serializers.ModelSerializer):
     )
     created_from = serializers.CharField(read_only=True, source="sourced_by")
     source_transaction = custom_fields.IdencodeField(read_only=True)
+    created_on = serializers.SerializerMethodField()
 
     class Meta:
         model = Batch
@@ -115,8 +117,13 @@ class BatchSerializer(serializers.ModelSerializer):
             "buyer_ref_number",
             "seller_ref_number",
             "external_source",
-            "source_transaction"
+            "source_transaction",
+            "archived"
         )
+
+    def get_created_on(self, instance):
+        """Get created on as transaction date."""
+        return int(instance.source_transaction.created_on.timestamp())
 
 
 class BatchMigrationSerializer(serializers.ModelSerializer):
@@ -174,6 +181,7 @@ class BatchDetailSerializer(serializers.ModelSerializer):
     migrations = custom_fields.ManyToManyIdencodeField(
         serializer=BatchMigrationSerializer, read_only=True
     )
+    gtin = serializers.CharField(required=False, allow_blank=True)
 
     class Meta:
         model = Batch
@@ -203,7 +211,14 @@ class BatchDetailSerializer(serializers.ModelSerializer):
             "migrations",
             "buyer_ref_number",
             "seller_ref_number",
+            "gtin"
         )
+    
+    def validate(self, attrs):
+        if "gtin" in attrs and attrs["gtin"]:
+            if not is_valid_gtin(attrs["gtin"]):
+                raise BadRequest("Invalid GTIN", send_to_sentry=False)
+        return super().validate(attrs)
 
     def get_outgoing_transactions(self, instance):
         """Add details of outgoing transactions from the batch."""
@@ -259,17 +274,26 @@ class BatchDetailSerializer(serializers.ModelSerializer):
                 "name": nsc.primary_operation.name,
             }
         data["supplier"]["primary_operation"] = primary_operation
-        data["consumer_interface_url"] = self._get_consumer_interface_url(node)
+        data["consumer_interface_url"] = self._get_consumer_interface_url(
+            node, instance
+        )
         return data
 
     @staticmethod
-    def _get_consumer_interface_url(node):
+    def _get_consumer_interface_url(node, instance):
         """To perform function _get_consumer_interface_url."""
         theme = CITheme.objects.filter(node=node).first()
         if not theme:
             theme = CITheme.objects.filter(is_public=True).first()
         if theme.version != "0" and settings.CONSUMER_INTERFACE_V2_URL:
-            return settings.CONSUMER_INTERFACE_V2_URL
+            url = settings.CONSUMER_INTERFACE_V2_URL
+            if instance.gtin:
+                url = (
+                    url[:-2] +
+                    f"01/{instance.gtin}/10/{instance.idencode}?"
+                    f"theme={theme.idencode}"
+                )
+            return url
         return ""
 
 

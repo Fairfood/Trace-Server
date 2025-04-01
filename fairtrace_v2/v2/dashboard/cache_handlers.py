@@ -1,6 +1,6 @@
 from typing import List
 
-from celery.task import task
+from celery import shared_task
 from common.cache import cache_proxy
 from common.cache import filesystem_cache
 from django.apps import apps
@@ -205,7 +205,7 @@ def get_batches(instance_id: int) -> List[str]:
 #     pass
 
 
-@task(name="clear-ci-stage-cache", queue="ci_queue")
+@shared_task(name="clear-ci-stage-cache", queue="ci_queue")
 def clear_ci_stage_cache(batch_id, ignore_parents=False):
     """Task to clear the CI stage cache for a specific batch.
 
@@ -219,7 +219,7 @@ def clear_ci_stage_cache(batch_id, ignore_parents=False):
     return clear_ci_cache(batch_id, "stage", ignore_parents=ignore_parents)
 
 
-@task(name="clear-ci-map-cache", queue="ci_queue")
+@shared_task(name="clear-ci-map-cache", queue="ci_queue")
 def clear_ci_map_cache(batch_id, ignore_parents=False):
     """Task to clear the CI map cache for a specific batch.
 
@@ -233,7 +233,7 @@ def clear_ci_map_cache(batch_id, ignore_parents=False):
     return clear_ci_cache(batch_id, "map", ignore_parents=ignore_parents)
 
 
-@task(name="clear-ci-claim-cache", queue="ci_queue")
+@shared_task(name="clear-ci-claim-cache", queue="ci_queue")
 def clear_ci_claim_cache(batch_id, ignore_parents=False):
     """Task to clear the CI claim cache for a specific batch.
 

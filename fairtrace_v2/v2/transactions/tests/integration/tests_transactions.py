@@ -174,3 +174,23 @@ class TransactionTestCase(TransactionBaseTestCase):
             internal_details_url, format="json", **self.headers
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_archive_external(self):
+        toggl_archive_url = reverse("external-transaction-toggle-archive")
+        data = {
+            "is_excluded": True,
+        }
+        response = self.client.post(
+            toggl_archive_url, data, format="json", **self.headers
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_archive_internal(self):
+        toggl_archive_url = reverse("internal-transaction-toggle-archive")
+        data = {
+            "is_excluded": True,
+        }
+        response = self.client.post(
+            toggl_archive_url, data, format="json", **self.headers
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)

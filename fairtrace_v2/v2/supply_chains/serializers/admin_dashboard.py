@@ -1,5 +1,6 @@
 """Serializers for admin dashboard related APIs."""
 from common import library as comm_lib
+from common.backends.sso import NOT_AVAILABLE, SSORequest
 from common.drf_custom import fields as custom_fields
 from common.exceptions import BadRequest
 from django.db import transaction as django_transaction
@@ -9,26 +10,22 @@ from v2.accounts.models import FairfoodUser
 from v2.accounts.serializers import user as user_serializers
 from v2.activity import constants as act_constants
 from v2.activity.models import Activity
-from v2.dashboard.models import CITheme
-from v2.dashboard.models import DashboardTheme
+from v2.dashboard.models import CITheme, DashboardTheme
 from v2.products import constants as prod_constants
 from v2.products.models import Product
 from v2.products.serializers.product import ProductSerializer
 from v2.supply_chains import constants
 from v2.supply_chains.constants import NODE_INVITED_BY_FFADMIN
-from v2.supply_chains.models import AdminInvitation
-from v2.supply_chains.models import Company
-from v2.supply_chains.models import Node
-from v2.supply_chains.models import NodeFeatures
-from v2.supply_chains.models import NodeMember
-from v2.supply_chains.models import NodeSupplyChain
-from v2.supply_chains.models import SupplyChain
-from v2.supply_chains.models import Verifier
+from v2.supply_chains.models import (AdminInvitation, Company, Node,
+                                     NodeFeatures, NodeMember, NodeSupplyChain,
+                                     SupplyChain, Verifier)
 from v2.supply_chains.serializers import node as node_serializers
-from v2.supply_chains.serializers import (
-    supply_chain as supply_chain_serializers,
-)
+from v2.supply_chains.serializers import \
+    supply_chain as supply_chain_serializers
 from v2.supply_chains.serializers.supply_chain import SupplyChainSerializer
+from v2.supply_chains.tasks import (
+    initial_sync_to_navigate, initial_sync_to_connect
+)
 
 
 class FFAdminCompanyInviteSerializer(node_serializers.NodeSerializer):
@@ -119,6 +116,8 @@ class FFAdminCompanyInviteSerializer(node_serializers.NodeSerializer):
         node = super(FFAdminCompanyInviteSerializer, self).serializer_create(
             validated_data, Company
         )
+        node.status = constants.NODE_STATUS_ACTIVE
+        node.save()
 
         admin_invitation = AdminInvitation.objects.create(invitee=node)
         for data in supply_chains:
@@ -135,11 +134,37 @@ class FFAdminCompanyInviteSerializer(node_serializers.NodeSerializer):
         if created:
             nsc.invited_by = constants.NODE_INVITED_BY_FFADMIN
             nsc.save()
+
+            user = FairfoodUser.objects.get(email=validated_data['incharge'].email)
+
+            data = {
+                "first_name": validated_data['incharge'].first_name,
+                "last_name": validated_data['incharge'].last_name,
+                "email": validated_data['incharge'].email,
+                "default_node": {
+                    "name": validated_data.get('name'),
+                    "identification_no": validated_data.get('identification_no'),
+                    "street": validated_data.get('street'),
+                    "country": validated_data.get('country'),
+                    "province": validated_data.get('province'),
+                    "city": validated_data.get('city'),
+                    "zipcode": validated_data.get('zipcode'),
+                    "supply_chains": supply_chains,
+                    "user":user
+                },
+                "nodes": [],  
+                "terms_accepted": True, 
+                "privacy_accepted": True,
+                "email_verified": True,
+            }
+
+            serializer = user_serializers.InviteeUserSerializer(instance=user, data=data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
             admin_invitation.send_invite()
             admin_invitation.log_activity()
-        else:
-            raise BadRequest("Node already exists")
-        django_transaction.on_commit(lambda: node.stats.update_values())
+            
+            django_transaction.on_commit(lambda: node.stats.update_values())
         return node
 
     def to_representation(self, instance):
@@ -590,11 +615,12 @@ class FFAdminNodeThemeViewSerializer(serializers.ModelSerializer):
             "node",
             "dashboard_theming",
             "consumer_interface_theming",
+            "link_navigate",
+            "link_connect"
         )
 
     @django_transaction.atomic
     def create(self, validated_data):
-        """To perform function create."""
         node_id = self.context["view"].kwargs["pk"]
         node = Node.objects.get(id=node_id)
         validated_data["node"] = node
@@ -625,13 +651,55 @@ class FFAdminNodeThemeViewSerializer(serializers.ModelSerializer):
             and validated_data["dashboard_theming"] is True
         ):
             if not getattr(node, "dashboard_theme", None):
-                default_theme = DashboardTheme.objects.get(default=True)
+                default_theme = DashboardTheme.objects.filter(default=True).first()
                 default_theme.id = None
                 default_theme.node = node
                 default_theme.default = False
                 default_theme.save()
 
+        if "link_navigate" in validated_data:
+            sso = SSORequest()
+            if validated_data.get("link_navigate", None):
+                node.company.refresh_from_db()
+                self.update_sso_status(sso, node.company)
+                initial_sync_to_navigate.delay(node.idencode)
+                for member in node.company.members.all():
+                    sso.add_user_to_navigate(
+                        member, node.company, enable_navigate=True)
+            else:
+                for member in node.company.members.all():
+                    sso.add_user_to_navigate(
+                        member, node.company, enable_navigate=False)
+    
+        if "link_connect" in validated_data:
+            if validated_data.get("link_connect", None):
+                sso = SSORequest()
+                self.update_sso_status(sso, node.company)
+                node.company.refresh_from_db()
+                initial_sync_to_connect.delay(node.idencode)
+                for member in node.company.members.all():
+                    sso.add_user_to_connect(
+                        member, node.company, enable_connect=True)
+
         return nodefeature
+    
+    def update_sso_status(self, sso, company):
+        """Update SSO status."""
+        sso.create_node(company)
+        company.refresh_from_db()
+        
+        for member in company.members.all():
+            if member.sso_user_id == NOT_AVAILABLE or not member.sso_user_id:
+                sso.create_user(member)
+                member.refresh_from_db()
+                sso.create_user_node(member, company)
+            
+            status, response = sso.get_user_node(member, company)
+            if status:
+                response_json = response.json()
+                node_user_count = response_json.get('data', None)
+                if node_user_count and node_user_count.get('count')==0:
+                    sso.create_user_node(member, company)
 
 
 class FFAdminNodeVerifierSerializer(serializers.ModelSerializer):

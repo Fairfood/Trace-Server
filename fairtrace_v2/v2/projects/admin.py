@@ -9,7 +9,7 @@ from .models import PremiumOption
 from .models import Project
 from .models import ProjectNode
 from .models import ProjectPremium
-from .models import ProjectProduct
+from .models import ProjectProduct, Synchronization
 from . import tasks
 
 
@@ -55,6 +55,7 @@ class NodeCardAdmin(ModelAdmin):
     readonly_fields = ("creator", "updater", "reference")
     search_fields = ("card_id", "fairid")
     autocomplete_fields = ("node",)
+    list_display = ("node", "card_id", "created_on", "updated_on")
 
 
 class NodeCardHistoryAdmin(BaseAdmin):
@@ -72,6 +73,12 @@ class ProjectNodeAdmin(ModelAdmin):
     readonly_fields = ("connection",)
     search_fields = ("node",)
 
+class SynchronizationAdmin(ModelAdmin):
+    """Class to handle ProjectNodeAdmin and functions."""
+
+    list_display = ("node", "status", "sync_type")
+    raw_id_fields = ("node",)
+
 
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(ProjectNode, ProjectNodeAdmin)
@@ -80,3 +87,4 @@ admin.site.register(ProjectPremium, ProjectPremiumAdmin)
 admin.site.register(NodeCard, NodeCardAdmin)
 admin.site.register(Payment, PaymentAdmin)
 admin.site.register(NodeCardHistory, NodeCardHistoryAdmin)
+admin.site.register(Synchronization, SynchronizationAdmin)

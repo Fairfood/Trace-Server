@@ -17,7 +17,7 @@ class ExportViewSet(ModelViewSet):
 
     permission_classes = (
         user_permissions.IsAuthenticated,
-        sc_permissions.HasNodeAccess,
+        sc_permissions.HasNodeAccessOrIsFairfoodAdmin,
     )
 
     queryset = Export.objects.all()

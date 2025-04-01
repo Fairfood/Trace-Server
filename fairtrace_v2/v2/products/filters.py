@@ -1,18 +1,17 @@
 """Filters used in the app products."""
+
 from common import library as comm_lib
 from common.library import decode
-from django.db.models import Q
+from django.db.models import Case, F, Q, When
 from django.utils.timezone import datetime
 from django_filters import rest_framework as filters
 from v2.claims import constants as claim_constants
-from v2.products.models import Batch
-from v2.products.models import BatchFarmerMapping
-from v2.products.models import Product
-from v2.transactions.constants import EXTERNAL_TRANS_TYPE_REVERSAL
-from v2.transactions.constants import INTERNAL_TRANS_TYPE_MERGE
-from v2.transactions.constants import INTERNAL_TRANS_TYPE_PROCESSING
-from v2.transactions.constants import TRANSACTION_TYPE_EXTERNAL
-from v2.transactions.constants import TRANSACTION_TYPE_INTERNAL
+from v2.products.models import Batch, BatchFarmerMapping, Product
+from v2.transactions.constants import (EXTERNAL_TRANS_TYPE_REVERSAL,
+                                       INTERNAL_TRANS_TYPE_MERGE,
+                                       INTERNAL_TRANS_TYPE_PROCESSING,
+                                       TRANSACTION_TYPE_EXTERNAL,
+                                       TRANSACTION_TYPE_INTERNAL)
 
 
 class ProductFilter(filters.FilterSet):
@@ -48,6 +47,13 @@ class BatchFilter(filters.FilterSet):
     def __init__(self, node=None, **kwargs):
         """To perform function __init__."""
         super().__init__(**kwargs)
+        if "archived" not in self.data:
+            if hasattr(self.data, "_mutable"):
+                self.data._mutable = True
+                self.data["archived"] = "false"
+                self.data._mutable = False
+            else:
+                self.data["archived"] = "false"
         if not node:
             self.node = self.request.parser_context["kwargs"]["node"]
         else:
@@ -66,20 +72,32 @@ class BatchFilter(filters.FilterSet):
     quantity_from = filters.NumberFilter(
         field_name="current_quantity", lookup_expr="gte"
     )
-    quantity_to = filters.NumberFilter(
-        field_name="current_quantity", lookup_expr="lte"
-    )
+    quantity_to = filters.NumberFilter(field_name="current_quantity", lookup_expr="lte")
     quantity_is = filters.CharFilter(method="filter_quantity_is")
 
     class Meta:
         model = Batch
-        fields = ["supply_chain", "search"]
+        fields = ["supply_chain", "search", "archived"]
 
     def filter_by_supplier(self, queryset, name, value):
         """To perform function ilter_by_supplier."""
         node_id = comm_lib._decode(value)
-        query = Q(source_transaction__externaltransaction__source__id=node_id)
-        return queryset.filter(query)
+
+        return (
+            queryset.filter(source_transaction__isnull=False)
+            .annotate(
+                supplier_id=Case(
+                    When(
+                        Q(
+                            source_transaction__transaction_type=TRANSACTION_TYPE_EXTERNAL
+                        ),
+                        then=F("source_transaction__externaltransaction__source__id"),
+                    ),
+                    default=F("source_transaction__internaltransaction__node__id"),
+                )
+            )
+            .filter(supplier_id=node_id)
+        )
 
     def filter_by_product(self, queryset, name, value):
         """To perform function ilter_by_product."""
@@ -111,26 +129,28 @@ class BatchFilter(filters.FilterSet):
         query |= Q(name__icontains=value)
         query |= Q(product__name__icontains=value)
         query |= Q(number__icontains=value)
+        query |= Q(buyer_ref_number__icontains=value)
+        query |= Q(seller_ref_number__icontains=value)
         return queryset.filter(query)
 
     def filter_date_from(self, queryset, name, value):
         """To perform function ilter_date_from."""
         value += "-00:00:00"
         value = datetime.strptime(value, "%d/%m/%Y-%H:%M:%S")
-        query = Q(created_on__gte=value)
+        query = Q(source_transaction__created_on__gte=value)
         return queryset.filter(query)
 
     def filter_date_to(self, queryset, name, value):
         """To perform function ilter_date_to."""
         value += "-23:59:59"
         value = datetime.strptime(value, "%d/%m/%Y-%H:%M:%S")
-        query = Q(created_on__lte=value)
+        query = Q(source_transaction__created_on__lte=value)
         return queryset.filter(query)
 
     def filter_date_on(self, queryset, name, value):
         """To perform function ilter_date_on."""
         value = datetime.strptime(value, "%d/%m/%Y")
-        query = Q(created_on__contains=value.date())
+        query = Q(source_transaction__created_on__contains=value.date())
         return queryset.filter(query)
 
     def filter_created_from(self, queryset, name, value):
@@ -141,17 +161,13 @@ class BatchFilter(filters.FilterSet):
         mer = INTERNAL_TRANS_TYPE_MERGE
         pro = INTERNAL_TRANS_TYPE_PROCESSING
         if value in ["returned", "purchased"]:
-            query &= Q(
-                source_transaction__transaction_type=TRANSACTION_TYPE_EXTERNAL
-            )
+            query &= Q(source_transaction__transaction_type=TRANSACTION_TYPE_EXTERNAL)
             if value == "returned":
                 query &= Q(source_transaction__externaltransaction__type=ext)
             else:
                 query &= ~Q(source_transaction__externaltransaction__type=ext)
         elif value in ["merged", "processed"]:
-            query &= Q(
-                source_transaction__transaction_type=TRANSACTION_TYPE_INTERNAL
-            )
+            query &= Q(source_transaction__transaction_type=TRANSACTION_TYPE_INTERNAL)
             if value == "merged":
                 query &= Q(source_transaction__internaltransaction__type=mer)
             else:

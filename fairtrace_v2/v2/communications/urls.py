@@ -1,9 +1,17 @@
 """URLs of the app tasks."""
 from django.urls import path
+from rest_framework.routers import DefaultRouter
+
 
 from .views.notification import NotificationDetails
 from .views.notification import NotificationList
 from .views.notification import ReadNotification
+from .views.notification import EmailConfigurationViewSet
+
+router = DefaultRouter()
+router.register(
+    "email-configs", EmailConfigurationViewSet, base_name="email-configs"
+)
 
 urlpatterns = [
     # Notification APIS
@@ -19,3 +27,5 @@ urlpatterns = [
         name="notifications-details",
     ),
 ]
+
+urlpatterns += router.urls

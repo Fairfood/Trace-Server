@@ -16,21 +16,19 @@ Including another URLconf
 import debug_toolbar
 from common.drf_custom import converters
 from django.conf import settings
-from django.conf.urls import include
-from django.conf.urls import url
+from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
-from django.urls import register_converter
+from django.urls import path, register_converter
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
 register_converter(converters.IDConverter, "idencode")
 
-# if settings.ENVIRONMENT == 'production':
-#     from django_otp.admin import OTPAdminSite
-#     admin.site.__class__ = OTPAdminSite
+if settings.ENVIRONMENT == 'production':
+    from django_otp.admin import OTPAdminSite
+    admin.site.__class__ = OTPAdminSite
 
 schema_view = get_schema_view(
     openapi.Info(

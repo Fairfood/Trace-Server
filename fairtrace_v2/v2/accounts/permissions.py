@@ -17,6 +17,7 @@ from .models import AccessToken
 from .models import ClientVersion
 from .models import UserClientVersion
 from .models import ValidationToken
+from django.contrib.auth.models import AnonymousUser
 
 
 class IsAuthenticated(permissions.BasePermission):
@@ -28,29 +29,24 @@ class IsAuthenticated(permissions.BasePermission):
 
     def has_permission(self, request, view):
         """To check token."""
-        key = request.META.get("HTTP_BEARER")
-        user_id = _decode(request.META.get("HTTP_USER_ID"))
+        user_id = request.META.get("HTTP_USER_ID")
 
         timezone_str = request.META.get("HTTP_TIMEZONE")
         if timezone_str:
             activate_timezone(timezone_str)
 
-        if not key:
-            raise BadRequest(
-                "Can not find Bearer token in the request header."
-            )
         if not user_id:
             raise BadRequest("Can not find User-Id in the request header.")
+        user = request.user
 
-        try:
-            user = AccessToken.objects.get(key=key, user__id=user_id).user
-        except Exception:
+        if isinstance(user, AnonymousUser) or user.idencode != user_id:
             raise UnauthorizedAccess(
-                "Invalid Bearer token or User-Id, please re-login."
-            )
-        if user.blocked:
+                "Invalid User-Id or login, please re-login.")
+
+        if request.user.blocked:
             raise AccessForbidden("user account is blocked, contact admin.")
-        request.user = user
+
+        
         view.kwargs["user"] = user
         version = request.META.get("HTTP_VERSION")
         if not version:
@@ -107,39 +103,32 @@ class IsAuthenticatedWithVerifiedEmail(permissions.BasePermission):
 
     def has_permission(self, request, view):
         """To check token."""
-        key = request.META.get("HTTP_BEARER")
-        user_id = _decode(request.META.get("HTTP_USER_ID"))
+        user_id = request.META.get("HTTP_USER_ID")
 
         timezone_str = request.META.get("HTTP_TIMEZONE")
         if timezone_str:
             activate_timezone(timezone_str)
 
-        if not key:
-            raise BadRequest(
-                "Can not find Bearer token in the request header."
-            )
         if not user_id:
             raise BadRequest("Can not find User-Id in the request header.")
 
-        try:
-            user = AccessToken.objects.get(key=key, user__id=user_id).user
-        except Exception:
+        user = request.user
+        if isinstance(user, AnonymousUser) or user.idencode != user_id:
             raise UnauthorizedAccess(
-                "Invalid Bearer token or User-Id, please re-login."
-            )
+                "Invalid User-Id or login, please re-login.")
 
         if user.blocked:
             raise AccessForbidden("User account is blocked, contact admin.")
 
-        if not user.email_verified:
-            raise AccessForbidden("User has not verified email.")
+        # if not request.session.get("email_verified", False):
+        #     raise AccessForbidden("User has not verified email.")
 
         if (
-            not user.nodes.exists()
-            and not user.type == USER_TYPE_FAIRFOOD_ADMIN
-        ):
+                not user.nodes.exists() 
+                and request.session.get("type") == 'NODE_USER'
+            ):
             raise UnauthorizedAccess("User does not have access to any nodes")
-        request.user = user
+
         view.kwargs["user"] = user
         return True
 

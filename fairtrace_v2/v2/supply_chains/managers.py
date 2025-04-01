@@ -108,24 +108,24 @@ class NodeQuerySet(models.QuerySet):
                 )
             ).distinct()
 
-        if search:
-            queryset = self.filter(pk__in=queryset.values("id"))
-            queryset = queryset.annotate(full_name_search=Case(
-                When(
-                    type=NODE_TYPE_FARM,
-                    then=Concat(
-                        "farmer__first_name",
-                        Value(" "),
-                        "farmer__last_name",
-                    ),
-                ),
-                When(
-                    type=NODE_TYPE_COMPANY,
-                    then="company__name",
-                ),
-                default=Value(""),
-                output_field=CharField(),
-            )).filter(full_name_search__icontains=search)
+        # if search:
+        #     queryset = self.filter(pk__in=queryset.values("id"))
+        #     queryset = queryset.annotate(full_name_search=Case(
+        #         When(
+        #             type=NODE_TYPE_FARM,
+        #             then=Concat(
+        #                 "farmer__first_name",
+        #                 Value(" "),
+        #                 "farmer__last_name",
+        #             ),
+        #         ),
+        #         When(
+        #             type=NODE_TYPE_COMPANY,
+        #             then="company__name",
+        #         ),
+        #         default=Value(""),
+        #         output_field=CharField(),
+        #     )).filter(full_name_search__icontains=search)
 
         return queryset
 
@@ -251,8 +251,6 @@ class ReferenceQuerySet(models.QuerySet):
 
         if search:
             queryset = queryset.filter(name__icontains=search)
-        # show only editable references
-        queryset = queryset.filter(is_editable=True)
         return queryset
 
 

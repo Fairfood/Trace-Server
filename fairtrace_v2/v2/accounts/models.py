@@ -119,6 +119,7 @@ class FairfoodUser(DjangoAbstractUser):
     """
     external_id = models.CharField(max_length=100, default=None, blank=True, 
                                    null=True)
+    sso_user_id = models.CharField(max_length=100, null=True, blank=True)
     dob = models.DateField(null=True, blank=True)
     phone = models.CharField(default="", max_length=200, blank=True)
     address = models.CharField(default="", max_length=2000, blank=True)

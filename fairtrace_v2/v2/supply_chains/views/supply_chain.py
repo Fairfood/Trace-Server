@@ -25,7 +25,7 @@ from v2.supply_chains.constants import INVITE_RELATION_SUPPLIER
 from v2.supply_chains.farmer_bulk import export_farmers
 from v2.supply_chains.farmer_bulk.constants import farmer_excel_file_name
 from v2.supply_chains.filters import LabelFilter
-from v2.supply_chains.filters import NodeFilter
+from v2.supply_chains.filters import NodeFilter, ConnectionNodeFilter
 from v2.supply_chains.filters import SupplyChainFilter
 from v2.supply_chains.models import Connection
 from v2.supply_chains.models import Label
@@ -488,6 +488,7 @@ class ConnectionNodeViewSet(viewsets.ModelViewSet):
     )
     serializer_class = ConnectionNodeSerializer
     allowed_methods = ("GET",)
+    filterset_class = ConnectionNodeFilter
 
     def get_queryset(self):
         """Get the queryset of Node objects for the ConnectionNodeViewSet.

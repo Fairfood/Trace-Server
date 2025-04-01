@@ -1,7 +1,13 @@
 """Views related to product in products app."""
 from django.db.models import Q
 from rest_framework import generics
+from rest_framework import views
 from rest_framework.viewsets import ReadOnlyModelViewSet
+from django.db.models import Sum
+from common.library import encode, filter_queryset, success_response, decode
+from common.exceptions import BadRequest
+from rest_framework import status
+from v2.products.constants import UNIT_KG
 from v2.accounts import permissions as user_permissions
 from v2.products.filters import BatchFarmerMappingFilter
 from v2.products.filters import BatchFilter
@@ -25,9 +31,52 @@ class BatchList(generics.ListAPIView):
 
     def get_queryset(self):
         """To perform function get_queryset."""
-        query = Q(node=self.kwargs["node"], current_quantity__gt=0)
+        query = Q(
+            node=self.kwargs["node"], 
+            current_quantity__gt=0, 
+            source_transaction__deleted=False
+        )
         batches = Batch.objects.filter(query)
         return batches.sort_by_query_params(self.request)
+    
+class BatchSummary(views.APIView):
+    """API to list batches of a node with option to filter by product."""
+
+    permission_classes = (
+        user_permissions.IsAuthenticatedWithVerifiedEmail,
+        sc_permissions.HasNodeAccess,
+    )
+
+    def get(self, request, *args, **kwargs):
+        """To perform function get_queryset."""
+        query = Q(
+            node=self.kwargs["node"], 
+            current_quantity__gt=0, 
+            source_transaction__deleted=False
+        )
+        batches = Batch.objects.filter(query)
+        batches = BatchFilter(
+            data=request.query_params,
+            queryset=batches,
+            request=request,
+        ).qs
+        
+        selected_batches = batches.values("id","current_quantity")
+        selected_batches = map(
+            lambda selected_batch :{
+                "batch": encode(selected_batch["id"]),
+                "quantity": selected_batch["current_quantity"]
+                }, 
+                selected_batches)
+        total_quantity = batches.aggregate(
+            Sum('current_quantity'))['current_quantity__sum']
+        
+        return success_response({
+            "total_quantity": total_quantity, 
+            "unit": UNIT_KG,
+            "selected_batches": selected_batches
+            })
+
 
 
 class BatchDetails(generics.RetrieveUpdateAPIView):
@@ -70,3 +119,61 @@ class BatchFarmerMappingViewSet(ReadOnlyModelViewSet):
         user_permissions.IsAuthenticatedWithVerifiedEmail,
         sc_permissions.HasNodeAccess,
     )
+
+class BatchArchiveView(generics.CreateAPIView):
+    """API to archive transactions."""
+    
+    queryset = Batch.objects.all()
+    permission_classes = (
+        user_permissions.IsAuthenticatedWithVerifiedEmail,
+        sc_permissions.HasNodeWriteAccess,
+    )
+
+    def get_queryset(self):
+        """To perform function get_queryset."""
+        node = self.kwargs["node"]
+        return super().get_queryset().filter(node=node)
+
+    def post(self, request, *args, **kwargs):
+        """Bulk update archived transactions."""
+        if not isinstance(request.data, dict):
+            raise BadRequest("Invalid data")
+        
+        selected_items = request.data.get("selected_items", [])
+        is_excluded = request.data.get("is_excluded", False)
+        restore = request.data.get("restore", False)
+        filters = request.data.get("filters", {})
+        
+        pks = map(decode, selected_items)
+        
+        if not isinstance(is_excluded, bool):
+            raise BadRequest("Invalid data")
+        if not isinstance(restore, bool):
+            raise BadRequest("Invalid data")
+        
+        queryset = self.get_queryset().filter(archived=restore)
+        queryset = self.filter_queryset_with_data_filters(
+            queryset, filters, restore=restore)
+        
+        if is_excluded:
+            queryset = queryset.exclude(pk__in=pks)
+        else:
+            queryset = queryset.filter(pk__in=pks)
+        update_list = []
+        for instance in queryset:
+            instance.archived = not instance.archived
+            update_list.append(instance)
+        queryset.model.objects.bulk_update(update_list, ['archived'])
+        return success_response(
+            {"toggled_items": len(update_list)}, 
+            "Archive status toggled", status=status.HTTP_201_CREATED)
+    
+    def filter_queryset_with_data_filters(self, queryset, filters, restore):
+        """Filter queryset with data filters."""
+        filters = {k: v for k, v in filters.items() if v}
+        if not filters:
+            return queryset
+        filters["archived"] = restore
+        filterset_class = BatchFilter
+        return filter_queryset(filterset_class, filters, 
+                               queryset, node=self.kwargs["node"])

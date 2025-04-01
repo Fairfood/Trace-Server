@@ -66,9 +66,11 @@ class ExternalTransactionSerializer(serializers.ModelSerializer):
     batches = batch_serializers.SourceBatchSerializer(
         write_only=True, many=True, required=False
     )
-    only_changed_batches = batch_serializers.SourceBatchSerializer(
-        write_only=True, many=True, required=False
-    )
+    select_all_batches = serializers.BooleanField(default=False, 
+                                                  write_only=True)
+    
+    send_seperately = serializers.BooleanField(default=False, 
+                                               write_only=True)
 
     transparency_request = custom_fields.IdencodeField(
         related_model=StockRequest,
@@ -135,6 +137,7 @@ class ExternalTransactionSerializer(serializers.ModelSerializer):
     )
     force_create = serializers.BooleanField(default=False, required=False)
     invoice = serializers.FileField(required=False)
+    remittance_type = serializers.SerializerMethodField()
 
     current_node = None
 
@@ -144,7 +147,8 @@ class ExternalTransactionSerializer(serializers.ModelSerializer):
             "id",
             "date",
             "batches",
-            "only_changed_batches",
+            "select_all_batches",
+            "send_seperately",
             "node",
             "product",
             "quantity",
@@ -183,6 +187,8 @@ class ExternalTransactionSerializer(serializers.ModelSerializer):
             "buyer_ref_number",
             "seller_ref_number",
             "card_details",
+            "archived",
+            "remittance_type"
         )
 
     def __init__(self, *args, **kwargs):
@@ -336,16 +342,6 @@ class ExternalTransactionSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError(
                     f"Transparency request mismatch. {e}."
                 )
-        if "type" in attrs.keys():
-            if attrs[
-                "type"
-            ] == trans_constants.EXTERNAL_TRANS_TYPE_OUTGOING and not any(
-                [attrs.get("batches"), attrs.get("only_changed_batches")]
-            ):
-                raise serializers.ValidationError(
-                    "Either Batches or Changed Batches required "
-                    "for outgoing transaction"
-                )
         return attrs
 
     def prepare_batches(self, validated_data):
@@ -356,61 +352,60 @@ class ExternalTransactionSerializer(serializers.ModelSerializer):
         and the resulting batch of product D is then sent to the buyer.
         """
         incoming_type = trans_constants.EXTERNAL_TRANS_TYPE_INCOMING
-        if validated_data["type"] != incoming_type:
-            batches = validated_data.pop("batches", None)
-            only_changed_batches = validated_data.pop(
-                "only_changed_batches", None
-            )
-            if batches and only_changed_batches:
-                raise ValidationError(
-                    "Using 'batches' and "
-                    "'only_changed_batches' same time is "
-                    "not allowed."
-                )
-            if only_changed_batches:
-                self._get_only_batches_to_batches(only_changed_batches)
-                batches = only_changed_batches
+        select_all_batches = validated_data.pop("select_all_batches", False)
 
+        if validated_data["type"] != incoming_type:
+            batches = validated_data.pop("batches", [])
+            send_seperately = validated_data.get("send_seperately", False)
+            
+            if select_all_batches:
+                self._get_only_batches_to_batches(batches)
             if (
-                    len(batches) > 1
+                    (len(batches) > 1 and not send_seperately) 
                     or batches[0]["batch"].product != validated_data["product"]
             ):
-                source_batches = [
-                    {"batch": i["batch"].idencode, "quantity": i["quantity"]}
-                    for i in batches
-                ]
-                int_tran_data = {
-                    "type": trans_constants.INTERNAL_TRANS_TYPE_PROCESSING,
-                    "mode": trans_constants.TRANSACTION_MODE_SYSTEM,
-                    "source_batches": source_batches,
-                    "comment": validated_data.get("comment", ""),
-                    "destination_batches": [
-                        {
-                            "product": validated_data["product"].idencode,
-                            "quantity": validated_data["quantity"],
-                            "unit": validated_data["unit"],
-                        }
-                    ],
-                }
-                if "date" in validated_data:
-                    int_tran_data["date"] = validated_data["date"]
-                int_tran_serializer = InternalTransactionSerializer(
-                    data=int_tran_data, context=self.context
-                )
-                if not int_tran_serializer.is_valid():
-                    raise serializers.ValidationError(
-                        int_tran_serializer.errors
-                    )
-                int_trans = int_tran_serializer.save()
-                result_batch = int_trans.result_batches.first()
-                validated_data["batch"] = {
-                    "batch": result_batch,
-                    "quantity": result_batch.initial_quantity,
-                }
+                int_trans = self.create_intetrnal_transaction(
+                    batches, validated_data)
+                result_batches = int_trans.result_batches.all()
+                validated_data["batches"] = [
+                    {
+                        "batch": result_batch,
+                        "quantity": result_batch.initial_quantity
+                    } for result_batch in result_batches]
             else:
-                validated_data["batch"] = batches[0]
+                validated_data["batches"] = batches
 
         return validated_data
+    
+    def create_intetrnal_transaction(self, batches, validated_data):
+        """Create internal transaction for the batches."""
+        source_batches = [
+                    {"batch": i["batch"].idencode, "quantity": i["quantity"]}
+                    for i in batches
+        ]
+        int_tran_data = {
+            "type": trans_constants.INTERNAL_TRANS_TYPE_PROCESSING,
+            "mode": trans_constants.TRANSACTION_MODE_SYSTEM,
+            "source_batches": source_batches,
+            "comment": validated_data.get("comment", ""),
+            "destination_batches": [
+                {
+                    "product": validated_data["product"].idencode,
+                    "quantity": validated_data["quantity"],
+                    "unit": validated_data["unit"],
+                }
+            ],
+        }
+        if "date" in validated_data:
+            int_tran_data["date"] = validated_data["date"]
+        int_tran_serializer = InternalTransactionSerializer(
+            data=int_tran_data, context=self.context
+        )
+        if not int_tran_serializer.is_valid():
+            raise serializers.ValidationError(
+                int_tran_serializer.errors
+            )
+        return int_tran_serializer.save()
 
     @staticmethod
     def prepare_incoming_batches(**kwargs) -> dict:
@@ -430,7 +425,49 @@ class ExternalTransactionSerializer(serializers.ModelSerializer):
             unit=kwargs["unit"],
             type=prod_constants.BATCH_TYPE_INTERMEDIATE,
         )
-        return {"batch": batch, "quantity": batch.initial_quantity}
+        return [{"batch": batch, "quantity": batch.initial_quantity}]
+    
+    def create_source_destination_batches(self, 
+                                          send_seperately=False, 
+                                          **kwargs):
+        """Create source and destination batches for the transaction."""
+        transaction = kwargs.get("transaction")
+        user = kwargs.get("user")
+        product = kwargs.get("product")
+        name = kwargs.get("name")
+        buyer = kwargs.get("buyer")
+        unit = kwargs.get("unit")
+        quantity = kwargs.get("quantity")
+        comment = kwargs.get("comment")
+        batches = kwargs.get("batches")
+
+        selected_batches = []
+        
+        for batch_item in batches:
+            batch = batch_item["batch"]
+            qty = batch_item["quantity"]
+            
+            
+            SourceBatch.objects.create(transaction=transaction, batch=batch, 
+                            quantity=qty, creator=user, updater=user)
+            batch.current_quantity -= qty
+            selected_batches.append(batch)
+
+
+            if batch.source_transaction:
+                transaction.add_parent(batch.source_transaction)
+            # Creating result batch.
+            
+            new_batch = Batch.objects.create(
+                product=product, node=buyer,
+                initial_quantity=qty if send_seperately else quantity, 
+                current_quantity=qty if send_seperately else quantity, 
+                unit=unit, name=name, creator=user, updater=user, 
+                source_transaction=transaction, note=comment)
+            new_batch.parents.add(batch)
+            new_batch.update_batch_farmers()
+
+        Batch.objects.bulk_update(selected_batches, ["current_quantity"])
 
     @staticmethod
     def filter_for_duplicate_txn(validated_data, **kwargs) -> tuple:
@@ -467,7 +504,8 @@ class ExternalTransactionSerializer(serializers.ModelSerializer):
             connected_nodes = node.get_connections(supply_chain=supply_chain)
             if not validated_data["node"] in connected_nodes:
                 raise BadRequest(
-                    "Only connected companies can create transaction."
+                    f"Only connected companies can create transaction.: "
+                    f"{validated_data['node']} not in {connected_nodes}"
                 )
         force_create = validated_data.pop("force_create", None)
         if "created_on" in validated_data.keys():
@@ -486,9 +524,9 @@ class ExternalTransactionSerializer(serializers.ModelSerializer):
         validated_data["destination"] = buyer
 
         validated_data = self.prepare_batches(validated_data)
-
+        send_seperately = validated_data.pop("send_seperately", False)
         transparency_request = validated_data.pop("stockrequest", None)
-        batch_data = validated_data.pop("batch", None)
+        batch_data = validated_data.pop("batches", None)
         product = validated_data.pop("product")
         quantity = validated_data.pop("quantity")
         unit = validated_data.pop("unit")
@@ -525,34 +563,20 @@ class ExternalTransactionSerializer(serializers.ModelSerializer):
             )
 
         validated_data["node"] = node
-        batch = batch_data["batch"]
-        qty = batch_data["quantity"]
-        batch.current_quantity -= qty
-        batch.save()
-
-        # Creating source batch
-        SourceBatch.objects.create(
-            transaction=transaction,
-            batch=batch,
-            quantity=qty,
-            creator=current_user,
-            updater=current_user,
-        )
-        if batch.source_transaction:
-            transaction.add_parent(batch.source_transaction)
-        # Creating result batch.
-        Batch.objects.create(
-            product=product,
-            node=buyer,
-            initial_quantity=quantity,
-            current_quantity=quantity,
-            unit=unit,
-            name=name,
-            creator=current_user,
-            updater=current_user,
-            source_transaction=transaction,
-            note=validated_data.get("comment", ""),
-        )
+        
+        data = {
+            "transaction" : transaction,
+            "user" : current_user,
+            "product" : product,
+            "name" : name,
+            "buyer" : buyer,
+            "unit": unit,
+            "quantity": quantity,
+            "comment" : validated_data.get("comment", ""),
+            "batches" : batch_data,
+        }
+        
+        self.create_source_destination_batches(send_seperately, **data)
 
         if product.type == prod_constants.PRODUCT_TYPE_LOCAL:
             product.owners.add(transaction.destination)
@@ -628,7 +652,7 @@ class ExternalTransactionSerializer(serializers.ModelSerializer):
             )
             nsc = instance.source.nodesupplychain_set.get(
                 node=instance.source,
-                supply_chain=instance.source_batches.all()
+                supply_chain=instance.source_batches
                 .first()
                 .product.supply_chain,
             )
@@ -679,6 +703,7 @@ class ExternalTransactionSerializer(serializers.ModelSerializer):
                 Q(node_id=node.id, current_quantity__gt=0)
                 & ~Q(pk__in=batch_ids)
             )
+            batch_qs = batch_qs.filter(archived=False)
             batch_qs = batch_qs.only("id", "current_quantity")
             only_changed_batches.extend(
                 [
@@ -688,6 +713,24 @@ class ExternalTransactionSerializer(serializers.ModelSerializer):
                     for batch in batch_qs
                 ]
             )
+    
+    def get_remittance_type(self, obj):
+        """Get remittance type from extra fields."""
+        for field in obj.extra_fields:
+            remittance_type = next(
+                (
+                    value["value"]
+                    for value in field.get("values", [])
+                    if value.get(
+                        "field_details", {}
+                    ).get("key") == "payment_method"
+                ),
+                None
+            )
+            if remittance_type:
+                return remittance_type        
+        return None
+
 
 
 class ExternalTransactionListSerializer(serializers.ModelSerializer):
@@ -746,6 +789,7 @@ class ExternalTransactionListSerializer(serializers.ModelSerializer):
             "buyer_ref_number",
             "seller_ref_number",
             "creator",
+            "archived"
         )
 
     def check_if_rejectable(self, instance):

@@ -246,7 +246,7 @@ class AttachedClaimSerializer(serializers.ModelSerializer):
     description_full = serializers.CharField(
         read_only=True, source="claim.description_full"
     )
-    image = serializers.CharField(read_only=True, source="claim.image")
+    image = serializers.SerializerMethodField()
     verifier = custom_fields.IdencodeField(
         related_model=Node,
         serializer=NodeBasicSerializer,
@@ -278,6 +278,10 @@ class AttachedClaimSerializer(serializers.ModelSerializer):
             "verifier",
             "node",
         )
+
+    def get_image(self, instance):
+        """To perform function get_image."""
+        return instance.claim.image.url if instance.claim.image else None
 
 
 class ClaimVerifier(serializers.Serializer):

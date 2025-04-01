@@ -19,7 +19,7 @@ class AdminExternalTransactionViewSet(viewsets.ReadOnlyModelViewSet):
     """API to list all External Transactions in the system."""
 
     permission_classes = (IsAuthenticated, IsFairfoodAdmin)
-    queryset = ExternalTransaction.objects.exclude_test()
+    queryset = ExternalTransaction.objects.filter(deleted=False).exclude_test()
     filterset_class = ExternalTransactionFilter
     serializer_class = AdminExternalTransactionModelSerializer
 

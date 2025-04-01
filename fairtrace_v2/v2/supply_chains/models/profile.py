@@ -1,18 +1,20 @@
+import json
 import os
 from collections import defaultdict
 from datetime import date
 from datetime import timedelta
 
-from babel.numbers import format_decimal
 from common.library import _decrypt
 from common.library import _encrypt
 from common.library import _get_file_path
 from common.library import _percentage
+from common.exceptions import BadRequest
 from common.models import AbstractBaseModel
 from common.models import Address
 from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.core.cache import cache
 from django.db import models
 from django.db import transaction as db_transaction
 from django.db.models import Q
@@ -20,6 +22,8 @@ from django.db.models import Sum
 from django.utils.translation import gettext as _
 from django_extensions.db.fields.json import JSONField
 from sentry_sdk import capture_exception
+from v2.supply_chains.validators import (validate_coordinates, 
+                                         validate_geojson_polygon)
 from v2.accounts.constants import VTOKEN_TYPE_INVITE
 from v2.accounts.models import AbstractPerson
 from v2.accounts.models import Person
@@ -52,7 +56,7 @@ from .node import Node
 from .supply_chain import SupplyChain
 
 
-# Create your models here.
+
 
 
 class BlockchainWallet(AbstractBaseModel, AbstractHederaAccount):
@@ -404,6 +408,15 @@ class Farmer(Node, AbstractPerson):
         super().save(*args, **kwargs)
         self.log_activity()
         self.create_identification_ref()
+        
+        #update or create farmer to connect
+        cached = cache.get(f"farmer_connect_sync_{self.idencode}")
+        if not cached:
+            from v2.projects.tasks import add_or_update_farmer_to_connect
+            task = add_or_update_farmer_to_connect.apply_async(
+                args=[self.idencode], countdown=120
+            )
+            cache.set(f"farmer_connect_sync_{self.idencode}", task.task_id)
 
     def __str__(self):
         """To perform function __str__."""
@@ -470,7 +483,7 @@ class Farmer(Node, AbstractPerson):
 
             if ref:
                 # noinspection PyUnresolvedReferences
-                self.farmerreference_set.create(
+                self.farmer_references.create(
                     farmer_id=self.pk,
                     reference_id=ref.pk,
                     number=self.identification_no,
@@ -602,12 +615,6 @@ class Farmer(Node, AbstractPerson):
                             filled += 1
         return int(_percentage(filled, total))
 
-    def _numeric_to_language_format(self, language, data):
-        """To perform function _numeric_to_language_format."""
-        data["volume"] = format_decimal(data["volume"], locale=language)
-        data["income"] = format_decimal(data["income"], locale=language)
-        data["premium"] = format_decimal(data["premium"], locale=language)
-        return True
 
     def transaction_count(self, language):
         """To perform function transaction_count."""
@@ -624,7 +631,11 @@ class Farmer(Node, AbstractPerson):
             data["income"] += external_transaction.price
         for premium_earned in Payment.objects.filter(destination=self):
             data["premium"] += premium_earned.amount
-        self._numeric_to_language_format(language, data)
+        first_transaction = external_transactions.first()
+        data["currency"] = (
+            first_transaction.currency 
+            if first_transaction else ""
+            )
         return data
 
 
@@ -1012,6 +1023,8 @@ class NodeFeatures(AbstractBaseModel):
     )
     dashboard_theming = models.BooleanField(default=False)
     consumer_interface_theming = models.BooleanField(default=False)
+    link_navigate = models.BooleanField(default=False)
+    link_connect = models.BooleanField(default=False)
 
     def __str__(self):
         """To perform function __str__."""
@@ -1056,7 +1069,10 @@ class FarmerReference(AbstractBaseModel):
 
     number = models.CharField(max_length=100)
     reference = models.ForeignKey(Reference, on_delete=models.CASCADE)
-    farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE)
+    farmer = models.ForeignKey(
+        Farmer, on_delete=models.CASCADE, related_name='farmer_references', 
+        null=True, blank=True 
+    )
     source = models.ForeignKey(
         Company, on_delete=models.SET_NULL, null=True, blank=True
     )
@@ -1064,7 +1080,23 @@ class FarmerReference(AbstractBaseModel):
     objects = FarmerReferenceQuerySet.as_manager()
 
     def __str__(self):
-        return f"{self.reference.name} {self.farmer.full_name} - {self.pk}"
+        return f"{self.reference.name} - {self.pk}"
+    
+    def clean(self):
+        # Check if `reference` and `farmer` combination is unique
+        if FarmerReference.objects.filter(
+            reference=self.reference, 
+            farmer=self.farmer,
+        ).exclude(id=self.id).exists():
+            raise BadRequest(
+                f"The combination of reference {self.reference} and \
+                    farmer is already used."
+            )
+    
+    def save(self, *args, **kwargs):
+        # Call full_clean() to run model validations before saving
+        self.full_clean()  # This will call clean() method
+        super().save(*args, **kwargs)
 
 
 class FarmerPlot(AbstractBaseModel, Address):
@@ -1078,6 +1110,7 @@ class FarmerPlot(AbstractBaseModel, Address):
     - total_plot_area (Decimal): The total area of the plot in square
         meters.
     - crop_types (str): The types of crops grown on the plot.
+    - condinates (JSONField): The coordinates of the plot.
     """
 
     name = models.CharField(max_length=20)
@@ -1091,12 +1124,16 @@ class FarmerPlot(AbstractBaseModel, Address):
         default=0, max_digits=10, decimal_places=4
     )
     crop_types = models.TextField(null=True, blank=True)
+    geo_json = JSONField(null=True, blank=True, 
+                         validators=[validate_geojson_polygon, 
+                                     validate_coordinates])
+    sync_with_navigate = models.BooleanField(default=False)
 
     objects = FarmerPlotQuerySet.as_manager()
 
     def __str__(self):
         return f"{self.name} {self.farmer.full_name} - {self.pk}"
-
+    
 
 class FarmerAttachment(AbstractBaseModel):
     """A model that represents a file attachment associated with a farmer.

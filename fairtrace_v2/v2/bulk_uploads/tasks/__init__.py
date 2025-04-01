@@ -1,4 +1,4 @@
-from celery.task import task
+from celery import shared_task
 from django.apps import apps
 from sentry_sdk import capture_exception
 
@@ -11,7 +11,7 @@ from v2.bulk_uploads.tasks.bulk_transaction_adapters import (
     BulkTransactionAdapter, )
 
 
-@task(name="bulk_upload", queue="low")
+@shared_task(name="bulk_upload", queue="low")
 def bulk_upload(upload_id):
     """
     Celery task to process bulk data sheet upload.

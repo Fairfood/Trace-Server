@@ -2,6 +2,7 @@
 from django.db import models
 from rest_framework.exceptions import ValidationError
 
+
 from .library import _encode
 
 
@@ -112,11 +113,17 @@ class GraphModel(models.Model):
             )
         return descendants_set
 
-    def get_ancestors(self, include_self=False):
+    def get_ancestors(self, include_self=False, batches=None):
         """Gets all parents and their parents recursively."""
-        ancestors_set = self.parents.all().order_by("-id").distinct("id")
-        for parent in self.parents.all():
-            grand_parent = parent.get_ancestors()
+        filters, source_batches = {}, None
+        if batches:
+            source_batches = batches.parents()
+            filters = {"result_batches__in": source_batches}
+            
+        ancestors_set = self.parents.filter(
+            **filters).order_by("-id").distinct("id")
+        for parent in self.parents.filter(**filters):
+            grand_parent = parent.get_ancestors(batches=source_batches)
             ancestors_set |= grand_parent
         if include_self:
             ancestors_set |= (

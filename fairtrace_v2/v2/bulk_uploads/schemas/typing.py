@@ -1,12 +1,11 @@
 import re
 from abc import ABC
-from typing import Optional, Iterable, Union
+from typing import Iterable, Optional, Union
 
 import pandas as pd
+from common.country_data import COUNTRIES
 from pandera import dtypes
 from pandera.engines import pandas_engine
-
-from common.country_data import COUNTRIES
 
 
 @pandas_engine.Engine.register_dtype
@@ -58,14 +57,22 @@ class Latitude(pandas_engine.NpString, ABC):
         correct_type = super().check(pandera_dtype)
         if not correct_type:
             return correct_type
+        
+        data_container = data_container.astype(str)
 
         # validate latitude and longitude format
         exp = re.compile(r"-?\d+\.\d+")
-        format_valid = data_container.str.match(exp)
+        format_valid = (
+            data_container.str.match(exp) | 
+            data_container.eq("nan")
+            )
 
         # validate latitude range (-90 to 90) and longitude range (-180 to 180)
         float_data = pd.to_numeric(data_container, errors="coerce")
-        lat_range_valid = (float_data >= -90) & (float_data <= 90)
+        lat_range_valid = (
+            float_data.isna() | 
+            ((float_data >= -90) & (float_data <= 90))
+            )
 
         return format_valid & lat_range_valid
 
@@ -89,14 +96,23 @@ class Longitude(pandas_engine.NpString, ABC):
         correct_type = super().check(pandera_dtype)
         if not correct_type:
             return correct_type
+        
+        data_container = data_container.astype(str)
+
 
         # validate latitude and longitude format
         exp = re.compile(r"-?\d+\.\d+")
-        format_valid = data_container.str.match(exp)
+        format_valid = (
+            data_container.str.match(exp) | 
+            data_container.eq("nan")
+            )
 
         # validate latitude range (-90 to 90) and longitude range (-180 to 180)
         float_data = pd.to_numeric(data_container, errors="coerce")
-        long_range_valid = (float_data >= -180) & (float_data <= 180)
+        long_range_valid = (
+            float_data.isna() | 
+            ((float_data >= -180) & (float_data <= 180))
+            )
 
         return format_valid & long_range_valid
 
@@ -156,3 +172,9 @@ class Phone(pandas_engine.NpString, ABC):
 
     def __repr__(self) -> str:
         return f"DataType({self})"
+
+
+@pandas_engine.Engine.register_dtype
+@dtypes.immutable
+class LocationTypeDropDown(pandas_engine.NpString, ABC):
+    pass

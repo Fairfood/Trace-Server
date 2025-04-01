@@ -1,6 +1,6 @@
 """Serializers for project details."""
 from babel.numbers import format_decimal
-
+from sentry_sdk import capture_exception
 from common import exceptions as comm_exe
 from common import library as common_lib
 from common.drf_custom import fields as custom_fields
@@ -12,7 +12,7 @@ from v2.products.serializers import batch as batch_serializers
 from v2.products.serializers import product as prods_serializers
 from v2.projects import constants as project_const
 from v2.projects.constants import BASE_TRANSACTION
-from v2.projects.models import Payment
+from v2.projects.models import NodeCard, Payment
 from v2.projects.models import PremiumOption
 from v2.projects.models import ProjectPremium
 from v2.projects.serializers.project import NodeCardSerializer
@@ -50,7 +50,10 @@ class AppTransactionSerializer(ExternalTransactionSerializer):
         allow_null=True, many=True, source="premium_paid"
     )
     card_id = serializers.CharField(
-        required=False, allow_blank=True, write_only=True
+        required=False, allow_null=True, write_only=True
+    )
+    fairid = serializers.CharField(
+        required=False, allow_null=True, write_only=True
     )
     verification_method = serializers.IntegerField(required=False)
     verification_latitude = serializers.FloatField(required=False)
@@ -81,6 +84,7 @@ class AppTransactionSerializer(ExternalTransactionSerializer):
             "premiums",
             "invoice",
             "card_id",
+            "fairid",
             "card",
             "product_price",
             "quality_correction",
@@ -92,7 +96,11 @@ class AppTransactionSerializer(ExternalTransactionSerializer):
             "extra_fields",
             "base_payment_id",
             "card_details",
-            "invoice_number"
+            "invoice_number",
+            "external_id",
+            "send_seperately",
+            "buyer_ref_number",
+            "seller_ref_number",
         )
         extra_kwargs = {
             "date": {"required": False},
@@ -134,15 +142,21 @@ class AppTransactionSerializer(ExternalTransactionSerializer):
                 )
 
         # Validating card_id
-        if "card" not in attrs:
-            card_id = attrs.pop("card_id", "")
-            node = attrs["node"]
-            cards = node.cards.filter(card_id=card_id)
-            if card_id and not cards.exists():
-                raise serializers.ValidationError(
-                    "Invalid Card ID. Transaction not authorized"
-                )
-            attrs["card"] = cards.first()
+        card_id = attrs.pop("card_id", None)
+        fairid = attrs.pop("fairid", None)
+        card = None
+        try:
+            if card_id:
+                card = NodeCard.objects.get(card_id=card_id)
+            elif fairid:
+                card = NodeCard.objects.get(fairid=fairid)
+        except Exception as e:
+            capture_exception(e)
+        if (card_id or fairid) and not card:
+            raise serializers.ValidationError(
+                "Invalid Card. Transaction not authorized"
+            )
+        attrs["card"] = card
         return attrs
 
     def create_premium(self, premiums, transaction, node):
@@ -169,8 +183,6 @@ class AppTransactionSerializer(ExternalTransactionSerializer):
         transaction = super(AppTransactionSerializer, self).create(
             validated_data
         )
-        transaction.created_on = created_on
-        transaction.save()
         self.create_premium(premiums, transaction, node)
         return transaction
 
@@ -285,19 +297,8 @@ class OpenTransactionSerializer(serializers.ModelSerializer):
             "status",
             "created_on",
             "premiums",
-            "extra_fields",
+            "currency"
         )
-
-    def _numeric_to_language_format(self, language, data):
-        """To perform function _numeric_to_language_format."""
-        data["price"] = format_decimal(data["price"], locale=language)
-        data["total_price"] = format_decimal(
-            data["total_price"], locale=language
-        )
-        data["destination_quantity"] = format_decimal(
-            data["destination_quantity"], locale=language
-        )
-        return True
 
     def to_representation(self, instance):
         """Convert the instance to a representation suitable for serialization.
@@ -324,8 +325,6 @@ class OpenTransactionSerializer(serializers.ModelSerializer):
         if "premiums" in data.keys():
             for i in data["premiums"]:
                 data["total_price"] += i["amount"]
-                i["amount"] = format_decimal(i["amount"], locale=language)
-        self._numeric_to_language_format(language, data)
         return data
 
 
@@ -364,18 +363,8 @@ class OpenTransactionDetailsSerializer(serializers.ModelSerializer):
             "verification_method",
             "premiums",
             "extra_fields",
+            "currency"
         )
-
-    def _numeric_to_language_format(self, language, data):
-        """To perform function _numeric_to_language_format."""
-        data["price"] = format_decimal(data["price"], locale=language)
-        data["total_price"] = format_decimal(
-            data["total_price"], locale=language
-        )
-        data["destination_quantity"] = format_decimal(
-            data["destination_quantity"], locale=language
-        )
-        return True
 
     def to_representation(self, instance):
         """To perform function to_representation."""
@@ -389,10 +378,8 @@ class OpenTransactionDetailsSerializer(serializers.ModelSerializer):
         if "premiums" in data.keys():
             for i in data["premiums"]:
                 data["total_price"] += i["amount"]
-                i["amount"] = format_decimal(i["amount"], locale=language)
         data["total_price"] += float(data["price"])
         data["date_str"] = _(instance.date.strftime("%d %B, %Y"))
-        self._numeric_to_language_format(language, data)
         return data
 
 
@@ -411,7 +398,10 @@ class AppSentTransactionSerializer(ExternalTransactionSerializer):
         write_only=True, many=True
     )
     card_id = serializers.CharField(
-        required=False, allow_blank=True, write_only=True
+        required=False, allow_null=True, write_only=True
+    )
+    fairid = serializers.CharField(
+        required=False, allow_null=True, write_only=True
     )
     verification_method = serializers.IntegerField(required=False)
     verification_latitude = serializers.FloatField(
@@ -456,6 +446,7 @@ class AppSentTransactionSerializer(ExternalTransactionSerializer):
             "created_on",
             "invoice",
             "card_id",
+            "fairid",
             "card",
             "product_price",
             "quality_correction",
@@ -470,7 +461,12 @@ class AppSentTransactionSerializer(ExternalTransactionSerializer):
             "verification_latitude",
             "base_payment_id",
             "card_details",
-            "invoice_number"
+            "invoice_number",
+            "external_id",
+            "force_create",
+            "send_seperately",
+            "buyer_ref_number",
+            "seller_ref_number",
         )
         extra_kwargs = {
             "date": {"required": False},
@@ -569,15 +565,23 @@ class AppSentTransactionSerializer(ExternalTransactionSerializer):
         for batch_data in attrs["batches"]:
             if batch_data["batch"].current_quantity < batch_data["quantity"]:
                 raise comm_exe.PaymentRequired()
-        card = attrs.get("card")
-        if isinstance(card, str):
-            node = attrs["node"]
-            cards = node.cards.filter(card_id=card)
-            if not cards.exists():
-                raise serializers.ValidationError(
-                    "Invalid Card ID. Transaction not authorized"
-                )
-            attrs["card"] = cards.first()
+        
+        # Validating card_id
+        card_id = attrs.pop("card_id", None)
+        fairid = attrs.pop("fairid", None)
+        card = None
+        try:
+            if card_id:
+                card = NodeCard.objects.get(card_id=card_id)
+            elif fairid:
+                card = NodeCard.objects.get(fairid=fairid)
+        except Exception as e:
+            capture_exception(e)
+        if (card_id or fairid) and not card:
+            raise serializers.ValidationError(
+                "Invalid Card. Transaction not authorized"
+            )
+        attrs["card"] = card
         return attrs
 
     def create(self, validated_data):
@@ -587,13 +591,17 @@ class AppSentTransactionSerializer(ExternalTransactionSerializer):
         then create internal transaction with type loss.
         """
         # node is the login user node id get from api header.
-        node = self.context["view"].kwargs["node"]
+        try:
+            node = self.context["view"].kwargs["node"]
+        except KeyError:
+            node = self.context["node"]
         batches = validated_data["batches"]
         premiums = validated_data.pop("premium_paid")
         is_bal_loss = validated_data.pop("is_bal_loss", False)
         validated_data["date"] = validated_data["created_on"]
+        force_create = validated_data.get("force_create", False)
         transaction = self.check_for_duplicate(validated_data)
-        if transaction:
+        if transaction and not force_create:
             """Append source_batches details to response using the batches from
             the input.
 
@@ -607,8 +615,6 @@ class AppSentTransactionSerializer(ExternalTransactionSerializer):
         transaction = super(AppSentTransactionSerializer, self).create(
             validated_data
         )
-        transaction.created_on = validated_data["created_on"]
-        transaction.save()
         transaction.source_batch = self.get_source_batches(batches)
         self.create_premium(premiums, transaction, node)
         if is_bal_loss:

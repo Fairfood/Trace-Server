@@ -315,6 +315,9 @@ class CITheme(AbstractBaseModel):
         null=True,
     )
 
+    class Meta:
+        ordering = ("id",)
+
     def __str__(self):
         """To perform function __str__."""
         try:

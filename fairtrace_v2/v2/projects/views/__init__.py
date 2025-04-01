@@ -11,5 +11,7 @@ def check_node(request, node):
         if not dob:
             raise UnauthorizedAccess("Date of birth is required",
                              code="missing_dob")
-        if node.farmer.dob != dob:
+        if not node.farmer.dob:
+            raise AccessForbidden("Date of birth not set", code="missing_dob")
+        if node.farmer.dob.strftime("%Y-%m-%d") != dob:
             raise AccessForbidden("Incorrect dob", code="incorrect_dob")

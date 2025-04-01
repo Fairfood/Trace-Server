@@ -33,7 +33,7 @@ content = {
         "event": act_constants.OBJECT_TYPE_USER,
         "from_email": "Trace <trace@fairfood.org>",
         "action_url": settings.LOGIN_ROOT_URL
-        + "/?notification={notification.idencode}"
+        + "/accept-member-invite/?notification={notification.idencode}"
         "&user={user.idencode}",
     },
     notif_constants.NOTIF_TYPE_CHANGE_EMAIL: {

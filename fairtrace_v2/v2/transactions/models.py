@@ -116,6 +116,7 @@ class Transaction(AbstractBaseModel, GraphModel):
         choices=constants.VERIFICATION_METHOD_CHOICES,
     )
     extra_fields = JSONField(blank=True, null=True)
+    archived = models.BooleanField(default=False)
 
     def __str__(self):
         """To perform function __str__."""
@@ -293,9 +294,12 @@ class Transaction(AbstractBaseModel, GraphModel):
             products |= parent.get_absolute_source_products()
         return products.order_by().distinct("id")
 
-    def get_parent_transactions(self, only_internal=False):
+    def get_parent_transactions(self, only_internal=False, batches=None):
         """To perform function get_parent_transactions."""
-        parents = self.get_ancestors(include_self=True)
+        if batches:
+            parents = self.get_ancestors(include_self=True, batches=batches)
+        else:
+            parents = self.get_ancestors(include_self=True)
 
         if only_internal:
             return parents.filter(
@@ -918,7 +922,7 @@ class InternalTransaction(Transaction, AbstractConsensusMessage):
         type(int)           : Internal transaction type
                               (processing/loss)
     """
-
+    external_id = models.CharField(max_length=100, null=True, blank=True)
     node = models.ForeignKey(
         "supply_chains.Node",
         on_delete=models.CASCADE,

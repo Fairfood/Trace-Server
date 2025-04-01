@@ -1,11 +1,13 @@
 """Commonly used third party libraries and functions."""
 import plivo
-from celery.decorators import task
+from celery import shared_task
 from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from sentry_sdk import capture_exception
+
+from v2.communications.models import EmailConfiguration
 
 
 def send_sms(mobile, message):
@@ -58,6 +60,13 @@ def send_notification_email(
         {"event": event, "notification": notification, "context": context},
     )
     to_email = notification.to_email
+    node = notification.target_node
+    unsubscribed = _check_unsubscribed_emails(
+        notification.type, to_email, node)
+    if unsubscribed:
+        print("Email is unsubscribed.")
+        return False
+    
     if not to_email:
         print("No email address.")
         return False
@@ -98,8 +107,17 @@ def send_push_notification(notification):
         #     capture_message(message)
         #     pass
 
+def _check_unsubscribed_emails(_type, email, node):
+    """Check if email is unsubscribed."""
+    if node:
+        configs = EmailConfiguration.objects.filter(
+            type=_type, is_blocked=True, email=email, node=node)
+    else:
+        return False
+    return configs.exists()
 
-@task(name="send_email", queue="high")
+
+@shared_task(name="send_email", queue="high")
 def send_email(subject, text, email_from, to_emails, html):
     """Function to send emails.
 

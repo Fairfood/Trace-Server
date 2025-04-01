@@ -105,7 +105,7 @@ class AdminCompanyViewSet(viewsets.ReadOnlyModelViewSet):
     """API to list all Companies in the system."""
 
     permission_classes = (IsAuthenticated, IsFairfoodAdmin)
-    queryset = Company.objects.exclude_test()
+    queryset = Company.objects.all()
     filterset_class = CompanyFilter
     serializer_class = AdminCompanyModelSerializer
 

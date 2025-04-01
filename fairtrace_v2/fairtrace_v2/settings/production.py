@@ -11,14 +11,8 @@ from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.redis import RedisIntegration
 
 from .base import *  # noqa:F403,F401
-from .base import BASE_DIR
-from .base import CELERY_BEAT_SCHEDULE
-from .base import config
-from .base import crontab
-from .base import DEPLOYMENT
-from .base import INSTALLED_APPS
-from .base import MIDDLEWARE
-
+from .base import (BASE_DIR, CELERY_BEAT_SCHEDULE, DEPLOYMENT, INSTALLED_APPS,
+                   MIDDLEWARE, config, crontab)
 
 ENVIRONMENT = "production"
 
@@ -34,10 +28,6 @@ CORS_ORIGIN_WHITELIST = [
     "https://trace.fairfood.org",
 ]
 
-INSTALLED_APPS += [
-    "django_otp",
-    "django_otp.plugins.otp_totp",
-]
 
 MIDDLEWARE += [
     # MFA OTP

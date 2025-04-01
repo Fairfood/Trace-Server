@@ -40,6 +40,7 @@ class ProductAdmin(BaseAdmin):
     list_select_related = ("supply_chain",)
     search_fields = ["name"]
     actions = [create_token]
+    readonly_fields = ("owners",)
 
 
 class BatchAdmin(BaseAdmin):
@@ -62,7 +63,7 @@ class BatchAdmin(BaseAdmin):
         "block_chain_request",
         "submit_message_request",
     )
-    list_select_related = ("node", "node__company", "node__farmer", "product")
+    # list_select_related = ("node", "node__company", "node__farmer", "product")
     actions = [clear_filesystem_cache]
     search_fields = ("product__name",)
     autocomplete_fields = ("node", "source_transaction", "product")

@@ -1,25 +1,20 @@
 """Serializers related to the user model."""
 from autobahn.util import generate_user_password
+from common.backends.sso import SSORequest
 from common.drf_custom import fields as custom_fields
 from common.drf_custom.mixins import WriteOnceMixin
-from common.drf_custom.serializers import CircularSerializer
-from common.drf_custom.serializers import IdencodeModelSerializer
-from common.exceptions import AccessForbidden
-from common.exceptions import BadRequest
-from common.library import _pop_out_from_dictionary
-from common.library import _validate_password
+from common.drf_custom.serializers import (CircularSerializer,
+                                           IdencodeModelSerializer)
+from common.exceptions import AccessForbidden, BadRequest
+from common.library import _pop_out_from_dictionary, _validate_password
 from django.contrib.auth import authenticate
 from django.db import transaction as db_transaction
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from v2.accounts import validator as accounts_validator
-from v2.accounts.models import FairfoodUser
-from v2.accounts.models import Person
-from v2.accounts.models import TermsAndConditions
-from v2.accounts.models import UserDevice
-from v2.supply_chains.models import AdminInvitation
-from v2.supply_chains.models import Company
-from v2.supply_chains.models import Node
+from v2.accounts.models import (FairfoodUser, Person, TermsAndConditions,
+                                UserDevice)
+from v2.supply_chains.models import AdminInvitation, Company, Node
 
 from .other_apps import UserNodeSerializer
 
@@ -176,9 +171,24 @@ class UserSerializer(WriteOnceMixin, serializers.ModelSerializer):
         else:
             user.set_password(generate_user_password())
             user.save()
-        if self.context.get("view", None):
+        silent_registration = False
+        set_default_password = False
+        if "silent_registration" in self.context["view"].kwargs \
+            and self.context["view"].kwargs["silent_registration"] == True:
+            silent_registration = True
+
+        if "set_default_password" in self.context["view"].kwargs \
+            and self.context["view"].kwargs["set_default_password"] == True:
+            set_default_password = True
+
+        if not silent_registration and self.context.get("view", None):
             user.verify_email()  # TODO: change to a context variable
 
+        # Create SSO user     
+        sso = SSORequest()
+        args = sso.create_user(user, set_default_password)
+        if not args[1]:
+            sso.update_user(user)
         return user
 
 
@@ -386,8 +396,54 @@ class InviteeUserSerializer(IdencodeModelSerializer):
         # update_password
         instance.set_password(generate_user_password())
         instance.save()
-
+        self.create_sso_user(instance)
         return instance
+    
+    def create_sso_user(self, instance):
+        """
+        Creates an SSO user and associated nodes.
+
+        Args:
+            instance: The user instance to create in the SSO system.
+            default_node: The default node for the user.
+
+        Raises:
+            BadRequest: If the user or any associated nodes could not be 
+            created.
+
+        Returns:
+            None
+        """
+        sso = SSORequest()
+        args = sso.create_user(instance)
+        self.check_response(args)
+        if not args[1]:
+            sso.update_user(instance)
+        instance.refresh_from_db()
+        
+
+        if instance.is_fairtrace_admin:
+            return None
+        usernodes = instance.usernodes.all()
+        for usernode in usernodes:
+            self._create_sso_nodes(sso, usernode.node, instance)
+            
+    
+    def _create_sso_nodes(self, sso: SSORequest, node, instance):
+        args = sso.create_node(node.company, instance)
+        self.check_response(args)
+        if not args[1]:
+            sso.update_node(node.company)
+        # node.refresh_from_db()
+        # sso.create_user_node(
+        #     instance, node)   
+
+    @staticmethod
+    def check_response(args):
+        """Check response."""
+        if not args[0]:
+            raise BadRequest(args[1].json())
+    
 
     def create(self, validated_data):
         """by-passing create."""

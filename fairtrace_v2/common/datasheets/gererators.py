@@ -139,6 +139,9 @@ class DataGenerator(object):
             return methodcaller(str(field), item)(self)
         try:
             value = self.get_model_value(field, item)
+            # Handle QuerySet objects
+            if isinstance(value, models.QuerySet):
+                return ", ".join([str(v) for v in value])
         except AttributeError as err:
             raise AttributeError(f"{err} - key: '{field}'")
         return value

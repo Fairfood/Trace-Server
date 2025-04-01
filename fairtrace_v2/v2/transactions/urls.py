@@ -48,6 +48,17 @@ urlpatterns = [
         name="external-details",
     ),
     path(
+        "external/toggle-archive/",
+        trans_views.ExtenalTransactionArchiveView.as_view(),
+        name="external-transaction-toggle-archive",
+    ),
+    
+    path(
+        "internal/toggle-archive/",
+        trans_views.InternalTransactionArchiveView.as_view(),
+        name="internal-transaction-toggle-archive",
+    ),
+    path(
         "external/<idencode:pk>/reject/",
         trans_views.RejectExternalTransaction.as_view(),
         name="external-reject",

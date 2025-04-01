@@ -1,11 +1,10 @@
 import copy
 
+from common.library import decode
 from django.apps import apps
 from django.db import transaction as db_transaction
-
-from common.library import decode
 from v2.bulk_uploads.tasks.base import DataSheetAdapted
-from v2.supply_chains.constants import NODE_TYPE_FARM
+from v2.supply_chains.constants import NODE_TYPE_FARM, POLYGON
 from v2.supply_chains.models import Operation
 from v2.supply_chains.serializers.node import FarmerSerializer
 from v2.supply_chains.serializers.supply_chain import FarmerInviteSerializer
@@ -112,6 +111,7 @@ class BulkConnectionAdapter(DataSheetAdapted):
             creation.
         """
         farmer_model = apps.get_model("supply_chains", "Farmer")
+        farmer_plot_model = apps.get_model("supply_chains", "FarmerPlot")
 
         # map farmer idencode to
         farmer_idencode_to_obj = dict([
@@ -124,6 +124,8 @@ class BulkConnectionAdapter(DataSheetAdapted):
 
         for idx, value in self.data.items():
             try:
+                geo_json = value.pop("geo_json", None)
+                new_farmer = False
                 if "fair_id" in value:
                     # Update farmer if fair_id is present
                     farmer = farmer_idencode_to_obj.get(value["fair_id"])
@@ -145,8 +147,16 @@ class BulkConnectionAdapter(DataSheetAdapted):
                             "user": self.data_sheet.creator,
                         },
                     )
+                    new_farmer = True
                 serializer.is_valid(raise_exception=True)
-                serializer.save()
+                invitation = serializer.save()
+                if new_farmer and geo_json and isinstance(geo_json, dict):
+                    #add farmer plot
+                    farmer_plot_model.objects.create(
+                        farmer=invitation.invitee,
+                        name= "Plot 1",
+                        location_type=POLYGON,
+                        geo_json=geo_json
+                    )
             except Exception as e:
                 self.exceptions.append(e)
-

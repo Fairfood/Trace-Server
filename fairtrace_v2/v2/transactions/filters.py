@@ -18,6 +18,13 @@ class ExternalTransactionFilter(filters.FilterSet):
         """To perform function __init__."""
         super().__init__(**kwargs)
         self.node = node
+        if "archived" not in self.data:
+            if hasattr(self.data, "_mutable"):
+                self.data._mutable = True
+                self.data["archived"] = "false"
+                self.data._mutable = False
+            else:
+                self.data["archived"] = "false"
 
     type = filters.NumberFilter(method="filter_type")
     creator = filters.CharFilter(method="filter_creator")
@@ -34,7 +41,7 @@ class ExternalTransactionFilter(filters.FilterSet):
 
     class Meta:
         model = ExternalTransaction
-        fields = ["type", "product"]
+        fields = ["type", "product", "archived"]   
 
     def get_node(self):
         """Returns the node if available."""
@@ -154,6 +161,13 @@ class InternalTransactionFilter(filters.FilterSet):
     def __init__(self, node=None, **kwargs):
         """To perform function __init__."""
         super().__init__(**kwargs)
+        if "archived" not in self.data:
+            if hasattr(self.data, "_mutable"):
+                self.data._mutable = True
+                self.data["archived"] = "false"
+                self.data._mutable = False
+            else:
+                self.data["archived"] = "false"
         if not node:
             self.node = self.request.parser_context["kwargs"]["node"]
         else:
@@ -178,9 +192,10 @@ class InternalTransactionFilter(filters.FilterSet):
     )
     quantity_is = filters.CharFilter(method="filter_quantity_is")
 
+
     class Meta:
         model = InternalTransaction
-        fields = ["type", "supply_chain"]
+        fields = ["type", "supply_chain", "archived"]
 
     def filter_supply_chain(self, queryset, name, value):
         """Filter with value."""

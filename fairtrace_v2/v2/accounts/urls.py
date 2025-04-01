@@ -1,6 +1,5 @@
 """URLs of the app accounts."""
-from django.urls import include
-from django.urls import path
+from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
 from .views import auth as auth_views
@@ -69,7 +68,7 @@ urlpatterns = [
         auth_views.InviteeUserViewSet.as_view(
             {"put": "update", "patch": "partial_update"}
         ),
-        name="invitee-user",
+        name="invitee-user-detail",
     ),
     # For password confirmation inside the system, without logging out user
     path("check/password/", auth_views.CheckPassword.as_view()),
@@ -81,6 +80,7 @@ urlpatterns = [
         name="user-details",
     ),
     path("user/", user_views.UserDetails.as_view(), name="user-view"),
+    path("current-user/", user_views.CurrentUser.as_view(), name='current-user'),
     path("terms/", user_views.TermsAndConditionsDetails.as_view(),
          name="terms"),
     # Admin Login

@@ -1,4 +1,4 @@
-from celery.decorators import task
+from celery import shared_task
 from common.library import _generate_random_number
 
 from .copy_node_connections import copy_buyer_connections
@@ -8,7 +8,7 @@ from .copy_node_connections import copy_other_datas
 from .copy_node_connections import copy_supplier_connections
 
 
-@task(name="copy_connctions", queue="low")
+@shared_task(name="copy_connctions", queue="low")
 def copy_connctions(node_id, source_sc_id, target_sc_id):
     """To perform function copy_connctions."""
     print("node_id------------------------------", node_id)

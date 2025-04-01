@@ -11,11 +11,7 @@ from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.redis import RedisIntegration
 
 from .base import *  # noqa
-from .base import BASE_DIR
-from .base import config
-from .base import DEPLOYMENT
-from .base import INSTALLED_APPS
-from .base import MIDDLEWARE
+from .base import BASE_DIR, DEPLOYMENT, INSTALLED_APPS, MIDDLEWARE, config
 
 ENVIRONMENT = "staging"
 
@@ -30,10 +26,7 @@ CORS_ORIGIN_WHITELIST = [
     "https://" + config.get("app", "ALLOWED_ROOT"),
 ]
 
-INSTALLED_APPS += [
-    "django_otp",
-    "django_otp.plugins.otp_totp",
-]
+
 
 MIDDLEWARE += [
     # MFA OTP

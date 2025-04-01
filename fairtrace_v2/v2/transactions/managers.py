@@ -18,7 +18,10 @@ class ExternalTransactionQuerySet(models.QuerySet):
         queryset = self
         sort_by = request.query_params.get("sort_by", None)
         order_by = request.query_params.get("order_by", "asc")
-        field_set = ("number", "connection.name", "date", "quantity", "type")
+        field_set = (
+            "number", "connection.name", "date", "quantity", "type", "product",
+            "source", "receiver", "blockChain"
+        )
         if sort_by:
             sort_by = sort_by.strip()
             if sort_by in field_set:
@@ -58,12 +61,22 @@ class ExternalTransactionQuerySet(models.QuerySet):
     @staticmethod
     def _clean_field(sort_by):
         """To perform function _clean_field."""
+
+        filter_fields = {
+            "product": "source_batches__product__name",
+            "sender": "source__full_name",
+            "receiver": "destination__full_name",
+            "quantity": "source_batches__initial_quantity",
+            "blockChain": "blockchain_address",
+        }
         if "." in sort_by:
             sort_by = sort_by.replace(".", "__")
             if sort_by.split("__")[0] == "connection":
                 sort_by = sort_by.replace("connection", "destination")
-        if sort_by.split("__")[0] == "quantity":
-            sort_by = "result_batches__initial_quantity_in_gram"
+        # if sort_by.split("__")[0] == "quantity":
+        #     sort_by = "result_batches__initial_quantity_in_gram"
+        if sort_by in filter_fields:
+            sort_by = filter_fields[sort_by]
         return sort_by
 
     def group_count_with_date(self, trunc_type="month", extra_fields=()):

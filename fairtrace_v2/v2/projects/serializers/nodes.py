@@ -5,13 +5,10 @@ from common.drf_custom.serializers import DynamicModelSerializer
 from common.library import get_acronym
 from rest_framework import serializers
 from v2.projects import constants
-from v2.projects.models import NodeCard
-from v2.projects.models import ProjectNode
-from v2.supply_chains.models import Farmer
-from v2.supply_chains.models import Invitation
-from v2.supply_chains.models import Operation
-from v2.supply_chains.serializers.node import CompanySerializer
-from v2.supply_chains.serializers.node import FarmerSerializer
+from v2.projects.models import NodeCard, ProjectNode
+from v2.supply_chains.models import Farmer, Invitation, Operation
+from v2.supply_chains.serializers.node import (CompanySerializer,
+                                               FarmerSerializer)
 from v2.supply_chains.serializers.supply_chain import FarmerInviteSerializer
 
 from .project import NodeCardSerializer
@@ -20,7 +17,7 @@ from .project import NodeCardSerializer
 class ProjectFarmerInviteSerializer(FarmerInviteSerializer):
     """Serializer to invite a farmer onto a project."""
 
-    project = custom_fields.KWArgsObjectField(write_only=True)
+    project = custom_fields.KWArgsObjectField(write_only=True, required=False)
     primary_operation = serializers.CharField(required=False)
     id_no = serializers.CharField(required=False, allow_null=True)
     supply_chain = serializers.CharField(required=False)
@@ -43,16 +40,34 @@ class ProjectFarmerInviteSerializer(FarmerInviteSerializer):
             dc = COUNTRIES[country]["dial_code"]
             if not phone.startswith(dc):
                 attrs["phone"] = "+" + dc + phone
-        attrs = super(ProjectFarmerInviteSerializer, self).validate(attrs)
+        if "country" in attrs and "province" in attrs:
+            if (
+                "latitude" not in attrs
+                or "longitude" not in attrs
+                or not attrs["latitude"]
+                or not attrs["longitude"]
+            ):
+                attrs["latitude"] = COUNTRIES[attrs["country"]][
+                    "sub_divisions"][attrs["province"]]["latlong"][0]
+                attrs["longitude"] = COUNTRIES[attrs["country"]][
+                    "sub_divisions"][attrs["province"]]["latlong"][1]
+        if not self.context.get('skip_farmer_invite_validation', False):
+            # Call the parent's validation (FarmerInviteSerializer)
+            attrs = super(ProjectFarmerInviteSerializer, self).validate(attrs)
         return attrs
 
     def create(self, validated_data):
         """To perform function create."""
-        project = validated_data.pop("project")
+        project = validated_data.pop("project", None)
         validated_data.pop("is_created")
         # remove non db fields for filtering
         map_all_buyers = validated_data.pop("map_all_buyers", False)
         map_all_suppliers = validated_data.pop("map_all_suppliers", False)
+
+        try:
+            node = self.context["view"].kwargs["node"]
+        except Exception:
+            node = self.context["node"] 
 
         farmer = Farmer.objects.filter(**validated_data)
         # Check duplicate farmer exists or not. if exists then
@@ -64,7 +79,8 @@ class ProjectFarmerInviteSerializer(FarmerInviteSerializer):
             farmer_invite.is_created = False
             return farmer_invite
 
-        validated_data["supply_chain"] = project.supply_chain
+        sc = project.supply_chain if project else node.supply_chains.first()
+        validated_data["supply_chain"] = sc
         validated_data["primary_operation"] = Operation.objects.get(
             name="Farmer"
         )
@@ -80,15 +96,16 @@ class ProjectFarmerInviteSerializer(FarmerInviteSerializer):
         )
         farmer_invite.is_created = True
         node = farmer_invite.inviter
-        buyers = node.get_buyers(supply_chain=project.supply_chain)
-        proj_buyers = project.member_nodes.filter(id__in=buyers)
-        farmer_invite.connection.tag_buyers(proj_buyers)
-
-        ProjectNode.objects.create(
-            node=farmer_invite.invitee,
-            project=project,
-            connection=farmer_invite.connection,
-        )
+        buyers = node.get_buyers(supply_chain=sc)
+        if project:
+            buyers = project.member_nodes.filter(id__in=buyers)
+        farmer_invite.connection.tag_buyers(buyers)
+        if project:
+            ProjectNode.objects.create(
+                node=farmer_invite.invitee,
+                project=project,
+                connection=farmer_invite.connection,
+            )
         return farmer_invite
 
 
@@ -225,3 +242,4 @@ class AppFarmerSerializer(serializers.ModelSerializer):
         data["name"] = get_acronym(data["name"])
         data["transaction_details"] = instance.transaction_count(language)
         return data
+

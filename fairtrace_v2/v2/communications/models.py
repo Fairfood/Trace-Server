@@ -245,3 +245,41 @@ class Notification(AbstractBaseModel):
         if self.send_to:
             return self.send_to
         return self.user.email
+
+
+class EmailConfiguration(AbstractBaseModel):
+    """
+    Class for managing email configuration.
+    
+    Attribs:
+        email(str): email address
+        user(obj): User object
+        node(obj): Node object
+    """
+    email = models.EmailField(blank=True, null=True)
+    user = models.ForeignKey(
+        "accounts.FairfoodUser",
+        on_delete=models.CASCADE,
+        related_name="email_configurations",
+        blank=True, null=True
+    )
+    node = models.ForeignKey(
+        "supply_chains.Node",
+        on_delete=models.CASCADE,
+        related_name="email_configurations",
+        blank=True, null=True
+    )
+    type = models.IntegerField(choices=constants.NOTIF_TYPE_CHOICES)
+    is_blocked = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Emails"
+    
+    def save(self, *args, **kwargs):
+        """To save email configuration."""
+        if self.user:
+            self.email = self.user.email
+        super().save(*args, **kwargs)
+    
+    
+    

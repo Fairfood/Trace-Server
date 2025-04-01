@@ -1,4 +1,4 @@
-from celery.task import task
+from celery import shared_task
 from common.cache import filesystem_cache
 from django.apps import apps
 from v2.reports.constants import FARMER
@@ -14,7 +14,7 @@ def _get_cached_keys(nodes):
     return keys
 
 
-@task(name="rebuild_connection_cache", queue="high")
+@shared_task(name="rebuild_connection_cache", queue="high")
 def _rebuild_cache(keys):
     """delete and rebuild cache with the keys."""
     serializer_class = MapConnectionsSerializer

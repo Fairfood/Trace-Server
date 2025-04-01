@@ -12,6 +12,8 @@ from django.http import HttpResponse
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
+from rest_framework import status
+from common.library import decode, filter_queryset
 from v2.accounts import permissions as user_permissions
 from v2.products.models import Product
 from v2.supply_chains import permissions as sc_permissions
@@ -25,7 +27,7 @@ from v2.transactions.constants import DUPLICATE_FARMER
 from v2.transactions.filters import ExternalTransactionFilter
 from v2.transactions.filters import InternalTransactionFilter
 from v2.transactions.filters import TransactionAttachmentFilter
-from v2.transactions.models import ExternalTransaction
+from v2.transactions.models import ExternalTransaction, Transaction
 from v2.transactions.models import InternalTransaction
 from v2.transactions.models import TransactionAttachment
 from v2.transactions.serializers.external import (
@@ -63,8 +65,9 @@ class ExternalTransactionView(generics.ListCreateAPIView, MultiPermissionView):
         """To perform function get_queryset."""
         node = self.kwargs["node"]
         query = Q(source=node) | Q(destination=node)
+        query = (Q(source=node) | Q(destination=node)) & Q(deleted=False)
         transactions = ExternalTransaction.objects.filter(query)
-        return transactions.sort_by_query_params(self.request)
+        return transactions.sort_by_query_params(self.request).distinct()
 
     def get_serializer_class(self):
         """Fetch corresponding serializer class."""
@@ -137,7 +140,9 @@ class InternalTransactionView(generics.ListCreateAPIView, MultiPermissionView):
     def get_queryset(self):
         """To perform function get_queryset."""
         node = self.kwargs["node"]
-        transactions = InternalTransaction.objects.filter(node=node)
+        transactions = InternalTransaction.objects.filter(
+            node=node, deleted=False
+        )
         return transactions.sort_by_query_params(self.request)
 
     def get_serializer_class(self):
@@ -465,3 +470,122 @@ class TransactionAttachmentViewSet(ModelViewSet):
             request.data._mutable = mutable
         else:
             request.data["node"] = node
+
+class ExtenalTransactionArchiveView(generics.CreateAPIView):
+    """API to archive transactions."""
+    
+    queryset = ExternalTransaction.objects.all()
+    permission_classes = (
+        user_permissions.IsAuthenticatedWithVerifiedEmail,
+        sc_permissions.HasNodeWriteAccess,
+    )
+
+    def get_queryset(self):
+        """To perform function get_queryset."""
+        node = self.kwargs["node"]
+        return super().get_queryset().filter(
+            Q(source=node) | Q(destination=node))
+
+    def post(self, request, *args, **kwargs):
+        """Bulk update archived transactions."""
+        if not isinstance(request.data, dict):
+            raise BadRequest("Invalid data")
+        
+        selected_items = request.data.get("selected_items", [])
+        is_excluded = request.data.get("is_excluded", False)
+        restore = request.data.get("restore", False)
+        filters = request.data.get("filters", {})
+        
+        pks = map(decode, selected_items)
+        
+        if not isinstance(is_excluded, bool):
+            raise BadRequest("Invalid data")
+        if not isinstance(restore, bool):
+            raise BadRequest("Invalid data")
+        
+        queryset = self.get_queryset().filter(archived=restore)
+        queryset = self.filter_queryset_with_data_filters(
+            queryset, filters, restore=restore)
+        
+        if is_excluded:
+            queryset = queryset.exclude(pk__in=pks)
+        else:
+            queryset = queryset.filter(pk__in=pks)
+        update_list = []
+        for instance in queryset:
+            instance.archived = not instance.archived
+            update_list.append(instance)
+        queryset.model.objects.bulk_update(update_list, ['archived'])
+        return comm_lib.success_response(
+            {"toggled_items": len(update_list)}, 
+            "Archive status toggled", status=status.HTTP_201_CREATED)
+    
+    def filter_queryset_with_data_filters(self, queryset, filters, restore):
+        """Filter queryset with data filters."""
+        filters = {k: v for k, v in filters.items() if v}
+        if not filters:
+            return queryset
+        filters["archived"] = restore
+        filterset_class = ExternalTransactionFilter
+        return filter_queryset(filterset_class, filters, 
+                               queryset, node=self.kwargs["node"])
+    
+
+
+class InternalTransactionArchiveView(generics.CreateAPIView):
+    """API to archive transactions."""
+    
+    queryset = InternalTransaction.objects.all()
+    permission_classes = (
+        user_permissions.IsAuthenticatedWithVerifiedEmail,
+        sc_permissions.HasNodeWriteAccess,
+    )
+
+    def get_queryset(self):
+        """To perform function get_queryset."""
+        node = self.kwargs["node"]
+        return super().get_queryset().filter(node=node)
+
+    def post(self, request, *args, **kwargs):
+        """Bulk update archived transactions."""
+        if not isinstance(request.data, dict):
+            raise BadRequest("Invalid data")
+        
+        selected_items = request.data.get("selected_items", [])
+        is_excluded = request.data.get("is_excluded", False)
+        restore = request.data.get("restore", False)
+        filters = request.data.get("filters", {})
+        
+        pks = map(decode, selected_items)
+        
+        if not isinstance(is_excluded, bool):
+            raise BadRequest("Invalid data")
+        if not isinstance(restore, bool):
+            raise BadRequest("Invalid data")
+        
+        queryset = self.get_queryset().filter(archived=restore)
+        queryset = self.filter_queryset_with_data_filters(
+            queryset, filters, restore=restore)
+        
+        if is_excluded:
+            queryset = queryset.exclude(pk__in=pks)
+        else:
+            queryset = queryset.filter(pk__in=pks)
+        update_list = []
+        for instance in queryset:
+            instance.archived = not instance.archived
+            update_list.append(instance)
+        queryset.model.objects.bulk_update(update_list, ['archived'])
+        return comm_lib.success_response(
+            {"toggled_items": len(update_list)}, 
+            "Archive status toggled", status=status.HTTP_201_CREATED)
+    
+    def filter_queryset_with_data_filters(self, queryset, filters, restore):
+        """Filter queryset with data filters."""
+        filters = {k: v for k, v in filters.items() if v}
+        if not filters:
+            return queryset
+        filters["archived"] = restore
+        filterset_class = InternalTransactionFilter
+        return filter_queryset(filterset_class, filters, 
+                               queryset, node=self.kwargs["node"])

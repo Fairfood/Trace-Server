@@ -66,10 +66,17 @@ class NodeFilter(filters.FilterSet):
     search = filters.CharFilter(method="search_fields")
     claims = filters.CharFilter(method="filter_by_claims")
     name = filters.CharFilter(method="search_fields")
+    country = filters.CharFilter(method="filter_by_country")
+    province = filters.CharFilter(method="filter_by_province")
+    location_type = filters.CharFilter(method="filter_by_location_type")
+    connection = filters.CharFilter(method="filter_by_connection")
 
     class Meta:
         model = Node
-        fields = ["type", "search", "name"]
+        fields = [
+            "type", "search", "name", "country", "province", 
+            "location_type", "connection"
+        ]
 
     def filter_by_claims(self, queryset, name, value):
         """Filter with value."""
@@ -84,13 +91,41 @@ class NodeFilter(filters.FilterSet):
         """Filter with value."""
         query = Q(company__name__icontains=value)
         return queryset.filter(query)
+    
+    def filter_by_country(self, queryset, name, value):
+        """Filter with value."""
+        query = Q(farmer__country__iexact=value)
+        return queryset.filter(query)
+
+    def filter_by_province(self, queryset, name, value):
+        """Filter with value."""
+        query = Q(farmer__province__iexact=value)
+        return queryset.filter(query)
+
+    def filter_by_location_type(self, queryset, name, value):
+        """Filter with value."""
+        query = Q(farmer__plots__location_type__iexact=value)
+        return queryset.filter(query)
+
+    def filter_by_connection(self, queryset, name, value):
+        """Filter with value."""
+        operation_id = comm_lib._decode(value)
+        query = Q(primary_operation__id=operation_id)
+        return queryset.filter(query)
 
     def search_fields(self, queryset, name, value):
         """Filter with value."""
         query = Q()
         query |= Q(farmer__first_name__icontains=value)
         query |= Q(farmer__last_name__icontains=value)
+        query |= Q(farmer__email__icontains=value)
+        query |= Q(farmer__street__icontains=value)
+        query |= Q(farmer__city__icontains=value)
+        query |= Q(farmer__sub_province__icontains=value)
+        query |= Q(farmer__province__icontains=value)
+        query |= Q(farmer__country__icontains=value)
         query |= Q(company__name__icontains=value)
+        query |= Q(farmer__farmer_references__number__icontains=value)
         return queryset.filter(query)
 
 
@@ -241,3 +276,129 @@ class LabelFilter(filters.FilterSet):
         """Filter with value."""
         sc_id = comm_lib._decode(value)
         return queryset.filter(connections__supply_chain__id=sc_id)
+
+
+class ConnectionNodeFilter(filters.FilterSet):
+    """Filter for Connection Nodes."""
+
+    type = filters.NumberFilter()
+    search = filters.CharFilter(method="search_fields")
+    claims = filters.CharFilter(method="filter_by_claims")
+    name = filters.CharFilter(method="search_fields")
+    country = filters.CharFilter(method="filter_by_country")
+    province = filters.CharFilter(method="filter_by_province")
+    location_type = filters.CharFilter(method="filter_by_location_type")
+    connection = filters.CharFilter(method="filter_by_connection")
+
+    class Meta:
+        model = Node
+        fields = [
+            "type", "search", "name", "country", "province", 
+            "location_type", "connection"
+        ]
+
+    def filter_by_claims(self, queryset, name, value):
+        """Filter with value."""
+        for val in value.split(","):
+            claim_id = comm_lib._decode(val)
+            queryset = queryset.filter(
+                claims__claim__id=claim_id, claims__status=STATUS_APPROVED
+            )
+        return queryset
+
+    def filter_by_name(self, queryset, name, value):
+        """Filter with value."""
+        query = Q(company__name__icontains=value)
+        return queryset.filter(query)
+    
+    def filter_by_country(self, queryset, name, value):
+        """Filter with value."""
+        query = Q(farmer__country__iexact=value)
+        return queryset.filter(query)
+
+    def filter_by_province(self, queryset, name, value):
+        """Filter with value."""
+        query = Q(farmer__province__iexact=value)
+        return queryset.filter(query)
+
+    def filter_by_location_type(self, queryset, name, value):
+        """Filter with value."""
+        query = Q(farmer__plots__location_type__iexact=value)
+        return queryset.filter(query)
+
+    def filter_by_connection(self, queryset, name, value):
+        """Filter with value."""
+        operation_id = comm_lib._decode(value)
+        query = Q(primary_operation__id=operation_id)
+        return queryset.filter(query)
+    
+    @staticmethod
+    def farmer_name_filter(value, conditions):
+        """Filter based on the farmer's name (first and last)."""
+        if ' ' in value:
+            first_name, last_name = value.split(' ', 1)
+            conditions.append(
+                Q(farmer__first_name__icontains=first_name) & 
+                Q(farmer__last_name__icontains=last_name)
+            )
+        else:
+            conditions.append(
+                Q(farmer__first_name__icontains=value) | 
+                Q(farmer__last_name__icontains=value)
+            )
+        return
+
+    def filter_common_fields(self, value, conditions, search_by):
+        """Helper to filter common fields (email, address, etc.)."""
+        common_fields = {
+            'email': [
+                ('farmer__email', 'company__email')
+            ],
+            'address': [
+                ('farmer__street', 'company__street'),
+                ('farmer__city', 'company__city'),
+                ('farmer__sub_province', 'company__sub_province'),
+                ('farmer__province', 'company__province'),
+                ('farmer__country', 'company__country')
+            ],
+            'reference_number': [
+                ('farmer__farmer_references__number', None)
+            ]
+        }
+
+        if search_by in common_fields:
+            for farmer_field, company_field in common_fields[search_by]:
+                conditions.append(Q(**{f"{farmer_field}__icontains": value}))
+                if company_field:  
+                    conditions.append(
+                        Q(**{f"{company_field}__icontains": value})
+                    )
+
+    def search_fields(self, queryset, name, value):
+        """Filter with value based on search criteria."""
+        search_by = self.request.query_params.get('search_by', None)
+        node_type = self.request.query_params.get('type', '1')
+
+        conditions = []
+
+        # Determine the search criteria and build conditions accordingly
+        if search_by == 'name':
+            if node_type == "2":
+                self.farmer_name_filter(value, conditions)
+            else:
+                conditions.append(Q(company__name__icontains=value))
+        elif search_by in ['email', 'address', 'reference_number']:
+            self.filter_common_fields(value, conditions, search_by)
+        else:
+            # Default search: Search across multiple fields
+            conditions.append(Q(company__name__icontains=value))
+            self.farmer_name_filter(value, conditions)
+            self.filter_common_fields(value, conditions, 'email')
+            self.filter_common_fields(value, conditions, 'address')
+            self.filter_common_fields(value, conditions, 'reference_number')
+        
+        query = Q()
+        for condition in conditions:
+            query |= condition
+        
+        return queryset.filter(query)

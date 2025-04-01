@@ -73,3 +73,35 @@ class ProductTestCase(ProductsBaseTestCase):
         self.totp_secret = settings.CI_TOTP_SECRET
         response = self.client.get(batch_url, format="json", **self.headers)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_archived_batches(self):
+        """Test for get archived batches."""
+        self.create_archived_batch()
+        batch_url = reverse("batch")
+        data = {
+            "archived": "true",
+        }
+        response = self.client.get(batch_url, data=data, 
+                                   format="json", **self.headers)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["count"], 1)
+
+    def create_archived_batch(self):
+        """Create archived batch."""
+        mixer.blend(
+            Batch,
+            product=self.product,
+            node=self.company,
+            source_transaction=self.transaction,
+            archived=True,
+        )
+
+    def test_archive_batch(self):
+        toggl_archive_url = reverse("toggle-archive")
+        data = {
+            "is_excluded": True,
+        }
+        response = self.client.post(
+            toggl_archive_url, data, format="json", **self.headers
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)

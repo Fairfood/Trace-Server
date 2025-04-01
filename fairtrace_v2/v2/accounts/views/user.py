@@ -1,9 +1,12 @@
 """Views related to user account and tokens."""
 from common.drf_custom.views import MultiPermissionView
-from common.exceptions import BadRequest
 from rest_framework import generics
 from rest_framework import viewsets
-from sentry_sdk import capture_exception
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated as BaseIsAuthenticated
+from rest_framework.decorators import permission_classes
+from common.library import success_response
+from common.backends.sso import SSORequest
 from v2.accounts import permissions as user_permissions
 from v2.accounts.constants import USER_TYPE_NODE_USER
 from v2.accounts.filters import UserFilter
@@ -35,6 +38,17 @@ class UserDetails(
 
     serializer_class = user_serializers.UserSerializer
     queryset = FairfoodUser.objects.all()
+
+
+class CurrentUser(generics.RetrieveAPIView):
+    """Get current user details."""
+
+    permission_classes = (BaseIsAuthenticated,)
+    serializer_class = user_serializers.UserSerializer
+
+    def get_object(self):
+        """Get current user object."""
+        return self.request.user
 
 
 class UserList(generics.ListAPIView):
@@ -76,3 +90,14 @@ class AdminUserViewSet(viewsets.ModelViewSet):
         if self.request.method == "POST":
             return user_serializers.UserSerializer
         return super(AdminUserViewSet, self).get_serializer_class()
+    
+    def create(self, request, *args, **kwargs):
+        email = request.data.get("email")
+        user = FairfoodUser.objects.filter(email=email)
+        if user.exists():
+            user.update(**request.data)
+            sso = SSORequest()
+            sso.update_user(user.first())
+            return success_response("Updated successfully", 
+                                    status=status.HTTP_201_CREATED)
+        return super().create(request, *args, **kwargs)

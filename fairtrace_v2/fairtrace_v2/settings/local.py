@@ -6,10 +6,7 @@ Common settings params are imported from the base settings file.
 import os  # noqa
 
 from .base import *  # noqa
-from .base import ALLOWED_HOSTS
-from .base import BASE_DIR
-from .base import config
-from .base import INSTALLED_APPS
+from .base import ALLOWED_HOSTS, BASE_DIR, INSTALLED_APPS, config
 
 DEBUG = True
 
@@ -39,17 +36,6 @@ CORS_ORIGIN_WHITELIST = [
 ]
 
 ENVIRONMENT = "local"
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": config.get("database", "DB_NAME"),
-        "USER": config.get("database", "DB_USER"),
-        "PASSWORD": config.get("database", "DB_PASSWORD"),
-        "PORT": "5432",
-        "HOST":  config.get("database", "DB_HOST", fallback="localhost"),
-    }
-}
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")

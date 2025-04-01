@@ -4,6 +4,7 @@ from django.conf import settings
 from v2.claims.constants import STATUS_APPROVED
 from v2.claims.models import AttachedBatchClaim
 from v2.products.constants import UNIT_CHOICES
+from v2.products.constants import UNIT_KG
 from v2.supply_chains.constants import NODE_TYPE_CHOICES
 from v2.transactions.constants import EXTERNAL_TRANS_TYPE_CHOICES
 from v2.transactions.constants import EXTERNAL_TRANS_TYPE_INCOMING
@@ -62,12 +63,15 @@ class ExternalTransactionDataSheet(datasheets.TemplateDataGenerator):
     @staticmethod
     def unit(instance):
         """Returns unit."""
-        return dict(UNIT_CHOICES)[int(instance.result_batch.unit)]
+        try:
+            return dict(UNIT_CHOICES)[int(instance.result_batch.unit)]
+        except Exception as e:
+            return UNIT_KG
 
     @staticmethod
     def source_type(instance):
         """Returns source type."""
-        return dict(NODE_TYPE_CHOICES)[int(instance.source.type)]
+        unit = dict(NODE_TYPE_CHOICES)[int(instance.source.type)]
 
     @staticmethod
     def destination_type(instance):
