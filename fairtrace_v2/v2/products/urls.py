@@ -24,6 +24,9 @@ urlpatterns = [
     path("verification/", product_views.ProductListView.as_view()),
     # Batch
     path("batch/", batch_views.BatchList.as_view(), name="batch"),
+    path("batch/toggle-archive/", batch_views.BatchArchiveView.as_view(), name="toggle-archive"),
+    path("batch-summary/", batch_views.BatchSummary.as_view(), 
+         name="batch-summary"),
     path(
         "batch/<idencode:pk>/",
         batch_views.BatchDetails.as_view(),

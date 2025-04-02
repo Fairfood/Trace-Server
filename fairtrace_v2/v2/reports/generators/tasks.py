@@ -1,6 +1,6 @@
 import time
 
-from celery.task import task
+from celery import shared_task
 from django.apps import apps
 from sentry_sdk import capture_exception
 
@@ -40,7 +40,7 @@ DATA_SHEET_CLASS = {
 BUFFER = 5  # Putting a buffer in response time.
 
 
-@task(name="generate_file", queue="high")
+@shared_task(name="generate_file", queue="high")
 def generate_file(instance_id, pks, model, app, file_name):
     """Generate file according to the template and type."""
     st = time.time()

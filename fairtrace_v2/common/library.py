@@ -5,6 +5,7 @@ import hashlib
 import io
 import json
 import string
+import re
 from collections import OrderedDict
 from datetime import datetime
 from random import randint
@@ -814,3 +815,12 @@ def camel_to_underscore(camel_case: str) -> str:
             result.append('_')
         result.append(char.lower())
     return ''.join(result)
+
+
+def is_valid_gtin(gtin):
+    """Check if the entered GTIN is valid."""
+    # GTIN should be numeric and its length must be 8, 12, 13, or 14 digits
+    if re.match(r'^\d{8}$', gtin) or re.match(r'^\d{12}$', gtin) or \
+        re.match(r'^\d{13}$', gtin) or re.match(r'^\d{14}$', gtin):
+        return True
+    return False

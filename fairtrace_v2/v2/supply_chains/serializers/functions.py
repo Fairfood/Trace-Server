@@ -23,10 +23,10 @@ def get_node_claims(node):
             },
             "status": claim.status,
             "attached_by": {
-                "id": claim.attached_by.idencode,
-                "name": claim.attached_by.full_name,
-                "type": claim.attached_by.type,
-                "image": claim.attached_by.image_url,
+                "id": claim.attached_by.idencode if claim.attached_by else '',
+                "name": claim.attached_by.full_name if claim.attached_by else '',
+                "type": claim.attached_by.type if claim.attached_by else '',
+                "image": claim.attached_by.image_url if claim.attached_by else '',
             },
             "node": {
                 "id": claim.node.idencode,

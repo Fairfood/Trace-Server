@@ -2,6 +2,7 @@
 import copy
 
 from common import library as comm_lib
+from common.backends.sso import SSORequest
 from common.drf_custom import fields as custom_fields
 from common.drf_custom.serializers import DynamicModelSerializer
 from common.exceptions import BadRequest
@@ -15,37 +16,25 @@ from v2.accounts.serializers import user as user_serializers
 from v2.products import constants as prod_constants
 from v2.products.models import Product
 from v2.supply_chains.cache_resetters import reload_related_statistics
-from v2.supply_chains.constants import BULK_UPLOAD_TYPE_CONNECTION_ONLY
-from v2.supply_chains.constants import BULK_UPLOAD_TYPE_CONNECTION_TRANSACTION
-from v2.supply_chains.constants import CONNECTION_STATUS_CLAIMED
-from v2.supply_chains.constants import CONNECTION_STATUS_VERIFIED
-from v2.supply_chains.constants import INVITATION_TYPE_DIRECT
-from v2.supply_chains.constants import INVITATION_TYPE_INDIRECT
-from v2.supply_chains.constants import INVITE_RELATION_BUYER
-from v2.supply_chains.constants import INVITE_RELATION_CHOICES
-from v2.supply_chains.constants import INVITE_RELATION_SUPPLIER
-from v2.supply_chains.constants import NODE_DISCLOSURE_FULL
-from v2.supply_chains.constants import NODE_TYPE_FARM
+from v2.supply_chains.constants import (
+    BULK_UPLOAD_TYPE_CONNECTION_ONLY, BULK_UPLOAD_TYPE_CONNECTION_TRANSACTION,
+    CONNECTION_STATUS_CLAIMED, CONNECTION_STATUS_VERIFIED,
+    INVITATION_TYPE_DIRECT, INVITATION_TYPE_INDIRECT, INVITE_RELATION_BUYER,
+    INVITE_RELATION_CHOICES, INVITE_RELATION_SUPPLIER, NODE_DISCLOSURE_FULL,
+    NODE_STATUS_ACTIVE, NODE_TYPE_FARM)
 from v2.supply_chains.farmer_bulk.farmer_sheet import FarmerExcel
-from v2.supply_chains.models import AdminInvitation
-from v2.supply_chains.models import BulkExcelUploads
-from v2.supply_chains.models import Company
-from v2.supply_chains.models import Connection
-from v2.supply_chains.models import Farmer
-from v2.supply_chains.models import Invitation
-from v2.supply_chains.models import Label
-from v2.supply_chains.models import Node
-from v2.supply_chains.models import NodeSupplyChain
-from v2.supply_chains.models import SupplyChain
+from v2.supply_chains.models import (AdminInvitation, BulkExcelUploads,
+                                     Company, Connection, Farmer, Invitation,
+                                     Label, Node, NodeSupplyChain, SupplyChain)
 from v2.supply_chains.models.supply_chain import UploadFarmerMapping
+from v2.supply_chains.models.profile import FarmerReference
 from v2.supply_chains.serializers import node as node_serializers
-from v2.supply_chains.serializers.node import NodeSerializer
-from v2.supply_chains.serializers.node import OperationSerializer
+from v2.supply_chains.serializers.node import (NodeSerializer,
+                                               OperationSerializer)
 from v2.supply_chains.serializers.public import NodeBasicSerializer
 from v2.supply_chains.tasks import upload_bulk_connection_transaction
 from v2.transactions import constants as trans_constants
 from v2.transactions import constants as txn_constants
-
 
 # from v2.supply_chains.cache_resetters import reload_statistics
 
@@ -233,6 +222,7 @@ class CompanyInviteSerializer(InviteSerializer):
         related_model=Company,
     )
     send_email = serializers.BooleanField(required=False, default=True)
+    create_user_without_invitation = serializers.BooleanField(required=False, default=False)
 
     class Meta(node_serializers.NodeSerializer.Meta):
         """Meta data."""
@@ -247,8 +237,10 @@ class CompanyInviteSerializer(InviteSerializer):
         - Update Creator
         - Update Updator
         """
-        send_email = validated_data.pop("send_email", True)
-        # send_email = False
+        email_send = validated_data.pop("send_email", True)
+        create_user_without_invitation = validated_data.pop("create_user_without_invitation", False)
+        connected_to = validated_data.get("connected_to", None)
+        relation = validated_data.get("relation", None)
         if "company" not in validated_data.keys():
             if "incharge" not in validated_data.keys():
                 raise BadRequest("Incharge details not found")
@@ -276,19 +268,51 @@ class CompanyInviteSerializer(InviteSerializer):
             validated_data["incharge"] = incharge
             validated_data["email"] = incharge.email
             validated_data["phone"] = incharge.phone
-            if send_email:
-                validated_data["admin"] = incharge.get_or_create_user()
+            validated_data["status"] = NODE_STATUS_ACTIVE
+            # if email_send or create_user_without_invitation:
+            validated_data["admin"] = incharge.get_or_create_user()
         else:
             validated_data["node_object"] = validated_data["company"]
-        invitation = super(CompanyInviteSerializer, self).serializer_create(
+        instance = super(CompanyInviteSerializer, self).serializer_create(
             validated_data, Company
         )
 
-        invitation.log_activity()
-        if send_email:
-            invitation.send_invite()
+        if "incharge" in validated_data:
+            user = FairfoodUser.objects.get(email=incharge.email)
+            user.is_active=True
+            user.save()
+            sso = SSORequest()
+            args = sso.create_user(user)
+            if not args[1]:
+                sso.update_user(user)
 
-        return invitation
+            if user.is_fairtrace_admin:
+                return None
+            company = user.usernodes.all().last().node.company
+            args = sso.create_node(company, user)
+            if not args[1]:
+                sso.update_node(company)
+            # company.refresh_from_db()
+            # sso.create_user_node(
+            #     user, company)  
+
+        if relation == INVITE_RELATION_BUYER and connected_to and \
+            connected_to.is_company() and connected_to.features and \
+            connected_to.features.link_connect and \
+            instance.invitee.is_company() and not instance.invitee.external_id:
+            #sent connect request as a buyer
+            from v2.projects import connect as map_connect
+            connect_api = map_connect.ConnectAPI()
+            external_company_id = connect_api.create_company_as_buyer(
+                instance.invitee.company, instance.inviter.company)
+            if external_company_id:
+                instance.invitee.external_id = external_company_id
+                instance.invitee.save()
+
+        instance.log_activity()
+        if email_send:
+            instance.send_invite()
+        return instance
 
     def to_representation(self, instance):
         """Representation."""
@@ -319,6 +343,26 @@ class FarmerInviteSerializer(InviteSerializer):
         """Meta data."""
 
         model = Farmer
+    
+    def validate(self, attrs):
+
+        try:
+            node = self.context["view"].kwargs["node"]
+        except Exception:
+            node = self.context["node"]
+        if 'identification_no' in attrs and attrs['identification_no']:
+            suppliers = node.map_supplier_pks()
+            buyers = node.map_buyer_pks()
+            ids = list(suppliers)+list(buyers)
+            if FarmerReference.objects.filter(
+                number=attrs['identification_no'], 
+                farmer__node_ptr__in=ids
+            ).exists():
+                raise BadRequest(
+                    "Identification Number Already Exists!", 
+                    send_to_sentry=False
+                )
+        return super().validate(attrs)
 
     def validate_family_members(self, value):
         """To perform function validate_family_members."""
@@ -826,9 +870,8 @@ class FarmerBulkInviteSerializerAsync(serializers.Serializer):
                     date, "%d-%m-%Y-%H:%M:%S.%f"
                 )
                 transaction_to_add += 1
-                from v2.transactions.serializers.external import (
-                    ExternalTransactionSerializer,
-                )
+                from v2.transactions.serializers.external import \
+                    ExternalTransactionSerializer
 
                 farmer_data["transaction_data"]["node"] = farmer.idencode
                 farmer_data["transaction_data"][

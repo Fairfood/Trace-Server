@@ -1,4 +1,5 @@
 """Serializers for intenal transactions."""
+from collections import OrderedDict
 from common import library as common_lib
 from common.drf_custom import fields as custom_fields
 from django.conf import settings
@@ -13,6 +14,7 @@ from v2.transactions import constants as trans_constants
 from v2.transactions.models import InternalTransaction
 from v2.transactions.models import SourceBatch
 from v2.transactions.tasks import transaction_follow_up
+from django.db.models import Q
 
 from ...accounts.serializers.user import UserListSerializer
 from ...dashboard.models import CITheme
@@ -27,8 +29,10 @@ class InternalTransactionSerializer(serializers.ModelSerializer):
     node = custom_fields.KWArgsObjectField(write_only=True)
     type = serializers.IntegerField(required=False)
     batch_type = serializers.IntegerField(required=False)
+    select_all_batches = serializers.BooleanField(default=False, 
+                                                  write_only=True)
     source_batches = batch_serializers.SourceBatchSerializer(
-        write_only=True, many=True
+        write_only=True, many=True, required=False
     )
     destination_batches = DestinationBatchSerializer(
         write_only=True, many=True, required=False
@@ -67,11 +71,13 @@ class InternalTransactionSerializer(serializers.ModelSerializer):
         model = InternalTransaction
         fields = (
             "id",
+            "external_id",
             "user",
             "node",
             "type",
             "mode",
             "date",
+            "select_all_batches",
             "source_batches",
             "destination_batches",
             "number",
@@ -89,6 +95,7 @@ class InternalTransactionSerializer(serializers.ModelSerializer):
             "client_type",
             "invoice",
             "created_on",
+            "archived"
         )
 
     def get_source_products(self, instance):
@@ -150,8 +157,23 @@ class InternalTransactionSerializer(serializers.ModelSerializer):
         of different types and different destination batches,
          so no system transaction will be created.
         """
+        select_all_batches = validated_data.pop("select_all_batches", False)
+        validated_data['source_batches'] = validated_data.get('source_batches', 
+                                                              [])
+        if select_all_batches:
+            self._get_only_batches_to_batches(validated_data["source_batches"])
+
+        if not validated_data["source_batches"]:
+            raise serializers.ValidationError(
+                "source_batches is required."
+            )
+
         if validated_data["type"] != trans_constants.INTERNAL_TRANS_TYPE_MERGE:
             return validated_data
+        
+        
+
+        
         product_ids = [
             i["batch"].product.id for i in validated_data["source_batches"]
         ]
@@ -206,6 +228,43 @@ class InternalTransactionSerializer(serializers.ModelSerializer):
                 new_source_batch.append(batch)
         validated_data["source_batches"] = new_source_batch
         return validated_data
+    
+    def _get_only_batches_to_batches(self, only_changed_batches):
+        """Retrieves batches associated with a specific node that are not
+        already present in the 'only_changed_batches' list.
+
+        This method is responsible for finding batches associated with a
+        specific node that are not present in the
+        'only_changed_batches' list. The 'only_changed_batches' list should
+        contain dictionaries with 'batch' and 'quantity' keys.
+
+        Args:
+            only_changed_batches (list): A list of dictionaries, each
+            containing 'batch' and 'quantity' keys.
+        """
+        try:
+            node = self.context.get("view").kwargs.get("node")
+        except KeyError:
+            node = self.context.get("node")
+
+        if node:
+            batch_ids = [
+                batch_data["batch"].pk for batch_data in only_changed_batches
+            ]
+            batch_qs = Batch.objects.filter(
+                Q(node_id=node.id, current_quantity__gt=0)
+                & ~Q(pk__in=batch_ids)
+            )
+            batch_qs = batch_qs.filter(archived=False)
+            batch_qs = batch_qs.only("id", "current_quantity")
+            only_changed_batches.extend(
+                [
+                    OrderedDict(
+                        {"batch": batch, "quantity": batch.current_quantity}
+                    )
+                    for batch in batch_qs
+                ]
+            )
 
     @django_transaction.atomic
     def create(self, validated_data):
@@ -225,8 +284,10 @@ class InternalTransactionSerializer(serializers.ModelSerializer):
         destination_batches = validated_data.pop("destination_batches", None)
         common_lib._pop_out_from_dictionary(validated_data, ["user"])
         transaction = InternalTransaction.objects.create(**validated_data)
+        batches = []
         for batch_data in source_batches:
             batch = batch_data["batch"]
+            batches.append(batch)
             qty = batch_data["quantity"]
             if batch.current_quantity < qty:
                 raise serializers.ValidationError(
@@ -258,6 +319,9 @@ class InternalTransactionSerializer(serializers.ModelSerializer):
                     type=batch_type,
                     note=validated_data.get("comment", ""),
                 )
+                for b in batches:
+                    result_batch.parents.add(b)
+                    result_batch.update_batch_farmers()
                 if transaction.mode == trans_constants.TRANSACTION_MODE_SYSTEM:
                     result_batch.inherit_claims()
 
@@ -329,6 +393,7 @@ class InternalTransactionListSerializer(serializers.ModelSerializer):
             "blockchain_address",
             "logged_time",
             "creator",
+            "archived"
         )
 
     def get_source_products(self, instance):

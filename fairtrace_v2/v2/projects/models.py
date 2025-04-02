@@ -337,7 +337,7 @@ class NodeCard(AbstractBaseModel):
         default=None,
         blank=True,
     )
-    card_id = models.CharField(max_length=500, unique=True)
+    card_id = models.CharField(max_length=500)
     fairid = models.CharField(max_length=500, default="")
     status = models.IntegerField(
         default=constants.CARD_STATUS_ACTIVE,
@@ -362,7 +362,6 @@ class NodeCard(AbstractBaseModel):
         self.new_instance = not self.pk
         if self.node_changed():
             self._create_history()
-            self.external_id = None
         self.update_or_create_reference()
         super(NodeCard, self).save(**kwargs)
 
@@ -391,6 +390,13 @@ class NodeCard(AbstractBaseModel):
             card_id=self.card_id
         ).first()
 
+        #get last card against fair_id if no last card since both are 
+        #non mandatory
+        if not last_card:
+            last_card = NodeCardHistory.objects.filter(
+                fairid=self.fairid
+            ).first()
+
         # Get last node history against node_id
         last_node = NodeCardHistory.objects.filter(
             node_id=self.node_id,
@@ -402,7 +408,8 @@ class NodeCard(AbstractBaseModel):
 
         data_dict = {
             "node_id": self.node_id,
-            "card_id": self.card_id,
+            "card_id": self.card_id or "",
+            "fairid": self.fairid or "",
             "creator": self.creator,
             "updater": self.updater,
             "updated_on": self.updated_on,
@@ -440,19 +447,40 @@ class NodeCard(AbstractBaseModel):
         NodeCardHistory.objects.create(**data_dict)
 
     def update_or_create_reference(self):
-        """Create farmer reference entry for NodeCard."""
-        new_instance = not self.pk
+        """Create or update farmer reference entry for NodeCard."""
 
-        # update already available reference.
-        old_instance_checks = (not new_instance, self.reference, self.node)
-        if all(old_instance_checks) and self.node.type == NODE_TYPE_FARM:
-            self.reference.farmer_id = self.node_id
-            self.reference.save()
+        from v2.supply_chains.models.profile import FarmerReference
 
-        # create a new reference.
-        new_instance_checks = (new_instance, self.node)
-        if all(new_instance_checks) and self.node.type == NODE_TYPE_FARM:
-            self._create_reference()
+        # If node type is not FARM, no action is needed
+        if self.node.type != NODE_TYPE_FARM:
+            return
+
+        # Handle the case where the instance already exists
+        if self.reference and self.node:
+            # Update the existing reference, disassociating it first
+            FarmerReference.objects.filter(
+                farmer_id=self.node_id, 
+                reference=self.reference.reference
+            ).update(farmer_id=None)
+
+            # Update the reference to the current node
+            FarmerReference.objects.filter(
+                id=self.reference.id
+            ).update(farmer_id=self.node_id)
+        
+        # If no reference is set, create a new one
+        elif not self.reference:
+            reference = self._create_reference()
+
+            #remove reference from other node card
+            #issue due to not saving reference in node card earlier even if it 
+            # was created 
+            NodeCard.objects.filter(
+                reference=reference
+            ).update(
+                reference=None, status=constants.CARD_STATUS_INACTIVE
+            )
+            NodeCard.objects.filter(id=self.id).update(reference=reference)
 
     def _create_reference(self):
         name_string = TRACE_FARMER_REFERENCE_NAME
@@ -473,12 +501,14 @@ class NodeCard(AbstractBaseModel):
             refs = reference_model.objects.filter(name__iexact=name_string)
             ref = refs.last()  # always gets the first one crated.
 
-        # create farmer reference
-        self.reference = farmer_reference_model.objects.create(
+        # Try to get the farmer_reference object or create a new one if it 
+        # doesn't exist
+        farmer_reference, _ = farmer_reference_model.objects.update_or_create(
             reference_id=ref.id,
             farmer_id=self.node_id,
-            number=self.fairid or self.card_id,
+            defaults={'number': self.fairid or self.card_id},
         )
+        return farmer_reference
 
     def node_changed(self):
         """Check if the node has changed since the last save.
@@ -662,6 +692,7 @@ class NodeCardHistory(AbstractBaseModel):
         blank=True,
     )
     card_id = models.CharField(max_length=500)
+    fairid = models.CharField(max_length=500, default="")
     status = models.IntegerField(
         default=constants.CARD_ISSUE_STATUS_NEW,
         choices=constants.CARD_ISSUE_STATUS_CHOICES,
@@ -715,3 +746,50 @@ class NodeCardHistory(AbstractBaseModel):
                 object_type=act_constants.OBJECT_TYPE_NODE_CARD_HISTORY,
                 node=self.node,
             )
+
+
+class Synchronization(AbstractBaseModel):
+    """
+    Represents a synchronization between a node and a supply chain in the 
+    system.
+
+    Attributes:
+        node (ForeignKey): A foreign key to the Node model representing the 
+            node involved in the synchronization.
+        supply_chain (ForeignKey): A foreign key to the SupplyChain model 
+            representing the supply chain involved in the synchronization.
+        status (CharField): A character field representing the status of the 
+            synchronization.
+        task_id (CharField): A character field representing the task ID 
+            associated with the synchronization.
+        error (TextField): A text field representing any error message 
+            associated with the synchronization.
+        sync_type (CharField): A character field representing the type of 
+            synchronization.
+    """
+    node = models.ForeignKey(
+        "supply_chains.Node",
+        on_delete=models.CASCADE,
+        related_name="syncs",
+    )
+    supply_chain = models.ForeignKey(
+        "supply_chains.SupplyChain",
+        on_delete=models.CASCADE,
+        related_name="syncs",
+        null=True, blank=True
+    )
+    status = models.CharField(
+        max_length=15,
+        default=constants.SYNC_STATUS_IN_PROGRESS,
+        choices=constants.SYNC_STATUS_CHOICES,
+    )
+    task_id = models.CharField(max_length=500, null=True, blank=True)
+    error = models.TextField(null=True, blank=True)
+    sync_type = models.CharField(
+        max_length=10,
+        choices=constants.SYNC_TYPE_CHOICES,
+        default=constants.SYNC_TYPE_CONNCET,
+    )
+
+    def __str__(self):
+        return f"{self.node.full_name} - {self.status} | {self.pk}"

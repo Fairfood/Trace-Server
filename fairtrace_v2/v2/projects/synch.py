@@ -5,6 +5,7 @@ from django.conf import settings
 import requests
 from tqdm import tqdm
 from v2.supply_chains.models.profile import Farmer
+from v2.products.models import Product
 from v2.projects.models import NodeCard, Payment, ProjectProduct
 from v2.projects.constants import (BASE_PREMIUM, BASE_TRANSACTION, OPTIONS, 
                                    PREMIUM_APPLICABLE_ACTIVITY_BUY, 
@@ -27,6 +28,7 @@ from django.db.models import Q
 from v2.transactions.models import ExternalTransaction
 
 BASE_URL = settings.ROOT_URL + '/connect/v1/'
+# BASE_URL = "http://127.0.0.1:8003/connect/v1/"
 
 USER_MEMBER_TYPE = {
     NODE_MEMBER_TYPE_ADMIN: 'SUPER_ADMIN',
@@ -142,8 +144,10 @@ class Login:
             return self.access_token
         raise Exception('Login failed')
     
-
-login = Login('admin@example.com', 'admin@connect', '1234567890')
+user_name = settings.CONNECT_USER_NAME
+password = settings.CONNECT_PASSWORD
+device_id = settings.CONNECT_DEVICE_ID
+login = Login(user_name, password, device_id)
     
 
 def companies_from_transaction():
@@ -178,6 +182,60 @@ def get_buyer(node):
         return buyer 
     return None
 
+def add_user(user):
+    """
+    Adds a user to connect app.
+
+    Args:
+        user (User): The user object representing the user to be added.
+
+    Returns:
+        tuple: A tuple containing a boolean value indicating the success of
+        the operation and the response object returned by the API.
+
+    """
+    url = BASE_URL + 'accounts/users/'
+
+    data = {
+        "first_name": user.first_name,
+        "last_name": user.last_name,
+        "email": user.email,
+        "password": user.password
+    }
+    response = requests.post(
+        url,
+        data=data,
+        headers={'Authorization': 'Bearer ' + login.access()}
+    )
+    if response.status_code != 201:
+        raise Exception(f"User Sync failed")
+    external_id = response.json()['data']['id']
+    return external_id
+
+def get_user(user_email):
+    """
+    get user with given email from connect.
+
+    Args:
+
+    Returns:
+        tuple: A tuple containing a boolean value indicating the success of
+        the operation and the response object returned by the API.
+
+    """
+    url = BASE_URL + 'accounts/users/'
+
+    response = requests.get(
+        url,
+        headers={'Authorization': 'Bearer ' + login.access()},
+        params={'email': user_email}
+    )
+    try:
+        user_id = response.json()['data']['results'][0]['id']
+        return user_id
+    except:
+        return None
+
 def sync_company(node):
     node = Node.objects.get(id=node.id) # To get updated data
     company = node.company
@@ -205,7 +263,9 @@ def sync_company(node):
       "phone": company.phone,
       "description": company.description_basic,
       "buyer": buyer.external_id if buyer else None,
-      "currency": "EUR"
+      "currency": "EUR",
+      "buy_enabled": True,
+      "allow_multiple_login": True
     }
     if project:
         data["buy_enabled"] = project.buy_enabled
@@ -226,7 +286,6 @@ def sync_company(node):
         # image_url = BASE_URL + f'supply-chains/companies/{node.external_id}/'
         # sync_node_images(node, image_url)
         return node
-    print(response.json())
     raise Exception(f"{company} --- Sync failed")
 
 def _create_forms(node):
@@ -292,36 +351,53 @@ def _create_forms(node):
     return fields
 
 
-def sync_node_users(node):
-    members = node.nodemembers.filter(active=True, 
-                                      user__external_id__isnull=True)
+def sync_node_users(node, user):
     url = BASE_URL + 'supply-chains/company-members/'
-    for member in tqdm(members):
-        data = {
-            "company": node.external_id,
-            "type": USER_MEMBER_TYPE[member.type],
-            "user": {
-                "email": member.user.email,
-                "first_name": member.user.first_name,
-                "last_name": member.user.last_name,
-                "phone": member.user.phone,
-                "dob": member.user.dob,
-                "address": member.user.address
-                }
-            }
-        response = requests.post(
-            url, 
-            data=json.dumps(data),
-            headers={
-                'Authorization': 'Bearer ' + login.access(),
-                'Content-Type': 'application/json'
-                })
-        if response.status_code == 201:
-            member.user.external_id = response.json()['data']['user']['id']
-            member.user.save()
-            continue
-        print(response.json())
-        raise Exception(f"{member.user} --- Sync failed")
+    data = {
+        "company": node.external_id,
+        "type": USER_MEMBER_TYPE[user.type],
+        "user": user.external_id
+        }
+    response = requests.post(
+        url, 
+        data=json.dumps(data),
+        headers={
+            'Authorization': 'Bearer ' + login.access(),
+            'Content-Type': 'application/json'
+            })
+    if response.status_code == 201:
+        return True
+    
+def create_products(node):
+
+    supply_chains = node.supply_chains.all()
+    for supply_chain in supply_chains:
+        products=supply_chain.products.all()
+
+        url = BASE_URL + 'transactions/product-transactions/'
+
+        if products:
+            for product in tqdm(products):
+                url = BASE_URL + 'catalogs/products/'
+                data = {
+                    "name": product.name,
+                    "description": product.description,
+                    }
+                response = requests.post(
+                    url, 
+                    data=json.dumps(data),
+                    headers={
+                        'Authorization': 'Bearer ' + login.access(),
+                        'Content-Type': 'application/json'
+                        })
+                if response.status_code == 201:
+                    product = Product.objects.get(id=product.id)
+                    product.external_id = response.json()['data']['id']
+                    product.save()
+
+        company_products = [product.external_id for product in products]
+        update_company_products(node, company_products)
+
     
 def sync_premiums(node):
     premiums = node.owned_premiums.filter(external_id__isnull=True)
@@ -363,13 +439,12 @@ def sync_premiums(node):
             premium.external_id = response.json()['data']['id']
             premium.save()
             continue
-        print(response.json())
         raise Exception(f"{premium} --- Sync failed")
-    
+        
+
 def sync_node_products(node):
     project = get_project(node)
     project_products = ProjectProduct.objects.filter(project=project)
-    
     url = BASE_URL + 'supply-chains/company-products/'
     for p_product in tqdm(project_products):
         product = p_product.product
@@ -396,7 +471,6 @@ def sync_node_products(node):
             product.external_id = response.json()['data']['product']['id']
             product.save()
             continue
-        print(response.json())
         raise Exception(f"{product} --- Sync failed")
     
 def sync_farmer(node):
@@ -456,7 +530,6 @@ def sync_farmer(node):
             # image_url = BASE_URL + f'supply-chains/farmers/{node.external_id}/'
             # sync_node_images(farmer, image_url)
             continue
-        print(response.json())
         raise Exception(f"{farmer} --- Sync failed")
     
 def _create_farmer_submissions(farmer, node):
@@ -518,7 +591,6 @@ def sync_farmer_cards(node):
             card.external_id = response.json()['data']['card']['id']
             card.save()
             continue
-        print(response.json())
         raise Exception(f"{card} Sync failed")
     
 def sync_unassigned_cards():
@@ -544,8 +616,54 @@ def sync_unassigned_cards():
             card.external_id = response.json()['data']['id']
             card.save()
             continue
-        print(response.json())
         raise Exception(f"{card} ---  Sync failed")
+
+
+
+def update_company_products(node, products):
+    data = {
+      "product_id": products,
+      "company": node.external_id,
+    }
+    url = BASE_URL + f'supply-chains/company-products/'
+    response = requests.post(
+        url, data=data, 
+        headers={'Authorization': 'Bearer ' + login.access()})
+    if response.status_code != 201:
+        raise Exception(f"Company product update failed")
+
+def sync_products(node):
+
+    transactions = ExternalTransaction.objects.filter(external_id__isnull=True)
+    transactions = transactions.filter(destination=node).order_by('id')
+    url = BASE_URL + 'transactions/product-transactions/'
+
+    products = {transaction.product for transaction in 
+                transactions if transaction.product.external_id is None}
+    if products:
+        for product in tqdm(products):
+            url = BASE_URL + 'catalogs/products/'
+            data = {
+                "name": product.name,
+                "description": product.description,
+                }
+            response = requests.post(
+                url, 
+                data=json.dumps(data),
+                headers={
+                    'Authorization': 'Bearer ' + login.access(),
+                    'Content-Type': 'application/json'
+                    })
+            if response.status_code == 201:
+                product = Product.objects.get(id=product.id)
+                product.external_id = response.json()['data']['id']
+                product.save()
+        company_products = {transaction.product for transaction in transactions}
+        products = [product.external_id for product in company_products]
+
+        # for product in company_products:
+        update_company_products(node, products)
+
 
 def sync_transactions(node):
     transactions = ExternalTransaction.objects.filter(external_id__isnull=True)
@@ -567,7 +685,7 @@ def sync_transactions(node):
     
     for transaction in tqdm(transactions):
         if not transaction.product.external_id:
-            continue
+            sync_products(transaction.product)
         if (transaction.source.type == NODE_TYPE_FARM 
             and not transaction.source.external_id):
             continue
@@ -637,7 +755,6 @@ def sync_transactions(node):
             transaction.external_id = response.json()['data']['id']
             transaction.save()
             continue
-        print(response.json())
         raise Exception(f"{transaction} --- Sync failed")
     
 def _create_submissions(transaction, node):
@@ -706,10 +823,8 @@ def sync_node_images(node, url):
             'Authorization': 'Bearer ' + login.access(),
             })
     if response.status_code != 200:
-        print(response.json())
         raise Exception(f"{node} image upload --- Sync failed")
     else:
-        print(response.status_code)
         print(f"{node} - {node.external_id} image uploaded")
 
 def sync_all_node_images():
@@ -743,10 +858,8 @@ def sync_transaction_invoice(transaction, url):
             'Authorization': 'Bearer ' + login.access(),
             })
     if response.status_code != 200:
-        print(response.json())
         raise Exception(f"{transaction} file upload --- Sync failed")
     else:
-        print(response.status_code)
         print(f"{transaction} - {transaction.external_id} file uploaded")
 
 def sync_all_transaction_invoices():
@@ -799,7 +912,6 @@ def sync_payments(node):
             payment.external_id = response.json()['data']['id']
             payment.save()
             continue
-        print(response.json())
         raise Exception(f"{payment} Sync failed")
     
 def initial_synch(node):

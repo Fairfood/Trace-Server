@@ -4,7 +4,6 @@ from typing import Optional
 import pandas as pd
 import pandera as pa
 from pandera.typing import Series
-
 from v2.bulk_uploads.schemas.farmer_upload_schema import FarmerUploadSchema
 
 
@@ -61,6 +60,7 @@ class TraceTransactionUploadSchema(TraceFarmerUploadSchema):
         coerce=True, nullable=True)
     seller_ref_number: Optional[Series[str]] = pa.Field(
         coerce=True, nullable=True)
+    farmer_duplicated: Optional[Series[bool]]
 
     @pa.check("date",
               name="date_check",
@@ -79,3 +79,16 @@ class TraceTransactionUploadSchema(TraceFarmerUploadSchema):
             bool: True if the transaction date is valid, False otherwise.
         """
         return transaction_date <= datetime.today()
+    
+    @classmethod
+    def format_df(cls, df: pd.DataFrame) -> pd.DataFrame:
+        """Format the dataframe.
+
+        To find the duplicated farmers rows, and mark them as True in the DF.
+        """
+        df["first_name"] = df["first_name"].astype(str).str.title()
+        df["last_name"] = df["last_name"].astype(str).str.title()
+        
+        columns = ["first_name", "last_name", "country", "province"]
+        df["farmer_duplicated"] = df.duplicated(subset=columns)
+        return df

@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # coding=utf-8
 """Constants of the app projects."""
+import enum
+from django.conf import settings
 from common import constants as com_consts
 
 PREMIUM_TYPE_PER_TRANSACTION = 101
@@ -128,3 +130,30 @@ CALCULATION_TYPE_CHOICES = (
     (MANUAL, "MANUAL"),  # Apply manual cost to calculate.
     (OPTIONS, "OPTIONS"),  # Cost taken from OPTIONS.
 )
+
+SYNC_STATUS_IN_PROGRESS = "IN_PROGRESS"
+SYNC_STATUS_SUCCESS = "SUCCESS"
+SYNC_STATUS_FAILED = "FAILED"
+
+SYNC_STATUS_CHOICES = (
+    (SYNC_STATUS_IN_PROGRESS, "IN_PROGRESS"),
+    (SYNC_STATUS_SUCCESS, "SUCCESS"),
+    (SYNC_STATUS_FAILED, "FAILED"),
+)
+
+SYNC_TYPE_CONNCET = "CONNECT"
+SYNC_TYPE_NAVIGATE = "NAVIGATE"
+
+SYNC_TYPE_CHOICES = (
+    (SYNC_TYPE_CONNCET, "CONNECT"),
+    (SYNC_TYPE_NAVIGATE, "NAVIGATE"),
+)
+
+
+class ConnectURL(enum.Enum):
+    """Trace Connect API endpoints"""
+    BASE_URL = f"{settings.ROOT_URL}/connect/v1/"
+    LOGIN = BASE_URL + "auth/login/"
+    FARMERS = BASE_URL + "supply-chains/farmers/"
+    ENTITY_CARDS = BASE_URL + "supply-chains/entity-cards/"
+    PRODUCT_TRANSACTIONS = BASE_URL + "transactions/product-transactions/"

@@ -6,12 +6,10 @@ from common.exceptions import BadRequest
 from common.library import _encode
 from common.models import AbstractBaseModel
 from django.contrib.postgres import fields
-from django.db import models
-from django.db import transaction
+from django.db import models, transaction
 from django.utils import timezone
 from haversine import haversine
-from sentry_sdk import capture_exception
-from sentry_sdk import capture_message
+from sentry_sdk import capture_exception, capture_message
 from v2.accounts.constants import VTOKEN_TYPE_INVITE
 from v2.accounts.models import ValidationToken
 from v2.activity import constants as act_constants
@@ -19,26 +17,24 @@ from v2.activity.models import Activity
 from v2.blockchain.models.associate_token import AbstractAssociatedToken
 from v2.communications import constants as comm_constants
 from v2.communications.models import Notification
-from v2.supply_chains.constants import BLOCKCHAIN_WALLET_TYPE_HEDERA
-from v2.supply_chains.constants import BULK_UPLOAD_TYPE_CHOICES
-from v2.supply_chains.constants import CONNECTION_STATUS_CHOICES
-from v2.supply_chains.constants import CONNECTION_STATUS_CLAIMED
-from v2.supply_chains.constants import CONNECTION_STATUS_VERIFIED
-from v2.supply_chains.constants import CUSTOM_TEMP_NAME
-from v2.supply_chains.constants import INVITATION_TYPE_CHOICES
-from v2.supply_chains.constants import INVITATION_TYPE_DIRECT
-from v2.supply_chains.constants import INVITE_RELATION_CHOICES
-from v2.supply_chains.constants import INVITE_RELATION_SUPPLIER
-from v2.supply_chains.constants import NODE_INVITED_BY_CHOICES
-from v2.supply_chains.constants import NODE_INVITED_BY_COMPANY
-from v2.supply_chains.constants import NODE_TYPE_COMPANY
-from v2.supply_chains.constants import NODE_TYPE_FARM
+from v2.supply_chains.constants import (BLOCKCHAIN_WALLET_TYPE_HEDERA,
+                                        BULK_UPLOAD_TYPE_CHOICES,
+                                        CONNECTION_STATUS_CHOICES,
+                                        CONNECTION_STATUS_CLAIMED,
+                                        CONNECTION_STATUS_VERIFIED,
+                                        CUSTOM_TEMP_NAME,
+                                        INVITATION_TYPE_CHOICES,
+                                        INVITATION_TYPE_DIRECT,
+                                        INVITE_RELATION_CHOICES,
+                                        INVITE_RELATION_SUPPLIER,
+                                        NODE_INVITED_BY_CHOICES,
+                                        NODE_INVITED_BY_COMPANY,
+                                        NODE_TYPE_COMPANY, NODE_TYPE_FARM)
 from v2.transactions import constants as txn_constants
 
 from ..managers import NodeSupplyChainQuerySet
 from .graph import ConnectionGraphModel
 from .node import Node
-
 
 # Create your models here.
 
@@ -530,21 +526,18 @@ class Invitation(AbstractBaseModel):
             notif_type = comm_constants.NOTIF_TYPE_NEW_NODE_INVITE
 
         for member in self.invitee.subscribers:
-            if member.password:
-                token = None
+            tokens = self.tokens.filter(user=member)
+            if not tokens:
+                token = ValidationToken.initialize(
+                    user=member,
+                    creator=self.creator,
+                    type=VTOKEN_TYPE_INVITE,
+                )
+                self.tokens.add(token)
+                self.save()
             else:
-                tokens = self.tokens.filter(user=member)
-                if not tokens:
-                    token = ValidationToken.initialize(
-                        user=member,
-                        creator=self.creator,
-                        type=VTOKEN_TYPE_INVITE,
-                    )
-                    self.tokens.add(token)
-                    self.save()
-                else:
-                    token = tokens.first()
-                    token.refresh()
+                token = tokens.first()
+                token.refresh()
             Notification.notify(
                 token=token,
                 event=self,
@@ -757,11 +750,14 @@ class Connection(AbstractBaseModel):
     def update_graph_node(self):
         """To perform function update_graph_node."""
         graph_node, created = self.get_or_create_graph()
+        sc_id = self.supply_chain.id
+
         if not created:
             graph_node = self.graph_node
             graph_node.status = self.status
             graph_node.active = self.active
             graph_node.distance = self.distance
+            graph_node.supply_chain_id = sc_id
             graph_node.email_sent = self.invitation.email_sent
             graph_node.labels = [
                 {"id": i.id, "name": i.name} for i in self.labels.all()

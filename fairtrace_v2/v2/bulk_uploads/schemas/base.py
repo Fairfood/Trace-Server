@@ -3,7 +3,7 @@ import inspect
 from typing import Any
 from typing import Dict
 from typing import get_args
-
+import pandas as pd
 import pandera as pa
 from pandera.api.pandas import model
 from pydantic.typing import NoneType
@@ -15,6 +15,18 @@ class BaseUploadSchema(pa.DataFrameModel):
     @classmethod
     def run_presets(cls, context: Dict[str, Any]) -> None:
         pass
+
+    @classmethod
+    def format_df(cls, df: pd.DataFrame) -> pd.DataFrame:
+        """Format the dataframe.
+
+        This class method formats the dataframe by performing any necessary
+        transformations on the data.
+
+        Returns:
+            pa.DataFrame: The formatted dataframe.
+        """
+        return df
 
     @classmethod
     def get_schema_metadata(cls):

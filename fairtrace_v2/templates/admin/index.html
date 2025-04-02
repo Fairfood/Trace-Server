@@ -1,13 +1,19 @@
 {% extends 'admin/index.html' %}
-
-<div class="{% block coltype %}colM{% endblock %}" id="content-main">
-    {% block content_title %}
-    {% if title %}<h1>{{ title }}</h1>{% endif %}
-    <p align="left" style="background-color:#79aec8; height:30px;">
-        <a href="{% url 'copy_sc' %}" style="color:white;">COPY SUPPLYCHAIN
-            CONNECTIONS</a>
-    </p>
-
-    {% endblock %}
-
-</div>
+{% block content %}
+    <div>
+        <div class="model-button" style="position: relative;display: inline-block;">
+            <a class="button" href="{% url 'migrate_connect' %}">Migrate From Connect</a>
+        </div>
+        <div class="model-button" style="position: relative;display: inline-block;">
+            <a class="button" href="{% url 'copy_sc' %}">Copy Supplychain
+                Connections</a>
+        </div>
+    </div>
+    <div class="model-description">
+        <p></p>
+        <p></p>
+    </div>
+    <div id="content-main">
+        {{ block.super }}
+    </div>
+{% endblock %}

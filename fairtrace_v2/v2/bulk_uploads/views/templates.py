@@ -4,26 +4,25 @@ from plistlib import InvalidFileException
 from typing import get_args
 
 import openpyxl
+from common import library
+from common.drf_custom.mixins import inject_node
+from common.drf_custom.views import IdencodeObjectViewSetMixin
+from common.library import camel_to_underscore, decode, success_response
 from django.http import HttpResponse
 from openpyxl.reader.excel import load_workbook
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
-
-from common import library
-from common.drf_custom.mixins import inject_node
-from common.drf_custom.views import IdencodeObjectViewSetMixin
-from common.library import camel_to_underscore, decode
-from common.library import success_response
 from v2.accounts import permissions as user_permissions
 from v2.supply_chains import permissions as sc_permissions
-from ..constants import TEMPLATE_TYPE_TXN, TEMPLATE_TYPE_CONNECTION
+
+from ...supply_chains.constants import NODE_TYPE_FARM
+from ...supply_chains.models import SupplyChain
+from ..constants import TEMPLATE_TYPE_CONNECTION, TEMPLATE_TYPE_TXN
 from ..models import DataSheetTemplate
 from ..schemas.farmer_upload_schema import FarmerUploadSchema
 from ..schemas.transaction_upload_schema import TransactionUploadSchema
 from ..serializers.templates import DataSheetTemplateSerializer
-from ...supply_chains.constants import NODE_TYPE_FARM
-from ...supply_chains.models import SupplyChain
 
 
 class DataSheetTemplateViewSet(
@@ -430,6 +429,6 @@ class DataSheetTemplateViewSet(
             ).first()
             if nsc:
                 return nsc.primary_operation.name
-        return (instance.primary_operator.name
-                if instance.primary_operator
+        return (instance.primary_operation.name
+                if instance.primary_operation
                 else "")

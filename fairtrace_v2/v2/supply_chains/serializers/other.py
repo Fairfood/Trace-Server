@@ -1,4 +1,5 @@
 from common.drf_custom.serializers import DynamicModelSerializer
+from common.exceptions import BadRequest
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from v2.supply_chains.models.profile import FarmerAttachment
@@ -31,14 +32,17 @@ class FarmerReferenceSerializer(DynamicModelSerializer):
     class Meta:
         model = FarmerReference
         fields = "__all__"
-
-    def create(self, validated_data):
-        """Add extra checks before creating a farmer reference."""
-        reference = validated_data.get("reference")
-        if reference:
-            if not reference.is_editable:
-                raise ValidationError(detail="Can not add this reference.")
-        return super().create(validated_data)
+    
+    def validate(self, attrs):
+        node = self.context["view"].kwargs["node"]
+        suppliers = node.map_supplier_pks()
+        buyers = node.map_buyer_pks()
+        ids = list(suppliers)+list(buyers)
+        if FarmerReference.objects.filter(
+            number=attrs['number'], 
+            farmer__node_ptr__in=ids).exists():
+            raise BadRequest("Identification Number Already Exists!")
+        return super().validate(attrs)
 
 
 class FarmerPlotSerializer(DynamicModelSerializer):
@@ -51,6 +55,10 @@ class FarmerPlotSerializer(DynamicModelSerializer):
     class Meta:
         model = FarmerPlot
         fields = "__all__"
+    
+    def update(self, instance, validated_data):
+        instance.sync_with_navigate = False
+        return super().update(instance, validated_data)
 
 
 class FarmerAttachmentSerializer(DynamicModelSerializer):

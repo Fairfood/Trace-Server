@@ -3,16 +3,15 @@ from typing import Tuple
 
 import numpy as np
 import pandas as pd
+from common.drf_custom.mixins import inject_node
+from common.drf_custom.views import IdencodeObjectViewSetMixin
+from common.library import DateTimeEncoder, hash_dict, success_response, decode
 from pandera.errors import SchemaErrors
 from rest_framework import viewsets
 from rest_framework.decorators import action
-
-from common.drf_custom.mixins import inject_node
-from common.drf_custom.views import IdencodeObjectViewSetMixin
-from common.library import hash_dict, DateTimeEncoder
-from common.library import success_response
 from v2.accounts import permissions as user_permissions
 from v2.supply_chains import permissions as sc_permissions
+from v2.supply_chains.models.profile import FarmerReference
 from .. import tasks
 from ..models.uploads import DataSheetUpload, DataSheetUploadSummary
 from ..schemas.errors import SchemaFormattedErrors
@@ -107,7 +106,8 @@ class DataSheetUploadViewSet(
             json_data = json.dumps(instance.initial_data, cls=DateTimeEncoder)
         df = pd.read_json(json_data, orient="index")
 
-        data, errors = self.validate_with_schema(df, instance, adapt_to_schema)
+        data, errors = self.validate_with_schema(
+            df, instance, adapt_to_schema, upload_type)
         summary = self._create_or_update_summary(instance)
 
         return success_response(data={"data_count": len(instance.data),
@@ -153,7 +153,7 @@ class DataSheetUploadViewSet(
         return success_response(data=serializer.data)
 
     def validate_with_schema(self, df, instance,
-                             adapt: bool) -> Tuple[dict, dict]:
+                             adapt: bool, upload_type) -> Tuple[dict, dict]:
         """Validate the data sheet with the schema.
 
         This method validates the data sheet by comparing it against the
@@ -170,8 +170,8 @@ class DataSheetUploadViewSet(
         schema = instance.template.schema
         schema.run_presets({"node": instance.node,
                             "supply_chain": instance.supply_chain})
+        schema_fields = schema.__annotations__.keys()
         if adapt:
-            schema_fields = schema.__annotations__.keys()
             field_position = instance.template.field_positions
 
             try:
@@ -180,7 +180,102 @@ class DataSheetUploadViewSet(
                 return {}, {}
             df.columns = schema_fields
 
+        df = schema.format_df(df)
         data, errors = self._validate_with_schema(df, schema)
+
+        # Prepare the list of verified identification numbers if upload_type 
+        # is "UPDATE"
+        if upload_type == "UPDATE":
+            identification_numbers = set()  # Using a set for O(1) lookups
+            verified_data = instance.data
+            
+            # Collect all unique identification numbers from the verified data
+            for verified in verified_data:
+                if 'identification_no' in verified_data[verified]:
+                    identification_numbers.add(
+                        str(verified_data[verified]['identification_no']))
+
+        # Create a helper function to handle adding errors
+        def add_to_errors(index, row, error_message):
+            if index not in errors:
+                errors[index] = row
+                errors[index].update({'errors': []})
+            
+            # Check if the error message's 'key' already exists in the errors list
+            key_exists = False
+            for error in errors[index]['errors']:
+                if error.get('key') == error_message.get('key'):
+                    # Update the reason if key exists
+                    error['reason'] = error_message.get('reason')
+                    key_exists = True
+                    break
+            
+            # If the key does not exist, append the new error message
+            if not key_exists:
+                errors[index]['errors'].append(error_message)
+
+        # Iterate through the DataFrame and check for duplicates and 
+        # other conditions
+        for index, row in df.iterrows():
+            identification_no = row.get('identification_no')
+            fair_id = row.get('fair_id', None)
+            if pd.notna(identification_no):
+                # Default to row_data being the current row if not popped 
+                # from data
+                row_data = row
+                # Check for duplicates in the "UPDATE" case
+                if upload_type == "UPDATE":
+                    if str(identification_no) in identification_numbers:
+                        # Remove the row from `data` and add it to `errors`
+                        if index in data:
+                            row_data = data.pop(index)
+                        add_to_errors(index, row_data, {
+                            'key': 'identification_no',
+                            'reason': 'Duplicate Identification Number'
+                        })
+                else:
+                    #Check for duplicates based on `identification_no` within 
+                    # the DataFrame
+                    duplicate_identification_numbers = df[
+                        df.duplicated(
+                            subset=['identification_no'], 
+                            keep=False
+                        )]
+                    if index in duplicate_identification_numbers.index:
+                        if index in data:
+                            row_data = data.pop(index)
+                        add_to_errors(index, row_data, {
+                            'key': 'identification_no',
+                            'reason': 'Duplicate Identification Number'
+                        })
+                
+                # Check for existence of the identification number in 
+                # FarmerReference model
+                node = self.kwargs.get("node", None)
+                suppliers = node.map_supplier_pks()
+                buyers = node.map_buyer_pks()
+                ids = set(suppliers) | set(buyers)
+
+                reference = FarmerReference.objects.filter(
+                    number=identification_no, 
+                    farmer__node_ptr__in=ids)
+                if fair_id:
+                    reference.exclude(farmer__id=decode(fair_id))
+                if reference.exists():
+                    # Remove the row from `data` and add it to `errors`
+                    if index in data:
+                        row_data = data.pop(index)
+                    add_to_errors(index, row_data, {
+                        'key': 'identification_no',
+                        'reason': 'Identification Number Already Exists'
+                    })
+
+        key_columns = ['first_name', 'last_name', 'country', 'province']
+        if self.check_all_key_exist(list(schema_fields), key_columns):
+            duplicates = self.find_duplicates(df, key_columns)
+            errors.update(duplicates)
+            data = {key: value for key, value in data.items() if key not in duplicates}
+
         if data:
             self.validate_hash(data, instance, errors)
             update_data = instance.data
@@ -188,6 +283,64 @@ class DataSheetUploadViewSet(
             instance.data = update_data or {}
             instance.save()
         return data, errors
+
+    def check_all_key_exist(self, df_keys=None, check_keys=None):
+        if df_keys and check_keys:
+            return all(item in df_keys for item in check_keys)
+        return False
+
+    @staticmethod
+    def find_duplicates(df: pd.DataFrame, key_columns: list, fair_id_column: str = 'fair_id') -> dict:
+        """
+        Find duplicate rows in a DataFrame based on specified key columns,
+        excluding rows with a specific fair_id after identifying duplicates.
+
+        Args:
+            df (DataFrame): The DataFrame to check for duplicates.
+            key_columns (list): The list of column names to use as keys for finding duplicates.
+            fair_id_column (str): The column name for the fair_id to be excluded from duplicates.
+
+        Returns:
+            dict: A dictionary where the keys are row indices and the values are dictionaries
+                containing the details of duplicate rows and errors.
+        """
+        # Find duplicate rows based on the key columns
+        duplicates = df[df.duplicated(subset=key_columns, keep="first")]
+
+        # Prepare a dictionary to store duplicate information
+        duplicate_info = {}
+
+        # Collect duplicate rows and prepare the dictionary
+        for index, row in duplicates.iterrows():
+            if index not in duplicate_info:
+                duplicate_info[index] = row.to_dict()
+
+        # Create a new dictionary to store filtered results
+        filtered_duplicates = {}
+
+        # Filter out entries with a fair_id and copy the valid entries
+        for index, row in duplicate_info.items():
+            if pd.isna(row.get(fair_id_column)):
+                filtered_duplicates[index] = row
+
+        # Convert NaN and infinite values to None for JSON serialization
+        for index, row in filtered_duplicates.items():
+            for key, value in row.items():
+                if isinstance(value, (float, np.float64)):
+                    if pd.isna(value) or value == float('inf') or value == float('-inf'):
+                        row[key] = None
+                    else:
+                        row[key] = float(value) 
+                elif isinstance(value, pd.Timestamp):
+                    row[key] = value.isoformat()  
+
+        # Optionally, add an 'errors' field if needed (example: based on specific criteria)
+        for index in filtered_duplicates.keys():
+            filtered_duplicates[index]['errors'] = [{'key': "duplicate", 'reason': 'Duplicate Entry'}]  # Customize errors as needed
+
+        return filtered_duplicates
+
+
 
     @staticmethod
     def _validate_with_schema(df, schema) -> Tuple[dict, dict]:
@@ -205,7 +358,33 @@ class DataSheetUploadViewSet(
             Tuple[dict, dict]: A tuple containing the valid data and any
             validation errors.
         """
+        # Function to check if a string is JSON-loadable.
+        def is_json_loadable(s):
+            try:
+                json.loads(s.replace("'", '"'))  # Replace single quotes with double quotes for JSON compatibility.
+                return True
+            except (ValueError, TypeError):
+                return False
+
+        def format_string(geo_data):
+            if not pd.notnull(geo_data):
+                return {}
+            if isinstance(geo_data, str):
+                if not geo_data.strip():
+                    return {}
+                if geo_data.startswith('"') or geo_data.endswith('"'):
+                    geo_data = "'" + geo_data[1:-1] + "'"
+                geo_data = geo_data.replace('(', '[')
+                geo_data = geo_data.replace(')', ']')
+                if geo_data.count("'") % 2 == 0:
+                    geo_data = geo_data.replace("'", '"')
+                if is_json_loadable(geo_data):
+                    return json.loads(geo_data)
+            return geo_data
+
         try:
+            if 'geo_json' in df:
+                df['geo_json'] = df['geo_json'].apply(lambda x: format_string(x))
             df.replace('', np.nan, inplace=True)
             df = schema.validate(df, lazy=True)
         except SchemaErrors as e:

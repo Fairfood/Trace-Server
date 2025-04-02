@@ -1,13 +1,12 @@
 import copy
 
+from common.library import decode, encode
 from django.apps import apps
 from django.db import transaction as db_transaction
-
-from common.library import decode, encode
-from v2.bulk_uploads.schemas.transaction_upload_schema import (
-    TransactionUploadSchema, )
+from v2.bulk_uploads.schemas.transaction_upload_schema import \
+    TransactionUploadSchema
 from v2.bulk_uploads.tasks.base import DataSheetAdapted
-from v2.supply_chains.constants import NODE_TYPE_FARM
+from v2.supply_chains.constants import NODE_TYPE_FARM, POLYGON
 from v2.supply_chains.models import Operation
 from v2.supply_chains.serializers.node import FarmerSerializer
 from v2.supply_chains.serializers.supply_chain import FarmerInviteSerializer
@@ -56,10 +55,10 @@ class BulkTraceAdapter(DataSheetAdapted):
                       for _value in data.values()
                       if "fair_id" in _value]
 
-        self.farmers_ids = data_sheet.node.get_supplier_chain(
+        self.farmers_ids = list(data_sheet.node.get_supplier_chain(
             data_sheet.supply_chain)[0].filter(
             type=NODE_TYPE_FARM, pk__in=farmer_pks
-        ).values_list("id", flat=True)
+        ).values_list("id", flat=True))
 
         for idx, value in data.items():
             # Add common data to each entry
@@ -67,6 +66,13 @@ class BulkTraceAdapter(DataSheetAdapted):
             country_code = value.pop("country_code", None)
             fair_id = value.get("fair_id", None)
             family_members = value.pop("family_members", None)
+            lat = value.pop("latitude", None)
+            lon = value.pop("longitude", None)
+
+            if "latitude" in value and not value.get("latitude", ""):
+                value.pop("latitude")
+            if "longitude" in value and not value.get("longitude", ""):
+                value.pop("longitude")
 
             if family_members:
                 value["family_members"] = int(family_members)
@@ -84,6 +90,13 @@ class BulkTraceAdapter(DataSheetAdapted):
                     supply_chains=data_sheet.supply_chain,
                     node_type=NODE_TYPE_FARM
                 ).last()
+
+                if not primary_operation:
+                    primary_operation = Operation.objects.filter(
+                        name__istartswith=connection_type.strip(),
+                        supply_chains=data_sheet.supply_chain,
+                        node_type=NODE_TYPE_FARM
+                    ).last()
 
                 if not primary_operation:
                     primary_operation = Operation.objects.filter(
@@ -149,6 +162,7 @@ class BulkTraceAdapter(DataSheetAdapted):
             creation.
         """
         farmer_model = apps.get_model("supply_chains", "Farmer")
+        farmer_plot_model = apps.get_model("supply_chains", "FarmerPlot")
 
         # map farmer idencode to
         farmer_idencode_to_obj = dict([
@@ -159,41 +173,67 @@ class BulkTraceAdapter(DataSheetAdapted):
         farmer_serializer_klass = FarmerInviteSerializer
         transaction_serializer_klass = ExternalTransactionSerializer
         update_serializer_klass = FarmerSerializer
-
         for idx, value in self.data.items():
+            filter_data = {
+                "first_name__iexact": value.get("first_name"),
+                "last_name__iexact": value.get("last_name"),
+                "country__iexact": value.get("country"),
+                "province__iexact": value.get("province"),
+            }
+
             try:
                 transaction_data = value.pop("transaction_data", None)
+                farmer_duplicated = value.pop("farmer_duplicated", False)
+                geo_json = value.pop("geo_json", None)
 
-                if value.get("fair_id", None):
-                    # Update farmer if fair_id is present
-                    farmer = farmer_idencode_to_obj.get(value["fair_id"])
+                if not farmer_duplicated:
+                    if value.get("fair_id", None):
+                        # Update farmer if fair_id is present
+                        farmer = farmer_idencode_to_obj.get(value["fair_id"])
+                        if not farmer:
+                            continue
+                        serializer = update_serializer_klass(
+                            farmer,
+                            data=value,
+                            partial=True,
+                            context={
+                                "node": self.data_sheet.node,
+                                "user": self.data_sheet.creator,
+                            },
+                        )
+                        serializer.is_valid(raise_exception=True)
+                        farmer = serializer.save()
+                    else:
+                        # Identify existing farmers using unique fields
+                        existing_farmers = farmer_model.objects.filter(
+                            **filter_data, buyers=self.data_sheet.node)
+                        farmer = existing_farmers.first()
 
-                    if not farmer:
-                        continue
+                        if not farmer:
+                            serializer = farmer_serializer_klass(
+                                data=value,
+                                context={
+                                    "node": self.data_sheet.node,
+                                    "user": self.data_sheet.creator,
+                                },
+                            )
+                            serializer.is_valid(raise_exception=True)
+                            obj = serializer.save()
+                            farmer = obj.invitee
+                            if geo_json and isinstance(geo_json, dict):
+                                #add farmer plot
+                                farmer_plot_model.objects.create(
+                                    farmer=farmer,
+                                    name= "Plot 1",
+                                    location_type=POLYGON,
+                                    geo_json=geo_json
+                                )
 
-                    serializer = update_serializer_klass(
-                        farmer,
-                        data=value,
-                        partial=True,
-                        context={
-                            "node": self.data_sheet.node,
-                            "user": self.data_sheet.creator,
-                        },
-                    )
-                    serializer.is_valid(raise_exception=True)
-                    farmer = serializer.save()
-
+                    self.farmers_ids.append(farmer.pk)
                 else:
-                    serializer = farmer_serializer_klass(
-                        data=value,
-                        context={
-                            "node": self.data_sheet.node,
-                            "user": self.data_sheet.creator,
-                        },
-                    )
-                    serializer.is_valid(raise_exception=True)
-                    obj = serializer.save()
-                    farmer = obj.invitee
+                    farmers = farmer_model.objects.filter(
+                        pk__in=self.farmers_ids, **filter_data)
+                    farmer = farmers.first()
 
                 if transaction_data:
                     transaction_data["node"] = farmer.idencode

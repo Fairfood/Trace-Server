@@ -2,7 +2,7 @@ import binascii
 import json
 
 import requests
-from celery.decorators import task  # pytype: disable=import-error
+from celery import shared_task
 from Crypto.Cipher import AES
 from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
@@ -71,7 +71,7 @@ def decrypt(code, encryption_key=settings.BLOCKCHAIN_ENCRYPTION_KEY):
     return message.decode("utf-8")
 
 
-@task(name="post_blockchain_request", queue="low")
+@shared_task(name="post_blockchain_request", queue="low")
 def post_blockchain_request(request_id):
     """Function to post the request to the blockchain middleware server.
 

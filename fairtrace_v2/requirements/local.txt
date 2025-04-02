@@ -1,0 +1,6 @@
+-r base.txt
+
+keyring==11.0.0
+keyrings.alt
+fabric2==2.5.0
+django-nose==1.4.7

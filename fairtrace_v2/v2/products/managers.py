@@ -39,6 +39,14 @@ class BatchQuerySet(models.QuerySet):
                     "supplier", "source_transaction__supplier"
                 )
         return sort_by
+    
+    def parents(self):
+        """Returns parents"""
+        queryset = self.model.objects.none()
+        for item in self:
+            queryset |= item.parents.all()
+        return queryset
+
 
 
 class ProductQuerySet(models.QuerySet):
@@ -84,9 +92,9 @@ class BatchFarmerMappingQuerySet(models.QuerySet):
         Returns:
         - QuerySet: The queryset of farmers related to the specified batch.
         """
-        farmer_ids = self.filter(batch=batch).values_list(
+        farmer_ids = list(self.filter(batch=batch).values_list(
             "farmer_id", flat=True
-        )
+        ))
         return self.model.farmer.get_queryset().filter(pk__in=farmer_ids)
 
     def copy_farmers(self, batch, new_batch):

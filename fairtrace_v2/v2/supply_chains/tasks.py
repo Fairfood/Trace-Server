@@ -3,16 +3,21 @@ import copy
 from datetime import date
 from datetime import timedelta
 
-from celery.decorators import task
+from celery import shared_task
+from common.library import decode
 from rest_framework import serializers
 from sentry_sdk import capture_message
 from v2.bulk_templates.models import DynamicBulkUpload
 from v2.supply_chains.constants import NODE_TYPE_COMPANY
 from v2.supply_chains.models import BulkExcelUploads
-from v2.supply_chains.models import Invitation
+from v2.supply_chains.models import Invitation, Node
+from v2.projects.models import Synchronization
+from v2.projects.navigate import NavigateAPI
+from v2.projects.connect import ConnectAPI
+from v2.projects.constants import SYNC_TYPE_NAVIGATE, SYNC_TYPE_CONNCET
 
 
-@task(name="send_out_reminder_emails", queue="low")
+@shared_task(name="send_out_reminder_emails", queue="low")
 def send_out_reminder_emails():
     """To sent reminder emails."""
     today = date.today()
@@ -30,7 +35,7 @@ def send_out_reminder_emails():
         inv.send_reminder(week=2)
 
 
-@task(name="upload_bulk_connection_transaction", queue="low")
+@shared_task(name="upload_bulk_connection_transaction", queue="low")
 def upload_bulk_connection_transaction(bulk_excel_id):
     """To upload bulk connections with transaction."""
     from v2.supply_chains.serializers.supply_chain import (
@@ -70,7 +75,7 @@ def upload_bulk_connection_transaction(bulk_excel_id):
     return resp
 
 
-@task(name="upload_bulk_transaction", queue="low")
+@shared_task(name="upload_bulk_transaction", queue="low")
 def upload_bulk_transaction(bulk_excel_id):
     """To upload bulk transactions."""
     from v2.bulk_templates.serializers.templates import TxnBulkSerializerAsync
@@ -89,3 +94,27 @@ def upload_bulk_transaction(bulk_excel_id):
         raise serializers.ValidationError(ser.errors)
     ser.save()
     return
+
+
+@shared_task(name="initial_sync_to_navigate", queue="high")
+def initial_sync_to_navigate(node_id):
+    node = Node.objects.get(id=decode(node_id))
+    sync = Synchronization.objects.create(
+        node=node, 
+        sync_type=SYNC_TYPE_NAVIGATE
+    )
+    api = NavigateAPI(sync.idencode)
+    api.initiate_mapping(node.company)
+    return "completed"
+
+
+@shared_task(name="initial_sync_to_connect", queue="high")
+def initial_sync_to_connect(node_id: str):
+    node = Node.objects.get(id=decode(node_id))
+    sync = Synchronization.objects.create(
+        node=node, 
+        sync_type=SYNC_TYPE_CONNCET
+    )
+    connect_api = ConnectAPI(sync.idencode)
+    connect_api.initiate_mapping(node.company)
+    return "completed"

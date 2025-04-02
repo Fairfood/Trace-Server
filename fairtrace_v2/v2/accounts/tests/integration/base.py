@@ -76,7 +76,7 @@ class AuthBaseTestCase(test.APITestCase):
             "user": self.user,
             "type": NODE_MEMBER_TYPE_ADMIN,
         }
-        NodeMember.objects.create(**fields)
+        self.member = NodeMember.objects.create(**fields)
 
     def create_node_supply_chain(self):
         """Create a node supply-chain."""

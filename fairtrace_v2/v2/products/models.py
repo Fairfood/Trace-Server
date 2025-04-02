@@ -7,8 +7,7 @@ from common.models import AbstractBaseModel
 from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
-from sentry_sdk import capture_exception
-from sentry_sdk import capture_message
+from sentry_sdk import capture_exception, capture_message
 from v2.blockchain.models.create_token import AbstractToken
 from v2.blockchain.models.kyc_token import AbstractKYCToken
 from v2.blockchain.models.mint_token import AbstractMintedToken
@@ -17,12 +16,11 @@ from v2.claims import constants as claims_constants
 from v2.supply_chains import constants as sc_constants
 from v2.transactions import constants as trans_constants
 
-from . import constants
-from ..supply_chains.constants import NODE_TYPE_FARM
+from ..supply_chains.constants import NODE_TYPE_COMPANY, NODE_TYPE_FARM
 from ..transactions.constants import TRANSACTION_TYPE_INTERNAL
-from .managers import BatchFarmerMappingQuerySet
-from .managers import BatchQuerySet
-from .managers import ProductQuerySet
+from . import constants
+from .managers import (BatchFarmerMappingQuerySet, BatchQuerySet,
+                       ProductQuerySet)
 
 # Create your models here.
 
@@ -212,9 +210,10 @@ class NodeProduct(AbstractBaseModel, AbstractKYCToken):
                 False,
                 "No batch for the node product combination. KYC Skipped.",
             )
-        from v2.supply_chains.models import WalletTokenAssociation
 
         if not self.associated:
+            from v2.supply_chains.models import WalletTokenAssociation
+
             WalletTokenAssociation.create_association(
                 wallet=self.node_wallet, supply_chain=self.product.supply_chain
             )
@@ -312,10 +311,14 @@ class Batch(AbstractBaseModel, AbstractMintedToken, AbstractConsensusMessage):
                                         - solid (Created as a result of a
                                         transaction done by the user)
     """
-
+    navigate_id = models.CharField(max_length=100, null=True, blank=True)
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name="batches"
     )
+    parents = models.ManyToManyField(
+        "self", related_name="child_batches", symmetrical=False, blank=True
+    )
+    
     node = models.ForeignKey(
         "supply_chains.Node", on_delete=models.CASCADE, related_name="batches"
     )
@@ -374,6 +377,8 @@ class Batch(AbstractBaseModel, AbstractMintedToken, AbstractConsensusMessage):
     external_source = models.CharField(max_length=60, null=True, blank=True)
     external_lat = models.FloatField(default=0.0, null=True, blank=True)
     external_long = models.FloatField(default=0.0, null=True, blank=True)
+    archived = models.BooleanField(default=False)
+    gtin = models.CharField(max_length=50, blank=True)
 
     objects = BatchQuerySet.as_manager()
 
@@ -425,26 +430,25 @@ class Batch(AbstractBaseModel, AbstractMintedToken, AbstractConsensusMessage):
         """
         self.new_instance = not self.pk
         super(Batch, self).save(*args, **kwargs)
-        self.update_batch_farmers()
+        if self.new_instance:
+            # map initial farmers
+            if self.node.type == NODE_TYPE_FARM:
+                self.batch_farmers.model.objects.get_or_create(
+                    batch=self, farmer=self.node.farmer
+                )
         if not self.number:
             self.number = self.id + 1200
             self.save()
 
     def update_batch_farmers(self):
         """Function to update batch farmer mapping."""
-        if self.new_instance:
-            # map initial farmers
-            if self.node.type == NODE_TYPE_FARM:
-                self.batch_farmers.model.objects.create(
-                    batch=self, farmer=self.node.farmer
-                )
-            else:
-                # copy inherited farmers.
-                if self.source_transaction:
-                    for batch in self.source_transaction.source_batches.all():
-                        self.batch_farmers.model.objects.copy_farmers(
-                            batch, self
-                        )
+        if self.node.type == NODE_TYPE_COMPANY:
+            # copy inherited farmers.
+            if self.parents.exists():
+                for batch in self.parents.all():
+                    self.batch_farmers.model.objects.copy_farmers(
+                        batch, self
+                    )
 
     @property
     def sourced_from(self):
@@ -551,8 +555,7 @@ class Batch(AbstractBaseModel, AbstractMintedToken, AbstractConsensusMessage):
 
     def inherit_claims(self):
         """Get inherited claims."""
-        from v2.claims.models import AttachedBatchClaim
-        from v2.claims.models import AttachedBatchCriterion
+        from v2.claims.models import AttachedBatchClaim, AttachedBatchCriterion
 
         for batch in self.source_transaction.source_batches.all():
             for parent_batch_claim in batch.claims.all():
@@ -697,6 +700,9 @@ class Batch(AbstractBaseModel, AbstractMintedToken, AbstractConsensusMessage):
     def update_hash(self, response):
         """Update hash."""
         if not self.validate_callback(response):
+            return False
+        
+        if not response['success']:
             return False
 
         self.blockchain_hash = response["data"]["transactionHash"]

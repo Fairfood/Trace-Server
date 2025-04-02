@@ -1,16 +1,14 @@
 """Serializers for node related APIs."""
 import json
-
+from sentry_sdk import capture_exception
 from common import library as comm_lib
-from common.country_data import COUNTRIES
-from common.country_data import DIAL_CODE_NAME_MAP
+from common.backends.sso import SSORequest
+from common.country_data import COUNTRIES, DIAL_CODE_NAME_MAP
 from common.drf_custom import fields as custom_fields
 from common.drf_custom.serializers import DynamicModelSerializer
 from common.exceptions import BadRequest
-from django.core.exceptions import ObjectDoesNotExist
-from django.core.exceptions import ValidationError
-from django.db import IntegrityError
-from django.db import transaction
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from django.db import IntegrityError, transaction
 from rest_framework import serializers
 from v2.accounts.constants import USER_STATUS_COMPANY_ADDED
 from v2.accounts.models import FairfoodUser
@@ -18,23 +16,18 @@ from v2.accounts.serializers import user as user_serializers
 from v2.activity import constants as act_constants
 from v2.activity.models import Activity
 from v2.dashboard.models import NodeStats
+from v2.dashboard.serializers.theme import (CIThemeSerializer,
+                                            DashboardThemeSerializer)
+from v2.projects.connect import ConnectAPI
+from v2.projects.navigate import NavigateAPI
 from v2.supply_chains import constants
-from v2.supply_chains.constants import NODE_DISCLOSURE_CUSTOM
-from v2.supply_chains.constants import NODE_MEMBER_TYPE_ADMIN
-from v2.supply_chains.constants import VISIBLE_FIELDS
-from v2.supply_chains.models import BlockchainWallet
-from v2.supply_chains.models import Company
-from v2.supply_chains.models import Farmer
-from v2.supply_chains.models import Node
-from v2.supply_chains.models import NodeDocument
-from v2.supply_chains.models import NodeFeatures
-from v2.supply_chains.models import NodeMember
-from v2.supply_chains.models import NodeSupplyChain
-from v2.supply_chains.models import Operation
-from v2.supply_chains.models import SupplyChain
+from v2.supply_chains.constants import (NODE_DISCLOSURE_CUSTOM,
+                                        NODE_MEMBER_TYPE_ADMIN, VISIBLE_FIELDS)
+from v2.supply_chains.models import (BlockchainWallet, Company, Farmer, Node,
+                                     NodeDocument, NodeFeatures, NodeMember,
+                                     NodeSupplyChain, Operation, SupplyChain)
 
 from .public import NodeBasicSerializer
-
 
 # from v2.supply_chains.cache_resetters import reload_statistics
 
@@ -59,7 +52,8 @@ class NodeFeaturesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = NodeFeatures
-        fields = ("dashboard_theming", "consumer_interface_theming")
+        fields = ("dashboard_theming", "consumer_interface_theming", 
+                  "link_navigate", "link_connect")
 
 
 class ValidateCompanyNameSerializer(serializers.Serializer):
@@ -70,7 +64,7 @@ class ValidateCompanyNameSerializer(serializers.Serializer):
     def to_representation(self, obj):
         """Overriding the value returned when returning th serializer."""
         data = {}
-        if Company.objects.filter(name=obj["name"]).exists():
+        if Company.objects.filter(name__iexact=obj["name"]).exists():
             data["available"] = False
             data["valid"] = False
             data["message"] = "Company name already taken"
@@ -160,6 +154,16 @@ class NodeMemberSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """Overriding create to send email."""
         validated_data["node"] = self.context["view"].kwargs["node"]
+        silent_registration = False
+        set_default_password = False
+        if "silent_registration" in self.context["view"].kwargs \
+            and self.context["view"].kwargs["silent_registration"] == True:
+            silent_registration = True
+
+        if "set_default_password" in self.context["view"].kwargs \
+            and self.context["view"].kwargs["set_default_password"] == True:
+            set_default_password = True
+
         current_user = self.context["request"].user
         validated_data["creator"] = current_user
         validated_data["updater"] = current_user
@@ -172,7 +176,7 @@ class NodeMemberSerializer(serializers.ModelSerializer):
                 )
             except Exception:
                 user_serializer = user_serializers.UserSerializer(
-                    data=validated_data
+                    data=validated_data, context= self.context
                 )
                 if not user_serializer.is_valid():
                     raise BadRequest(user_serializer.errors)
@@ -184,7 +188,6 @@ class NodeMemberSerializer(serializers.ModelSerializer):
             ^ set([*validated_data])
         )
         comm_lib._pop_out_from_dictionary(validated_data, extra_keys)
-
         member, created = NodeMember.objects.get_or_create(
             node=validated_data["node"], user=validated_data["user"]
         )
@@ -192,15 +195,48 @@ class NodeMemberSerializer(serializers.ModelSerializer):
             member.type = _type
             member.creator = current_user
             member.updater = current_user
+            member.active = True
             member.save()
-            member.send_invite(current_user)
+            if not silent_registration:
+                member.send_invite(current_user)
             member.log_added_activity()
             member.unhide_notifications()
         mem_user = member.user
         mem_user.status = USER_STATUS_COMPANY_ADDED
         mem_user.save()
-        return member
+        # add user to sso 
+        sso = SSORequest()
+        sso.create_user(mem_user, set_default_password)
+        sso.create_node(member.node.company)
+        sso.create_user_node(mem_user, member.node)   
 
+        # add user to navigate if navigate is enabled
+        try:
+            api = NavigateAPI()
+            if member.node.navigate_id:
+                api.add_or_update_user(member, member.node.company)
+        except Exception as e:
+            capture_exception(e)
+        if current_user.is_fairtrace_admin and current_user.email!=mem_user.email:
+            current_user = member.node.members.all().first()
+        status, response = sso.get_user_node(
+            current_user, validated_data["node"])
+        if status:
+            response = response.json()
+            results = response['data'].get('results', [])
+            if results:
+                application_types = results[0].get('application_types', [])
+                if 'Navigate' in application_types:
+                    sso.add_user_to_navigate(
+                        mem_user, validated_data['node'], enable_navigate=True)
+
+        # add user to connect if connect is enabled
+        api = ConnectAPI()
+        if member.node.external_id:
+            api.create_company_member(member)
+            sso.add_user_to_connect(member.user, validated_data['node'], enable_connect=True)
+        return member
+    
     def update(self, instance, validated_data):
         """To perform function update."""
         current_user = self.context["view"].kwargs["user"]
@@ -289,8 +325,8 @@ class NodeSerializer(DynamicModelSerializer):
     type = serializers.IntegerField(required=False)
     name = serializers.CharField(required=False)
     phone = custom_fields.PhoneNumberField(required=False, allow_blank=True)
-    latitude = serializers.FloatField(allow_null=True, default=0.0)
-    longitude = serializers.FloatField(allow_null=True, default=0.0)
+    latitude = serializers.FloatField(allow_null=True, required=False)
+    longitude = serializers.FloatField(allow_null=True, required=False)
     image = custom_fields.RemovableImageField(required=False, allow_blank=True)
     full_name = serializers.CharField(read_only=True)
     date_invited = serializers.DateTimeField(read_only=True)
@@ -559,6 +595,8 @@ class FarmerSerializer(NodeSerializer):
     total_income = serializers.DictField(read_only=True)
     cards = serializers.SerializerMethodField()
     is_editable = serializers.SerializerMethodField()
+    creator = custom_fields.IdencodeField(required=False, allow_null=True)
+    updater = custom_fields.IdencodeField(required=False, allow_null=True)
 
     class Meta(NodeSerializer.Meta):
         """Meta data."""
@@ -629,6 +667,10 @@ class CompanySerializer(NodeSerializer):
         related_model=FairfoodUser, write_only=True, required=False
     )
     incharge = user_serializers.PersonSerializer(required=False)
+    theme = serializers.SerializerMethodField()
+    ci_themes = custom_fields.ManyToManyIdencodeField(
+        serializer=CIThemeSerializer, source="themes", read_only=True
+    )
 
     class Meta(NodeSerializer.Meta):
         """Meta data."""
@@ -703,7 +745,10 @@ class CompanySerializer(NodeSerializer):
         - Change Incharge if updation exists
         - Update Updator
         """
-        current_node = self.context["view"].kwargs["node"]
+        try:
+            current_node = self.context["view"].kwargs["node"]
+        except:
+            current_node = None
         incharge_changed_fields = []
         validated_data["updater"] = validated_data.pop("user")
         resend_invite = False
@@ -809,6 +854,17 @@ class CompanySerializer(NodeSerializer):
             data["is_admin"] = True
 
         return data
+    
+    def get_theme(self, node):
+        """To perform function get_theme."""
+        try:
+            if node.features.dashboard_theming:
+                return DashboardThemeSerializer(node.dashboard_theme).data
+        except Node.features.RelatedObjectDoesNotExist:
+            pass
+        except Node.dashboard_theme.RelatedObjectDoesNotExist:
+            pass
+        return {}
 
 
 class NodeListSerializer(DynamicModelSerializer):

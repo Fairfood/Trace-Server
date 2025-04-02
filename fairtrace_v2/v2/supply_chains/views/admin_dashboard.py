@@ -165,6 +165,9 @@ class FFAdminSupplyChainView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         """To perform function get_queryset."""
+        
+        sort_by = self.request.query_params.get("sort_by", 'name')
+        order_by = self.request.query_params.get("order_by", "asc")
         _type = constants.NODE_TYPE_COMPANY
         supplychain = (
             SupplyChain.objects.all()
@@ -189,9 +192,12 @@ class FFAdminSupplyChainView(generics.ListCreateAPIView):
                     ),
                 ),
             )
-            .order_by("-active_actor_count")
         )
-
+        field_set = ("name", "active_actor_count", "created_on")
+        if sort_by and sort_by in field_set:
+            if order_by.strip() == "desc":
+                sort_by = f"-{sort_by}"
+            return supplychain.order_by(sort_by)
         return supplychain
 
 
@@ -265,7 +271,7 @@ class FFAdminNodeThemeView(generics.CreateAPIView):
 
     permission_classes = (
         user_permissions.IsAuthenticated,
-        sc_permissions.IsFairfoodAdmin,
+        sc_permissions.HasNodeAccessOrIsFairfoodAdmin
     )
 
     serializer_class = admin_serializers.FFAdminNodeThemeViewSerializer

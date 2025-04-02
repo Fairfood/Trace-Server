@@ -35,11 +35,13 @@ class SchemaFormattedErrors:
             case_failure = case[-2]
 
             if case_index is None:
-                invalid_or_missing_columns.append(
-                    (case_failure, "Missing")
-                    if case_check == "column_in_dataframe"
-                    else (case_column, f"Not expecting {case_failure}"))
+                if not ('coerce_dtype' in case_check or 'dtype' in case_check or "greater_than" in case_check):
+                   invalid_or_missing_columns.append(
+                        (case_failure, "Missing")
+                        if case_check == "column_in_dataframe"
+                        else (case_column, f"Not expecting {case_failure}"))
                 continue
+
 
             # create errors key if it doesn't exist
             if "errors" not in self.errors[case_index]:

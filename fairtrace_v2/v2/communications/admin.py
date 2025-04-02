@@ -3,7 +3,7 @@ from django.contrib import admin
 from v2.accounts.constants import USER_TYPE_NODE_USER
 from v2.accounts.models import FairfoodUser
 
-from .models import Notification
+from .models import EmailConfiguration, Notification
 
 
 class NotificationAdmin(admin.ModelAdmin):
@@ -40,6 +40,24 @@ class NotificationAdmin(admin.ModelAdmin):
         except Exception:
             pass
         return queryset
+    
+    
+class EmailConfigurationAdmin(admin.ModelAdmin):
+    """Class view to customize Notification admin."""
+
+    list_display = (
+        "email",
+        "type",
+        "is_blocked",
+        "node",
+    )
+    list_filter = (
+        "type",
+        "is_blocked",
+    )
+    autocomplete_fields = ["node"]
+
 
 
 admin.site.register(Notification, NotificationAdmin)
+admin.site.register(EmailConfiguration, EmailConfigurationAdmin)

@@ -111,6 +111,7 @@ class FairfoodUserAdmin(UserAdmin):
                     "language",
                     "image",
                     "idencode",
+                    "external_id"
                 )
             },
         ),
@@ -152,6 +153,7 @@ class FairfoodUserAdmin(UserAdmin):
         "last_name",
         "email",
         "email_verified",
+        "external_id"
     )
 
 

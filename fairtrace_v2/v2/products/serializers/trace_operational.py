@@ -38,9 +38,9 @@ from v2.products.constants import OUTGOING
 from v2.products.constants import OUTGOING_DESCRIPTION
 from v2.products.constants import PROCESSED
 from v2.products.constants import PROCESSED_DESCRIPTION
-from v2.products.models import Product
+from v2.products.models import Batch, Product
 from v2.supply_chains import constants as sup_const
-from v2.supply_chains.constants import NODE_TYPE_FARM
+from v2.supply_chains.constants import NODE_TYPE_FARM, GRANTED
 from v2.supply_chains.models import BlockchainWallet
 from v2.supply_chains.models import Company
 from v2.supply_chains.models import Node
@@ -95,7 +95,11 @@ class AbstractTraceSerializer(metaclass=abc.ABCMeta):
         if cached_parent_transaction is not None:
             return cached_parent_transaction
         source_transaction = self.instance.source_transaction
-        parent_transactions = source_transaction.get_parent_transactions()
+        if source_transaction.result_batches.count() > 1:
+            parent_transactions = source_transaction.get_parent_transactions(
+                batches=Batch.objects.filter(pk=self.instance.pk))
+        else:
+            parent_transactions = source_transaction.get_parent_transactions()
         transactions_ids = parent_transactions.values_list("id", flat=True)
         translations = Transaction.objects.filter(
             pk__in=list(transactions_ids)
@@ -266,7 +270,7 @@ class TraceClaimsWithBatchSerializer(AbstractTraceSerializer):
             "description_basic": F(f"claim__description_basic_{lan}"),
             "description_full": F(f"claim__description_full_{lan}"),
             "image_url": Case(
-                When(claim__image__isnull=False,
+                When(Q(Q(claim__image__isnull=False)| ~Q(claim__image="")),
                      then=Concat(Value("https:"), Value(settings.MEDIA_URL), 
                                  F("claim__image"))),
                 output_field=CharField(),
@@ -643,8 +647,10 @@ class TraceMapSerializer(AbstractTraceSerializer):
                 When(type=sup_const.NODE_TYPE_COMPANY, then="company__name"),
                 When(
                     type=sup_const.NODE_TYPE_FARM,
+                    farmer__consent_status=sup_const.GRANTED,
                     then=Concat("farmer__first_name", "farmer__last_name"),
                 ),
+                default=Value("Anonymous"),
                 output_field=CharField(),
             )
         }
@@ -673,8 +679,11 @@ class TraceStagesWithBatchSerializer(AbstractTraceSerializer):
                     "-image"
                 ).values_list("id", flat=True)
             ]
+            filtered_stage_actors = list(filter(
+                lambda a: a in actors, stage_actors_ids))
             # get actors in the stage
-            stage_actors = list(map(lambda a: actors[a], stage_actors_ids))
+            stage_actors = list(
+                map(lambda a: actors[a], filtered_stage_actors))
 
             # get product names from actors and remove duplicates.
             stage_product_data = list(itertools.chain(
@@ -784,6 +793,7 @@ class TraceStagesWithBatchSerializer(AbstractTraceSerializer):
                 When(type=sup_const.NODE_TYPE_COMPANY, then="company__name"),
                 When(
                     type=sup_const.NODE_TYPE_FARM,
+                    farmer__consent_status=sup_const.GRANTED,
                     then=Concat(
                         "farmer__first_name", 
                         Value(" "), 
@@ -791,6 +801,7 @@ class TraceStagesWithBatchSerializer(AbstractTraceSerializer):
                         Value(".")
                     ),
                 ),
+                default=Value("Anonymous"),
                 output_field=CharField(),
             ),
             "transaction_quantity": Subquery(
@@ -799,8 +810,13 @@ class TraceStagesWithBatchSerializer(AbstractTraceSerializer):
             ),
             "image_url": Case(
                 When(image="", then=Value("")),
+                When(
+                    type=sup_const.NODE_TYPE_FARM,
+                    farmer__consent_status=sup_const.GRANTED,
+                    then=Concat(Value(settings.MEDIA_URL), F("image"))
+                ),
                 output_field=CharField(),
-                default=Concat(Value(settings.MEDIA_URL), F("image")),
+                default=Value(""),
             ),
         }
 
@@ -1115,6 +1131,14 @@ class TraceTransactionsWithBatchActorSerializer(AbstractTraceSerializer):
     def data(self):
         """To perform function ata."""
         return self.get_transactions()
+    
+    @staticmethod
+    def _get_source_name(transaction):
+        """Return source name according to consent status"""
+        if transaction.source.is_farm() and \
+            transaction.source.farmer.consent_status != GRANTED:
+            return "Anonymous"
+        return transaction.source.full_name
 
     def get_transactions(self):
         """To perform function get_transactions."""
@@ -1159,10 +1183,11 @@ class TraceTransactionsWithBatchActorSerializer(AbstractTraceSerializer):
             ).last()
             item = {
                 "date": transaction.date.timestamp(),
+                "verification_method": transaction.verification_method,
                 "product_name": (
                     product.name if product else transaction.product.name
                 ),
-                "source_name": transaction.source.full_name,
+                "source_name": self._get_source_name(transaction),
                 "source_id": transaction.source.idencode,
                 "destination_name": transaction.destination.full_name,
                 "destination_id": transaction.destination.idencode,

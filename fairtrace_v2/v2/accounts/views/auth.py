@@ -1,34 +1,26 @@
 """Views related to user account and tokens."""
 import requests
-from django.utils.datastructures import MultiValueDictKeyError
-
 from common import library as comm_lib
 from common.exceptions import BadRequest
-from common.library import decode
-from common.library import success_response
+from common.library import decode, success_response
 from django.conf import settings
-from django.contrib.auth import authenticate
-from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate, get_user_model
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction as db_transaction
 from django.shortcuts import redirect
 from django.urls import reverse
-from rest_framework import generics
-from rest_framework import mixins
-from rest_framework import views
+from django.utils.datastructures import MultiValueDictKeyError
+from rest_framework import generics, mixins, views
 from rest_framework.exceptions import ValidationError
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 from v2.accounts import permissions as user_permissions
-from v2.accounts.constants import GOOGLE_ACCESS_TOKEN_OBTAIN_URL
-from v2.accounts.constants import GOOGLE_USER_INFO_URL
-from v2.accounts.constants import VTOKEN_STATUS_UNUSED
-from v2.accounts.constants import VTOKEN_TYPE_CHANGE_EMAIL
-from v2.accounts.constants import VTOKEN_TYPE_OTP
-from v2.accounts.constants import VTOKEN_TYPE_RESET_PASS
-from v2.accounts.constants import VTOKEN_TYPE_VERIFY_EMAIL
-from v2.accounts.models import FairfoodUser
-from v2.accounts.models import ValidationToken
+from v2.accounts.constants import (GOOGLE_ACCESS_TOKEN_OBTAIN_URL,
+                                   GOOGLE_USER_INFO_URL, VTOKEN_STATUS_UNUSED,
+                                   VTOKEN_TYPE_CHANGE_EMAIL, VTOKEN_TYPE_OTP,
+                                   VTOKEN_TYPE_RESET_PASS,
+                                   VTOKEN_TYPE_VERIFY_EMAIL)
+from v2.accounts.models import FairfoodUser, ValidationToken
 from v2.accounts.permissions import LoginTOTP
 from v2.accounts.serializers import auth as auth_serializers
 from v2.accounts.serializers import user as user_serializers
@@ -378,11 +370,8 @@ class InviteeUserViewSet(
             member.save(update_fields=("active",))
 
         # Create a magic token.
-        v_token = request.user.generate_magic_link(sent_notification=False)
         data = {
             "user_id": request.user.idencode,
-            "token": v_token.key,
-            "salt": v_token.idencode,
             "type": request.user.type,
         }
         return success_response(data)

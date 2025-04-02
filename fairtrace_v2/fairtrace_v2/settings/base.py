@@ -31,6 +31,7 @@ SECRET_KEY = config.get("app", "SECRET_KEY")
 DEBUG = False
 
 ROOT_URL = config.get("app", "ROOT_URL")
+NAVIGATE_URL = config.get("app", "NAVIGATE_URL")
 DEPLOYMENT = config.get("app", "DEPLOYMENT", fallback="development")
 
 ALLOWED_HOSTS = ["localhost"]
@@ -59,6 +60,8 @@ INSTALLED_APPS = [
     "rest_framework_swagger",
     "drf_yasg",
     "django_celery_beat",
+    "django_otp",
+    "django_otp.plugins.otp_totp",
     # Utilities
     "django_extensions",
     "debug_toolbar",
@@ -87,6 +90,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django_otp.middleware.OTPMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.locale.LocaleMiddleware",
@@ -160,6 +164,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = "/static/"
+STATIC_ROOT = "static/"
 
 # Used in common.library to find location from IP.
 GEO_IP_URL = "http://freegeoip.net/json/"
@@ -183,15 +188,18 @@ DATABASES = {
         "NAME": config.get("database", "DB_NAME"),
         "USER": config.get("database", "DB_USER"),
         "PASSWORD": config.get("database", "DB_PASSWORD"),
-        "PORT": "5432",
-        "HOST": "localhost",
+        "PORT": config.get("database", "DB_PORT", fallback="5432"),
+        "HOST": config.get("database", "DB_HOST", fallback="localhost"),
     }
 }
+
+REDIS_URL = config.get("database", "REDIS_URL", fallback="redis://127.0.0.1")
+REDIS_PORT = config.get("database", "REDIS_PORT", fallback=6379)
 
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        "LOCATION": f"{REDIS_URL}:{REDIS_PORT}/1",
         "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
         "KEY_PREFIX": "fairtrace_v2_django",
     },
@@ -204,7 +212,7 @@ CACHES = {
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "common.drf_custom.authentication.TokenAuthentication",
+        "common.drf_custom.authentication.JWtAuthentication",
     ),
     "EXCEPTION_HANDLER": (
         "common.drf_custom.exception_handler.custom_exception_handler"
@@ -290,14 +298,22 @@ TREASURY_ENCRYPED_PRIVATE = config.get(
     "blockchain", "TREASURY_ENCRYPED_PRIVATE"
 )
 
-CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_BROKER_URL = f"{REDIS_URL}:{REDIS_PORT}"
 CELERY_TIMEZONE = "UTC"
 
 CELERY_BEAT_SCHEDULE = {
     "send-reminder-emails-everyday": {
         "task": "send_out_reminder_emails",
         "schedule": crontab(hour=7, minute=0),
-    }
+    },
+    "sync-from connect-everyday": {
+        "task": "daily_sync_from_connect",
+        "schedule": crontab(hour=22, minute=0),
+    },
+    "delete_old_synchronizations": {
+        "task": "delete_old_synchronizations",
+        "schedule": crontab(hour=21, minute=0, day_of_week=0),
+    },
 }
 CELERY_DEFAULT_QUEUE = "low"
 CELERY_ROUTES = {
@@ -349,6 +365,13 @@ CACHALOT_ONLY_CACHABLE_APPS = ("supply_chains", "transactions")
 GOOGLE_OAUTH2_CLIENT_ID = config.get("libs", "GOOGLE_OAUTH2_CLIENT_ID")
 GOOGLE_OAUTH2_CLIENT_SECRET = config.get("libs", "GOOGLE_OAUTH2_CLIENT_SECRET")
 
+TRACE_OAUTH2_CLIENT_ID = config.get(
+    "libs", "TRACE_OAUTH2_CLIENT_ID")
+
+TRACE_OAUTH2_CLIENT_SECRET = config.get(
+    "libs", "TRACE_OAUTH2_CLIENT_SECRET")
+TRACE_OAUTH2_BASE_URL = ROOT_URL + '/o/oauth2/'
+
 ADMIN_FRONT_ROOT_URL = config.get("app", "ADMIN_FRONT_ROOT_URL")
 LOGIN_ROOT_URL = config.get("app", "LOGIN_ROOT_URL")
 
@@ -356,3 +379,27 @@ LOGIN_ROOT_URL = config.get("app", "LOGIN_ROOT_URL")
 LOGIN_TOTP_SECRET = config.get("otp", "LOGIN_TOTP_SECRET")
 DP_PASS_TOTP_SECRET = config.get("otp", "DP_PASS_TOTP_SECRET")
 CI_TOTP_SECRET = config.get("otp", "CI_TOTP_SECRET")
+
+
+# connect credentials
+CONNECT_USER_NAME = config.get("connect", "USER_NAME")
+CONNECT_PASSWORD = config.get("connect", "PASSWORD")
+CONNECT_DEVICE_ID = config.get("connect", "DEVICE_ID")
+
+#sync settings
+SYNC_USER_ID = config.get("sync", "SYNC_USER_ID")
+SYNC_NODE_ID = config.get("sync", "SYNC_NODE_ID")
+SYNC_USER_DEFAULT_PASSWORD = config.get("sync", "SYNC_USER_DEFAULT_PASSWORD")
+CONNECT_OAUTH2_BASE_URL = ROOT_URL + "/connect/v1/"
+CONNECT_OAUTH2_CLIENT_ID = config.get(
+    "libs", "CONNECT_OAUTH2_CLIENT_ID")
+CONNECT_OAUTH2_CLIENT_SECRET = config.get(
+    "libs", "CONNECT_OAUTH2_CLIENT_SECRET")
+CONNECT_SYNC_COMPANY_ID =  config.get("sync", "CONNECT_SYNC_COMPANY_ID")
+CONNECT_SYNC_DEFAULT_CURRENCY_CODE = config.get("sync","CONNECT_SYNC_DEFAULT_CURRENCY_CODE", fallback="IDR")
+
+NAVIGATE_OAUTH2_CLIENT_ID = config.get("sync", "NAVIGATE_OAUTH2_CLIENT_ID", fallback="")
+NAVIGATE_OAUTH2_CLIENT_SECRET = config.get("sync", "NAVIGATE_OAUTH2_CLIENT_SECRET", fallback="")
+
+NAVIGATE_DEFAULT_STATE = config.get("sync", "NAVIGATE_DEFAULT_STATE", fallback="Bali")
+NAVIGATE_DEFAULT_COUNTRY = config.get("sync", "NAVIGATE_DEFAULT_COUNTRY", fallback="Indonesia")

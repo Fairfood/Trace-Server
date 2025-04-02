@@ -1,0 +1,79 @@
+# Python 3.6.3
+aenum==3.0.0
+asgiref==3.4.1
+Babel==2.9.1
+Django==2.2.6
+channels==3.0.4
+psycopg2-binary==2.8.4
+sqlparse==0.3.0
+requests==2.22.0
+djangorestframework==3.10.2
+django-modeltranslation==0.18.2
+decorator==4.4.0
+django-cors-headers==3.2.0
+django-filter==2.2.0
+django-rest-swagger==2.2.0
+hashids==1.2.0
+ipython==7.7.0
+ipython-genutils==0.2.0
+pandas==2.0.3
+pandera==0.16.0
+numpy==1.22.3
+pyspark==3.4.1
+phonenumbers==8.10.17
+Pillow==10.0.0
+pycryptodome==3.9.0
+pygsheets==2.0.5
+simplejson==3.16.0
+fcm-django==0.2.21
+django-nested-admin==3.2.4
+sentry-sdk==0.19.5
+django-extra-fields==1.2.4
+django-extensions==2.2.5
+plivo==4.3.2
+MarkupSafe==1.1.1
+Cerberus==1.3.4
+coreapi==2.3.3
+coreschema==0.0.4
+itypes==1.1.0
+jinja2==2.10.3
+openapi-codec==1.3.2
+uritemplate==3.0.1
+drf-yasg==1.17.0
+openpyxl==3.0.7
+pyotp==2.3.0
+Shapely==1.7.1
+PyJWT==1.7.1
+# cryptography==2.9
+django-debug-toolbar==2.2
+haversine==2.2.0  # To calculate haversine distance between 2 points on the earth
+tabulate==0.8.7  # For implementing table formatter to debug certain data
+xlrd==1.2.0
+django-json-widget==1.1.1
+
+# Celery
+celery==4.4.2
+django-celery-beat==2.0.0
+redis==3.4.1
+python-dotenv==0.13.0
+flower==0.9.7
+# Caching
+django-redis==4.11.0
+django-cachalot==2.5.2
+
+# Testing
+coverage==5.3
+mixer==7.0.6
+Faker==4.0.0
+
+# Neo4j Graph Database
+neo4j-driver==4.1.1
+neobolt==1.7.17
+neomodel==4.0.1
+git+https://github.com/cied/django-neomodel.git
+
+tqdm==4.66.1
+
+
+django-otp==1.1.6
+qrcode==7.4.2

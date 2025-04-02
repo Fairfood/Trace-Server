@@ -178,3 +178,14 @@ class TransactionAttachmentSerializer(IdencodeModelSerializer):
     class Meta:
         fields = "__all__"
         model = TransactionAttachment
+
+
+class TransactionDeleteSerializer(serializers.ModelSerializer):
+    """
+    Serializer to delete the transaction. Currently used to mark 
+    transaction as deleted when syncing from connect
+    """
+    
+    class Meta:
+        model = Transaction
+        fields = ('deleted',)

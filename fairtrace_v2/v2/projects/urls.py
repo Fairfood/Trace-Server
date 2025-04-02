@@ -1,12 +1,7 @@
 """URLs of the app projects."""
-from django.urls import include
-from django.urls import path
+from django.urls import include, path
 from rest_framework.routers import DefaultRouter
-from v2.projects.views import nodes
-from v2.projects.views import products
-from v2.projects.views import projects
-from v2.projects.views import public
-from v2.projects.views import transactions
+from v2.projects.views import nodes, products, projects, public, transactions
 
 router = DefaultRouter()
 router.register("payments", projects.PaymentViewSet, basename="payments")
@@ -77,5 +72,8 @@ urlpatterns = [
         projects.AppLogout.as_view(),
     ),
     path("final-sync/", projects.FanalSyncView.as_view()),
+    path("reverse-sync/", projects.ReverseSynchView.as_view()),
+    path("navigate-sync/", projects.NavigateSynchView.as_view()),
+    path('migrate-connect/', projects.migrate_connect,name='migrate_connect'),
     path("projects/", include(router.urls)),
 ]

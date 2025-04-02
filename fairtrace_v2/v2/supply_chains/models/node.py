@@ -4,13 +4,10 @@ import json
 from common import library as comm_lib
 from common.country_data import DIAL_CODE_NAME_MAP
 from common.library import _get_file_path
-from common.models import AbstractBaseModel
-from common.models import Address
-from django.core.exceptions import MultipleObjectsReturned
-from django.core.exceptions import ObjectDoesNotExist
-from django.core.exceptions import ValidationError
-from django.db import models
-from django.db import transaction
+from common.models import AbstractBaseModel, Address
+from django.core.exceptions import (MultipleObjectsReturned,
+                                    ObjectDoesNotExist, ValidationError)
+from django.db import models, transaction
 from django.utils import timezone
 from django_extensions.db.fields.json import JSONField
 from v2.accounts.models import FairfoodUser
@@ -19,11 +16,9 @@ from v2.transactions.models import Transaction
 
 from ...products.models import Product
 from ...projects.models import Project
-from ..constants import INVITE_RELATION_BUYER
-from ..constants import INVITE_RELATION_SUPPLIER
+from ..constants import INVITE_RELATION_BUYER, INVITE_RELATION_SUPPLIER
 from ..managers import NodeQuerySet
-from .cypher import START_CONN
-from .cypher import TAGS
+from .cypher import START_CONN, TAGS
 from .graph import NodeGraphModel
 
 # Create your models here.
@@ -69,6 +64,8 @@ class Node(AbstractBaseModel, Address):
         zipcode(str) : Address field
     """
     external_id = models.CharField(max_length=100, null=True, blank=True)
+    navigate_id = models.CharField(max_length=100, null=True, blank=True)
+    sso_id = models.CharField(max_length=100, null=True, blank=True)
     graph_uid = models.CharField(max_length=100, null=True, blank=True)
     type = models.IntegerField(choices=constants.NODE_TYPE_CHOICES)
     profile_mode = models.IntegerField(
@@ -407,9 +404,8 @@ class Node(AbstractBaseModel, Address):
             self.create_or_update_graph_node()
             self.verify_connections()
             transaction.on_commit(lambda: self.update_cache())
-            from v2.supply_chains.cache_resetters import (
-                reload_related_statistics,
-            )
+            from v2.supply_chains.cache_resetters import \
+                reload_related_statistics
 
             transaction.on_commit(
                 lambda: reload_related_statistics.delay(self.id)
@@ -658,7 +654,11 @@ class Node(AbstractBaseModel, Address):
             if data:
                 tier = len(data[0][TAGS]) + 1
                 connection_type = INVITE_RELATION_BUYER
-        status = data[0][START_CONN]["status"]
+        try:
+            status = data[0][START_CONN]["status"]
+        except (IndexError, KeyError, TypeError) as e:
+            status = None 
+
         return tier, connection_type, status
 
     def get_chain(self, supply_chain=None, include_self=True):
@@ -787,10 +787,8 @@ class Node(AbstractBaseModel, Address):
 
     def update_cache(self):
         """Update the cache."""
-        from v2.supply_chains.serializers.functions import serialize_node_basic
         from v2.supply_chains.serializers.functions import (
-            serialize_node_blockchain,
-        )
+            serialize_node_basic, serialize_node_blockchain)
 
         serialize_node_basic(self, force_reload=True)
         serialize_node_blockchain(self, force_reload=True)

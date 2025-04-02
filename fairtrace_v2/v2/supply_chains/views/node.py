@@ -4,6 +4,8 @@ from common.drf_custom.paginators import LargePaginator
 from common.drf_custom.views import MultiPermissionView
 from common.exceptions import AccessForbidden
 from common.exceptions import BadRequest
+from common.backends.sso import SSORequest
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.functions import Lower
 from rest_framework import filters
@@ -235,12 +237,14 @@ class CreateListNodeMember(generics.ListCreateAPIView, MultiPermissionView):
         "POST": (
             (
                 user_permissions.IsAuthenticatedWithVerifiedEmail
-                & sc_permissions.HasNodeAdminAccess
+                & sc_permissions.HasNodeAccess
             ),
         ),
     }
 
     serializer_class = NodeMemberSerializer
+    search_fields = ["user__first_name", "user__last_name", "user__email"]
+    filter_backends = (filters.SearchFilter,)    
 
     def get_queryset(self):
         """Returns the filtered qs."""
@@ -406,6 +410,13 @@ class GetUpdateRemoveNodeMember(generics.RetrieveUpdateDestroyAPIView):
     def delete(self, request, *args, **kwargs):
         """Delete object."""
         member = self.get_object()
+        sso = SSORequest()
+        user_nodes = member.user.usernodes.all().exclude(
+            node=member.node).exists()
+        if not user_nodes:
+            status, res = sso.deactivate_user(member.user)
+            if not status:
+                raise BadRequest("User deactivation failed")
         member.delete(user=request.user)
         return comm_lib._success_response({}, "Delete successful", 200)
 

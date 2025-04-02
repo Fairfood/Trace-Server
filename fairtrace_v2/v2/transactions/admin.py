@@ -68,8 +68,8 @@ class BatchInline(admin.TabularInline):
 class TransactionAdmin(BaseAdmin):
     """Admin for Base transaction."""
 
-    list_display = ("idencode", "status", "transaction_type")
-    inlines = [SourceBatchInline, BatchInline]
+    list_display = ("idencode", "status", "transaction_type", "updated_on", "deleted")
+    # inlines = [SourceBatchInline, BatchInline]
     readonly_fields = (
         "parents",
         "source_batches",
@@ -90,8 +90,9 @@ class ExternalTransactionAdmin(BaseAdmin):
         "status",
         "type",
         "created_on",
+        "updated_on"
     )
-    inlines = [SourceBatchInline, BatchInline, PaymentInline]
+    # inlines = [SourceBatchInline, BatchInline, PaymentInline]
     list_select_related = (
         "source",
         "source__farmer",
@@ -135,7 +136,7 @@ class ExternalTransactionAdmin(BaseAdmin):
 class InternalTransactionAdmin(BaseAdmin):
     """Admin for Internal transactions."""
 
-    list_display = ("idencode", "node", "type", "mode")
+    list_display = ("idencode", "node", "type", "mode", "updated_on")
     inlines = [SourceBatchInline, BatchInline]
     readonly_fields = (
         "parents",

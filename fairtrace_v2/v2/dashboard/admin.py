@@ -49,9 +49,8 @@ class ConsumerInterfaceStageAdmin(BaseAdmin):
 
 class ThemeAdmin(TranslationAdmin):
     """Class to handle ThemeAdmin and functions."""
-
     list_display = ("node", "name", "batch")
-    search_fields = ("name",)
+    search_fields = ("node", "name",)
     list_select_related = (
         "node__farmer",
         "node__company",
@@ -59,7 +58,8 @@ class ThemeAdmin(TranslationAdmin):
         "batch__product",
     )
     actions = [copy_theme, clear_filesystem_cache]
-    readonly_fields = ("node", "batch")
+    readonly_fields = ("batch",)
+    autocomplete_fields = ("node",)
 
     fieldsets = (
         ("Trace", {"fields": ("node", "name", "batch", "is_public")}),
@@ -184,6 +184,12 @@ class ConsumerInterfaceClaimInterventionInline(admin.TabularInline):
               "external_link")
 
 
+class ConsumerInterfaceClaimInterventionAdmin(BaseAdmin):
+    """In-line view function for ConsumerInterfaceClaimIntervention."""
+
+    list_display = ("name", )
+
+
 class DashboardThemeAdmin(BaseAdmin):
     """Class to handle DashboardThemeAdmin and functions."""
 
@@ -196,7 +202,7 @@ class DashboardThemeAdmin(BaseAdmin):
         "node__farmer__first_name",
         "node__farmer__last_name",
     ]
-    readonly_fields = ("node",)
+    autocomplete_fields = ("node",)
     fieldsets = (
         ("Node", {"fields": ("node", "image", "default")}),
         (
@@ -270,3 +276,4 @@ admin.site.register(Program, ProgramAdmin)
 admin.site.register(ProgramStat, BaseAdmin)
 admin.site.register(ConsumerInterfaceActor, ConsumerInterfaceActorAdmin)
 admin.site.register(ConsumerInterfaceClaim, ConsumerInterfaceClaimAdmin)
+admin.site.register(ConsumerInterfaceClaimIntervention, ConsumerInterfaceClaimInterventionAdmin)

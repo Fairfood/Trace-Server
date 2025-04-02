@@ -109,7 +109,7 @@ class CompanyCriterionAdmin(BaseAdmin):
 class ClaimsAdmin(BaseAdmin):
     """Class to handle ClaimsAdmin and functions."""
 
-    readonly_fields = BaseAdmin.readonly_fields + ("reference", "owners")
+    readonly_fields = BaseAdmin.readonly_fields + ("reference", "owners", "verifiers")
     list_display = ("name", "type", "scope", "idencode")
     list_filter = (
         "type",
@@ -161,15 +161,13 @@ class CompanyClaimAdmin(BaseAdmin):
 
     list_display = ("node", "claim", "idencode")
     readonly_fields = BaseAdmin.readonly_fields + (
-        "node",
-        "claim",
-        "verifier",
-        "attached_by",
+        "submit_message_request",
     )
     inlines = [
         CompanyCriterionInline,
     ]
     list_select_related = ("claim", "node", "node__company")
+    autocomplete_fields = ("node", "verifier", "attached_by")
 
 
 class TransactionClaimAdmin(BaseAdmin):

@@ -1,6 +1,8 @@
 from common.admin import BaseAdmin
 from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin
+from django.db.models import Q
+
 from v2.supply_chains.cache_handlers import clear_connection_cache
 from v2.supply_chains.models import BlockchainWallet
 from v2.supply_chains.models import BulkExcelUploads
@@ -26,6 +28,7 @@ from v2.supply_chains.models.profile import FarmerPlot
 from v2.supply_chains.models.profile import FarmerReference
 from v2.supply_chains.models.profile import Reference
 from v2.supply_chains.models.supply_chain import UploadFarmerMapping
+
 
 
 # Register your models here.
@@ -99,12 +102,27 @@ class NodeAdmin(BaseAdmin):
     """Class to handle NodeAdmin and functions."""
 
     search_fields = ("description_basic", "email", "pk")
+    
+    def get_search_results(self, request, queryset, search_term):
+        """Override search method to search by id."""
+        queryset, use_distinct = super().get_search_results(
+            request, queryset, search_term
+        )
+        queryset |= self.model.objects.filter(Q(
+            Q(company__name__icontains=search_term) |
+            Q(farmer__first_name__icontains=search_term) |
+            Q(farmer__last_name__icontains=search_term) ))
+        return queryset, use_distinct
+
+
 
 
 class FarmerAdmin(BaseAdmin):
     """Class to handle FarmerAdmin and functions."""
 
-    list_display = ("first_name", "last_name", "idencode")
+    list_display = (
+        "first_name", "last_name", "idencode", "created_on", "updated_on"
+    )
     inlines = [
         NodeMemberInline,
     ]
@@ -121,6 +139,7 @@ class NodeMemberAdmin(BaseAdmin):
     """Class to customize EntityAdmin table."""
 
     list_display = ("id", "node", "user", "idencode")
+    autocomplete_fields = ("node",)
 
 
 class NodeDocumentAdmin(BaseAdmin):

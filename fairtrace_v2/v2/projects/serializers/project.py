@@ -1,4 +1,5 @@
 """Serializers for project details."""
+from sentry_sdk import capture_exception
 from common.drf_custom import fields as custom_fields
 from common.drf_custom.serializers import DynamicModelSerializer
 from common.exceptions import UnauthorizedAccess
@@ -118,13 +119,12 @@ class ProjectSerializer(serializers.ModelSerializer):
 
 class NodeCardSerializer(DynamicModelSerializer):
     """Serializer project premium details."""
-
-    # Need to remove unique validation in model.
-    card_id = serializers.CharField()
+    fairid = serializers.CharField(required=False, allow_blank=True)
+    card_id = serializers.CharField(required=False, allow_null=True)
 
     class Meta:
         model = NodeCard
-        fields = ("id", "node", "status", "card_id", "fairid")
+        fields = ("id", "node", "status", "card_id", "fairid", "external_id")
 
     @django_transaction.atomic
     def create(self, validated_data):
@@ -137,21 +137,39 @@ class NodeCardSerializer(DynamicModelSerializer):
         """
         # get user from request.
         user = (
-            self.context["request"].user if "request" in self.context else None
+            self.context["request"].user 
+            if "request" in self.context 
+            else self.context["user"] 
+            if "user" in self.context 
+            else None
         )
         self.deactivate_old_cards(validated_data["node"])
-        card, created = NodeCard.objects.get_or_create(
-            card_id=validated_data["card_id"]
-        )
-        if not created and card.node:
-            card.node.updated_on = card.updated_on
+        external_id = validated_data.get("external_id", None)
+        card_id = validated_data.get("card_id")
+        fairid = validated_data.get("fairid")
+        try:
+            if card_id:
+                card = NodeCard.objects.get(card_id=card_id)
+            else:
+                card = NodeCard.objects.get(fairid=fairid)
             card.updater = user
-            card.node.save()
-        else:
-            card.creator = user
-        card.node = validated_data["node"]
-        card.status = proj_conts.CARD_STATUS_ACTIVE
-        card.save()
+            card.node = validated_data["node"] 
+            card.status = proj_conts.CARD_STATUS_ACTIVE
+            card.external_id = external_id
+            card.card_id = card_id or ""
+            card.fairid = fairid or ""
+            card.save()
+        except NodeCard.DoesNotExist:
+            card = NodeCard.objects.create(
+                card_id=card_id or "", 
+                creator=user,
+                node=validated_data["node"],
+                status=proj_conts.CARD_STATUS_ACTIVE,  
+                external_id=external_id,
+                fairid=fairid or ""
+            )
+        except Exception as e:
+            capture_exception(e)
         card.node.updated_on = card.updated_on
         card.node.save()
         return card
