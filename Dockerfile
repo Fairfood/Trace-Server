@@ -25,7 +25,7 @@ RUN apt-get install -y zlib1g
 RUN apt-get install -y gcc python3-dev
 RUN apt-get install -y libgeos++-dev
 RUN apt-get install -y postgresql-client
-
+RUN apt-get install -y libpq-dev
 
 # install dependencies
 RUN python3 -m pip install pip==19.3.1
