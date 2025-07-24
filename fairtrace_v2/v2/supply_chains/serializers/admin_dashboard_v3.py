@@ -115,6 +115,6 @@ class AdminCompanyModelSerializer(IdencodeModelSerializer):
     def get_transaction_count(instance):
         """Returns external count."""
         txn = ExternalTransaction.objects.filter(
-            Q(source=instance) | Q(destination=instance)
+            (Q(source=instance) | Q(destination=instance)) & Q(deleted=False)
         )
         return txn.count()

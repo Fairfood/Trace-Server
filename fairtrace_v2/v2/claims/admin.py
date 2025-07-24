@@ -12,6 +12,7 @@ from .models import Criterion
 from .models import CriterionField
 from .models import FieldResponse
 from .models import TransactionClaim
+from .models import GuardianClaim
 
 
 # Register your models here.
@@ -187,6 +188,11 @@ class FieldResponseAdmin(BaseAdmin):
     list_select_related = ("field",)
 
 
+class GuardianClaimAdmin(BaseAdmin):
+    """Class to handle GuardianClaimAdmin"""
+    list_display = ('idencode', 'company_claim', 'trans_claim')
+
+
 admin.site.register(Claim, ClaimsAdmin)
 admin.site.register(Criterion, CriterionAdmin)
 admin.site.register(TransactionClaim, TransactionClaimAdmin)
@@ -201,3 +207,4 @@ admin.site.register(AttachedCompanyCriterion, CompanyCriterionAdmin)
 
 admin.site.register(CriterionField, BaseAdmin)
 admin.site.register(FieldResponse, FieldResponseAdmin)
+admin.site.register(GuardianClaim, GuardianClaimAdmin)

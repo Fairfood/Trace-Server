@@ -133,6 +133,7 @@ class FarmerAdmin(BaseAdmin):
         "creator__last_name",
     ]
     list_filter = ("creator",)
+    exclude = ("app_custom_fields", "extra_fields")
 
 
 class NodeMemberAdmin(BaseAdmin):

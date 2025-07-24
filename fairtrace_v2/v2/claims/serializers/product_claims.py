@@ -1,9 +1,16 @@
+import requests
+import json
+from django.conf import settings
 from common.drf_custom import fields as custom_fields
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction as django_transaction
 from rest_framework import serializers
+from common.drf_custom.fields import JsonField
+from common.library import convert_to_timestamp
 from v2.claims import constants
-from v2.claims.models import AttachedBatchClaim
+from v2.claims.models import (
+    AttachedBatchClaim, AttachedCompanyClaim, GuardianClaim
+)
 from v2.claims.models import AttachedBatchCriterion
 from v2.claims.models import FieldResponse
 from v2.claims.serializers.claims import AttachedClaimSerializer
@@ -50,6 +57,94 @@ class BatchCriterionFieldResponseSerializer(CriterionFieldResponseSerializer):
         return data
 
 
+class GuardianClaimSerializer(serializers.ModelSerializer):
+    """Serializer for guardian claim"""
+
+    id = custom_fields.IdencodeField(read_only=True)
+    trans_claim = custom_fields.IdencodeField(
+        related_model=AttachedBatchClaim, required=False
+    )
+    company_claim = custom_fields.IdencodeField(
+        related_model=AttachedCompanyClaim, required=False
+    )
+    extra_info = JsonField()
+    guardian_url = serializers.SerializerMethodField()
+    hashscan_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = GuardianClaim
+        fields = '__all__'
+    
+    def get_hashscan_url(self, obj):
+        """
+        Fetches the transaction ID related to a token claim by querying 
+        HashScan.
+
+        Since the transaction ID is not available in the extra_info, 
+        this method retrieves transactions from HashScan based on the 
+        token ID and identifies the relevant transaction associated with 
+        the claim.
+        """
+        from v2.guardian import constants as guard_consts
+
+        base_url = guard_consts.TESTNET_URL
+        env = guard_consts.TESTNET
+        if settings.ENVIRONMENT == 'production':
+            base_url = guard_consts.MAINNET_URL
+            env = guard_consts.MAINNET
+        
+        account_id = settings.GUARDIAN_SD_ACCOUNT_ID
+       
+        try:
+            extra_info = obj.extra_info
+            if not extra_info:
+                return ""
+
+            if isinstance(extra_info, str):
+                extra_info = json.loads(extra_info)
+
+            create_date = extra_info.get(
+                "vpDocument", {}).get("document", {}).get("createDate")
+            token_id = extra_info.get("mintDocument", {}).get("tokenId")
+
+            if not create_date or not token_id:
+                return ""
+
+            timestamp = convert_to_timestamp(create_date)
+            url = (
+                f"{base_url}/api/v1/transactions"
+                f"?limit=100&order=asc"
+                f"&account.id={account_id}"
+                f"&transactiontype=CRYPTOTRANSFER"
+                f"&timestamp=gte:{timestamp}"
+            )
+
+            response = requests.get(url)
+            response.raise_for_status()
+            data = response.json()
+
+            transactions = data.get("transactions", [])
+            for txn in transactions:
+                token_transfers = txn.get("token_transfers", [])
+                for transfer in token_transfers:
+                    if transfer.get("token_id") == token_id:
+                        transaction_id = txn.get("transaction_id")
+                        return (
+                            f"https://hashscan.io/{env}/"
+                            f"transaction/{transaction_id}"
+                        )
+
+            print("No matching token_id found in any transaction.")
+            return ""
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+        return ""
+     
+    def get_guardian_url(self, obj):
+        """return guardian url"""
+        return settings.GUARDIAN_URL[:-6]
+
+
 class BatchClaimSerializer(AttachedClaimSerializer):
     """Serializer for create BatchClaims."""
 
@@ -62,6 +157,11 @@ class BatchClaimSerializer(AttachedClaimSerializer):
         source="batch.product",
         read_only=True,
     )
+    guardian_claims = custom_fields.ManyToManyIdencodeField(
+        serializer=GuardianClaimSerializer,
+        related_model=GuardianClaim, 
+        read_only=True
+    )
 
     class Meta:
         model = AttachedBatchClaim
@@ -70,6 +170,7 @@ class BatchClaimSerializer(AttachedClaimSerializer):
             "criteria",
             "product",
             "verification_percentage",
+            "guardian_claims"
         )
 
     @django_transaction.atomic

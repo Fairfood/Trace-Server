@@ -410,13 +410,7 @@ class Farmer(Node, AbstractPerson):
         self.create_identification_ref()
         
         #update or create farmer to connect
-        cached = cache.get(f"farmer_connect_sync_{self.idencode}")
-        if not cached:
-            from v2.projects.tasks import add_or_update_farmer_to_connect
-            task = add_or_update_farmer_to_connect.apply_async(
-                args=[self.idencode], countdown=120
-            )
-            cache.set(f"farmer_connect_sync_{self.idencode}", task.task_id)
+        self.update_to_connect()
 
     def __str__(self):
         """To perform function __str__."""
@@ -637,6 +631,20 @@ class Farmer(Node, AbstractPerson):
             if first_transaction else ""
             )
         return data
+    
+    def update_to_connect(self):
+        """update or create farmer to connect"""
+        cached = cache.get(f"farmer_connect_sync_{self.idencode}")
+        if not cached:
+            from v2.projects.tasks import add_or_update_farmer_to_connect
+
+            def schedule_task():
+                task = add_or_update_farmer_to_connect.apply_async(
+                    args=[self.idencode], countdown=120
+                )
+                cache.set(f"farmer_connect_sync_{self.idencode}", task.task_id)
+
+            db_transaction.on_commit(schedule_task)
 
 
 class Company(Node):

@@ -6,6 +6,7 @@ omit =
     */apps.py
     */admin.py
     */permissions.py
+    */synch.py
 
 [report]
 exclude_lines =

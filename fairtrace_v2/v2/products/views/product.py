@@ -3,8 +3,9 @@ from common.drf_custom.views import MultiPermissionView
 from django.db.models import Q
 from rest_framework import generics
 from v2.accounts import permissions as user_permissions
-from v2.products.constants import PRODUCT_TYPE_GLOBAL
-from v2.products.constants import PRODUCT_TYPE_LOCAL
+from v2.products.constants import (
+    PRODUCT_TYPE_GLOBAL, PRODUCT_TYPE_CARBON, PRODUCT_TYPE_LOCAL
+)
 from v2.products.filters import ProductFilter
 from v2.products.models import Product
 from v2.products.serializers import product as product_serializers
@@ -30,7 +31,7 @@ class ProductView(generics.ListCreateAPIView, MultiPermissionView):
 
     def get_queryset(self):
         """To perform function get_queryset."""
-        query = Q(type=PRODUCT_TYPE_GLOBAL)
+        query = Q(type__in=[PRODUCT_TYPE_GLOBAL, PRODUCT_TYPE_CARBON])
         query |= Q(type=PRODUCT_TYPE_LOCAL, owners=self.kwargs["node"])
         # node = self.kwargs['node']
         # my_products = self.request.query_params.get('my_products', None)

@@ -104,7 +104,7 @@ def add_or_update_farmer_to_connect(famer_id):
     """Add or update farmer from trace to connect"""
     try:
         farmer = Farmer.objects.get(id=_decode(famer_id))
-        company = farmer.invitations_received.first().inviter
+        company = farmer.get_buyers().first()
         connect = ConnectAPI()
         if farmer.external_id:
             connect.update_farmer(farmer, company)

@@ -1,13 +1,15 @@
 from common.drf_custom import fields as custom_fields
+from sentry_sdk import capture_message
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction as django_transaction
 from rest_framework import serializers
 from v2.claims import constants
 from v2.claims.models import FieldResponse
-from v2.claims.models import TransactionClaim
+from v2.claims.models import TransactionClaim, GuardianClaim
 from v2.claims.serializers import product_claims
 from v2.claims.serializers.claims import ClaimVerifier
 from v2.claims.serializers.claims import CriterionFieldResponseSerializer
+from v2.guardian.tasks import initiate_guardian_claim
 from v2.transactions.models import Transaction
 
 
@@ -27,6 +29,32 @@ class AttachClaimSerializer(serializers.Serializer):
 
     class Meta:
         fields = ("id", "transaction", "claims")
+    
+    def _initiate_guardian_claim(self, transaction_claim):
+        if transaction_claim.claim.claim_processor == constants.GUARDIAN:
+            transaction = transaction_claim.transaction
+            batch = transaction.result_batches.first()
+            att_claim = batch.claims.filter(
+                claim=transaction_claim.claim
+            ).first()
+            att_claim.status = constants.STATUS_PENDING
+            att_claim.save()
+            guardian_claim = GuardianClaim.objects.create(
+                trans_claim=att_claim
+            )
+            
+            if not (
+                transaction.source.has_valid_hedera_wallet() and
+                transaction.destination.has_valid_hedera_wallet()
+            ):
+                return
+
+            initiate_guardian_claim.delay(
+                transaction.idencode, 
+                transaction_claim.claim.idencode, 
+                guardian_claim.idencode
+            )
+        return
 
     @django_transaction.atomic
     def create(self, validated_data):
@@ -61,6 +89,10 @@ class AttachClaimSerializer(serializers.Serializer):
                 verifier=claim["verifier"],
             )
             transaction_claim.log_activity()
+
+            if transaction.source.is_farm:
+                self._initiate_guardian_claim(transaction_claim)
+
         transaction.update_cache()
 
         return {"status": True, "message": "Claims Attached"}

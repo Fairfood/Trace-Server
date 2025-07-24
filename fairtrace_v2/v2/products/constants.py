@@ -3,16 +3,24 @@ from django.utils.translation import gettext_lazy as _
 # Product types
 PRODUCT_TYPE_GLOBAL = 1
 PRODUCT_TYPE_LOCAL = 2
+#for products like carbon token
+PRODUCT_TYPE_CARBON = 3
 
 PRODUCT_TYPE_CHOICES = (
     (PRODUCT_TYPE_GLOBAL, "Global"),
     (PRODUCT_TYPE_LOCAL, "Local"),
+    (PRODUCT_TYPE_CARBON, "Carbon")
 )
 
 UNIT_KG = 1
 UNIT_TONNE = 2
+UNIT_METRIC_TON_CO2E = 3
 
-UNIT_CHOICES = ((UNIT_KG, "KG"), (UNIT_TONNE, "Tonne"))
+UNIT_CHOICES = (
+    (UNIT_KG, "KG"), 
+    (UNIT_TONNE, "Tonne"), 
+    (UNIT_METRIC_TON_CO2E, "Metric Ton of CO2e")
+)
 
 UNIT_CONVERSION_FACTOR = {
     UNIT_KG: 1000,

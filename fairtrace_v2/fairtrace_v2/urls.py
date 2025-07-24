@@ -58,6 +58,7 @@ urlpatterns = [
     url("v2/reports/", include("v2.reports.urls")),
     url("v2/bulk_templates/", include("v2.bulk_templates.urls")),
     url("v2/bulk-uploads/", include("v2.bulk_uploads.urls")),
+    url("v2/guardian/", include("v2.guardian.urls")),
     url(r"^djadmin-ff/scripts/", include("scripts.urls")),
 ]
 

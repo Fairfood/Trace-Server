@@ -1,6 +1,7 @@
 """Base Node model for both company and farmer."""
 import json
-
+import requests
+from sentry_sdk import capture_message
 from common import library as comm_lib
 from common.country_data import DIAL_CODE_NAME_MAP
 from common.library import _get_file_path
@@ -9,6 +10,7 @@ from django.core.exceptions import (MultipleObjectsReturned,
                                     ObjectDoesNotExist, ValidationError)
 from django.db import models, transaction
 from django.utils import timezone
+from django.conf import settings
 from django_extensions.db.fields.json import JSONField
 from v2.accounts.models import FairfoodUser
 from v2.supply_chains import constants
@@ -20,6 +22,7 @@ from ..constants import INVITE_RELATION_BUYER, INVITE_RELATION_SUPPLIER
 from ..managers import NodeQuerySet
 from .cypher import START_CONN, TAGS
 from .graph import NodeGraphModel
+from v2.guardian.guardian_sync import GuardianSync
 
 # Create your models here.
 
@@ -549,6 +552,14 @@ class Node(AbstractBaseModel, Address):
             buyer_connections__in=supplier_connections
         )
         return suppliers
+    
+    def get_farmer_suppliers(self, supply_chain=None):
+        """Return only suppliers who are farmers"""
+        from .profile import Farmer
+        suppliers = self.get_suppliers(supply_chain).filter(
+            type=constants.NODE_TYPE_FARM).values_list('id', flat=True)
+        farmers = Farmer.objects.filter(id__in=suppliers)
+        return farmers
 
     def get_t2_suppliers(self, through=None, supply_chain=None):
         """Returns t2 suppliers."""
@@ -657,7 +668,7 @@ class Node(AbstractBaseModel, Address):
         try:
             status = data[0][START_CONN]["status"]
         except (IndexError, KeyError, TypeError) as e:
-            status = None 
+            status = None
 
         return tier, connection_type, status
 
@@ -733,6 +744,13 @@ class Node(AbstractBaseModel, Address):
         """Returns headera wallet."""
         return self.wallets.filter(
             wallet_type=constants.BLOCKCHAIN_WALLET_TYPE_HEDERA, default=True
+        ).first()
+
+    @property
+    def guardian_wallet(self):
+        """Returns headera wallet."""
+        return self.wallets.filter(
+            wallet_type=constants.BLOCKCHAIN_WALLET_TYPE_GUARDIAN
         ).first()
 
     def setup_blockchain_account(self, reset=False):
@@ -867,4 +885,39 @@ class Node(AbstractBaseModel, Address):
             inv.send_initial_connection_request()
             inv.email_sent = True
             inv.save()
+        return True
+
+    def sync_to_guardian(self):
+        """Sync the node to the guardian."""
+        GuardianSync(self.idencode).sync_to_guardian()
+        return
+
+    def has_valid_hedera_wallet(self) -> bool:
+        """
+        Determines whether the node has a valid Hedera wallet.
+
+        This method performs the following checks:
+        1. Ensures the wallet has both a Hedera account ID and private key.
+        2. Verifies that the wallet has a balance of at least 3 HBAR.
+
+        If either of these conditions fails, the method logs a message for 
+        monitoring and returns False.
+
+        Returns:
+            bool: True if the wallet is valid and has sufficient 
+                  balance (≥ 3 HBAR), False otherwise.
+        """
+        wallet = self.hedera_wallet
+        if not (wallet.account_id and wallet.private):
+            capture_message(f"Node {self.idencode} has invalid wallet")
+            return False
+        
+        from v2.guardian.balance import get_hedera_balance_hbar
+        balance = get_hedera_balance_hbar(wallet.account_id)
+        if balance < 3.0:
+            capture_message(
+                f"Node {self.idencode} has insufficient hedera wallet balance"
+            )
+            return False
+        
         return True

@@ -1,3 +1,4 @@
+import re
 import copy
 
 from common.library import decode
@@ -58,6 +59,10 @@ class BulkConnectionAdapter(DataSheetAdapted):
             if family_members:
                 value["family_members"] = int(family_members)
 
+            for key in ("latitude", "longitude"):
+                if not value.get(key):
+                    value.pop(key, None)
+                    
             if fair_id and decode(fair_id) not in self.farmers_ids:
                 self.errors[idx].update(
                     {"fair_id": 'Invalid fair id'})
@@ -89,6 +94,10 @@ class BulkConnectionAdapter(DataSheetAdapted):
 
             # Add country code to phone number
             if country_code and "phone" in value:
+                if not country_code.startswith('+'):
+                    match = re.search(r'\((\+\d+)\)', country_code)
+                    if match:
+                        country_code = match.group(1)
                 value["phone"] = f"{country_code}{value['phone']}"
 
             value.update(common_data)

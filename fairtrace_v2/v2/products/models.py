@@ -626,6 +626,7 @@ class Batch(AbstractBaseModel, AbstractMintedToken, AbstractConsensusMessage):
             return False, "Hash already exists"
         if self.node.is_company():
             if (
+                self.source_transaction and 
                 self.source_transaction.transaction_type
                 != trans_constants.TRANSACTION_TYPE_INTERNAL
             ):

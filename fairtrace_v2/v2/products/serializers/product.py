@@ -29,10 +29,11 @@ class ProductSerializer(DynamicModelSerializer):
     supply_chain = custom_fields.IdencodeField(
         serializer=SupplyChainSerializer
     )
+    unit = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
-        fields = ("id", "user", "node", "name", "supply_chain")
+        fields = ("id", "user", "node", "name", "supply_chain", "unit")
 
     def create(self, validated_data):
         """Create overridden."""
@@ -55,6 +56,13 @@ class ProductSerializer(DynamicModelSerializer):
             product.owners.add(node)
             product.create_token()
         return product
+    
+    def get_unit(self, obj):
+        """Return product unit"""
+        unit = prod_constants.UNIT_KG
+        if obj.type == prod_constants.PRODUCT_TYPE_CARBON:
+            unit = prod_constants.UNIT_METRIC_TON_CO2E
+        return unit
 
 
 class BulkCreateProduct(serializers.Serializer):

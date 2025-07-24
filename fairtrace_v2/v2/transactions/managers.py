@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.db.models import Sum
 from django.db.models import Value
 from django.db.models.functions import Trunc
+from v2.products.constants import PRODUCT_TYPE_CARBON
 from v2.supply_chains.constants import NODE_TYPE_COMPANY
 from v2.supply_chains.constants import NODE_TYPE_FARM
 
@@ -129,6 +130,13 @@ class ExternalTransactionQuerySet(models.QuerySet):
         return self.filter(
             Q(source__is_test=False) | Q(destination__is_test=False)
         )
+    
+    def exclude_carbon_transactions(self):
+        """Exclude carbon transactions"""
+        query = Q(source_batches__product__type=PRODUCT_TYPE_CARBON) | Q(
+            result_batches__product__type=PRODUCT_TYPE_CARBON
+        )
+        return self.exclude(query)
 
 
 class InternalTransactionQuerySet(models.QuerySet):

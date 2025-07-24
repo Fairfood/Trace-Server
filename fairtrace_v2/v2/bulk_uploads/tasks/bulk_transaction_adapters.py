@@ -83,7 +83,8 @@ class BulkTransactionAdapter(DataSheetAdapted):
                 if not serializer.is_valid():
                     self.errors[idx].update(serializer.errors)
                     continue
-                serializer.save()
+                transaction = serializer.save()
+                self.data_sheet.added_transactions.add(transaction)
             except Exception as e:
                 self.exceptions.append(e)
 

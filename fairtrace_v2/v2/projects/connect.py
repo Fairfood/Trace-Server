@@ -540,8 +540,7 @@ class ConnectAPI:
     
     def map_farmers(self, company):
         """Sync farmers from trace to connect"""
-        suppliers = company.map_supplier_pks()
-        farmers= Farmer.objects.filter(pk__in=suppliers)
+        farmers = company.get_farmer_suppliers()
         #Iterate over each farmer
         for farmer in farmers:
             # Add the farmer to the connect system and get the external ID

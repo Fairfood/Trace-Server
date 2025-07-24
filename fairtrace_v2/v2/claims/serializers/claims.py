@@ -1,4 +1,5 @@
 """Serializers for claims related APIs."""
+import os
 from common import library as common_lib
 from common.drf_custom import fields as custom_fields
 from django.core.exceptions import ObjectDoesNotExist
@@ -50,6 +51,7 @@ class FieldResponseSerializer(serializers.ModelSerializer):
         source="field.multiple_options"
     )
     file = serializers.CharField(source="file_url")
+    file_name = serializers.SerializerMethodField()
     response = serializers.CharField()
     added_by = custom_fields.IdencodeField(
         related_model=Node, serializer=NodeBasicSerializer, required=False
@@ -64,10 +66,20 @@ class FieldResponseSerializer(serializers.ModelSerializer):
             "title",
             "description",
             "file",
+            "file_name",
             "multiple_options",
             "response",
             "added_by",
         )
+
+    def get_file_name(self, obj):
+        """Return file name by avoiding random characters"""
+        if obj.file and obj.file.name:
+            full_name = os.path.basename(obj.file.name)
+            if len(full_name) > 10:
+                return full_name[10:]
+            return full_name
+        return ""
 
 
 class CriterionFieldResponseSerializer(serializers.ModelSerializer):
@@ -237,6 +249,9 @@ class AttachedClaimSerializer(serializers.ModelSerializer):
     status = serializers.IntegerField(read_only=True)
     blockchain_address = serializers.CharField(read_only=True)
     claim_id = serializers.CharField(read_only=True, source="claim.idencode")
+    claim_processor = serializers.CharField(
+        read_only=True, source="claim.claim_processor"
+    )
     name = serializers.CharField(read_only=True, source="claim.name")
     type = serializers.IntegerField(read_only=True, source="claim.type")
     scope = serializers.IntegerField(read_only=True, source="claim.scope")
@@ -272,6 +287,7 @@ class AttachedClaimSerializer(serializers.ModelSerializer):
             "name",
             "image",
             "claim_id",
+            "claim_processor",
             "attached_by",
             "description_basic",
             "description_full",
