@@ -334,7 +334,10 @@ class StatsSerializer(serializers.ModelSerializer):
 
     def get_stock(self, node):
         """To perform function get_stock."""
-        products = Product.objects.filter(batches__node=node)
+        products = Product.objects.filter(
+            batches__node=node, 
+            batches__source_transaction__deleted=False
+        )
         if self.supply_chain:
             products = products.filter(supply_chain=self.supply_chain)
         products = products.annotate(

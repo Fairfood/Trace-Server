@@ -1,5 +1,6 @@
 """Constants used in claims app."""
 from v2.claims import verifiers
+from django.utils.translation import gettext_lazy as _
 
 # Claim scope
 CLAIM_SCOPE_GLOBAL = 1
@@ -114,4 +115,12 @@ VERIFICATION_METHOD_MAP = 2
 VERIFICATION_METHOD_CHOICES = (
     (VERIFICATION_METHOD_OTHER, "Other"),
     (VERIFICATION_METHOD_MAP, "Map"),
+)
+
+TRACE = "trace"
+GUARDIAN = "guardian"
+
+CLAIM_PROCESSOR_CHOICES = (
+    (TRACE, _('Trace')),
+    (GUARDIAN, _('Guardian')),
 )

@@ -1,3 +1,4 @@
+import re
 import copy
 
 from common.library import decode, encode
@@ -115,6 +116,10 @@ class BulkTraceAdapter(DataSheetAdapted):
 
                 # Add country code to phone number
             if country_code and "phone" in value:
+                if not country_code.startswith('+'):
+                    match = re.search(r'\((\+\d+)\)', country_code)
+                    if match:
+                        country_code = match.group(1)
                 value["phone"] = f"{country_code}{value['phone']}"
 
             # Get the list of fields in the TransactionUploadSchema
@@ -248,6 +253,7 @@ class BulkTraceAdapter(DataSheetAdapted):
                     if not serializer.is_valid():
                         self.errors[idx].update(serializer.errors)
                         continue
-                    serializer.save()
+                    transaction = serializer.save()                
+                    self.data_sheet.added_transactions.add(transaction)
             except Exception as e:
                 self.exceptions.append(e)

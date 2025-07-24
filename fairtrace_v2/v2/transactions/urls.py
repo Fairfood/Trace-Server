@@ -5,6 +5,8 @@ from rest_framework.routers import DefaultRouter
 
 from .views import admin_dashboard_v3 as ff_admin_views_v3
 from .views import transactions as trans_views
+from .views import carbon_transactions as carbon_views
+
 
 router = DefaultRouter()
 router.register(
@@ -92,6 +94,21 @@ urlpatterns = [
         "validate/dynamic-transaction/",
         trans_views.ValidateDynamicTransaction.as_view(),
         name="validate_duplicate_txn",
+    ),
+    path(
+        "carbon-external/", 
+        carbon_views.CarbonExternalTransactionView.as_view(),
+        name="carbon-external"
+    ),
+    path(
+        "carbon-internal/", 
+        carbon_views.CarbonInternalTransactionView.as_view(),
+        name="carbon-internal"
+    ),
+    path(
+        "carbon-transactions/", 
+        carbon_views.CarbonTransactionsView.as_view(),
+        name="carbon-transactions"
     ),
     path("", include(router_2.urls)),
     # FF-Admin V3

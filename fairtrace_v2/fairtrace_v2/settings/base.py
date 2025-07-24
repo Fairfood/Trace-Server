@@ -314,6 +314,14 @@ CELERY_BEAT_SCHEDULE = {
         "task": "delete_old_synchronizations",
         "schedule": crontab(hour=21, minute=0, day_of_week=0),
     },
+    "check-guardian-claim-status": {
+        "task": "check_guardian_claim_status",
+        "schedule": crontab(hour=20, minute=0)
+    },
+    "validate_and_initiate_guardian_claim": {
+        "task": "validate_and_initiate_guardian_claim",
+        "schedule": crontab(hour=23, minute=0)
+    }
 }
 CELERY_DEFAULT_QUEUE = "low"
 CELERY_ROUTES = {
@@ -403,3 +411,15 @@ NAVIGATE_OAUTH2_CLIENT_SECRET = config.get("sync", "NAVIGATE_OAUTH2_CLIENT_SECRE
 
 NAVIGATE_DEFAULT_STATE = config.get("sync", "NAVIGATE_DEFAULT_STATE", fallback="Bali")
 NAVIGATE_DEFAULT_COUNTRY = config.get("sync", "NAVIGATE_DEFAULT_COUNTRY", fallback="Indonesia")
+
+# Guardian
+GUARDIAN_URL = config.get("guardian", "GUARDIAN_URL")
+GUARDIAN_SD_USER_NAME = config.get("guardian", "GUARDIAN_SD_USER_NAME")
+GUARDIAN_SD_USER_PASS = config.get("guardian", "GUARDIAN_SD_USER_PASS")
+GUARDIAN_SD_ACCOUNT_ID = config.get("guardian", "GUARDIAN_SD_ACCOUNT_ID")
+GUARDIAN_METH_OWNER_NAME = config.get("guardian", "GUARDIAN_METH_OWNER_NAME")
+GUARDIAN_USER_REGISTER_URL = f"{GUARDIAN_URL}/accounts/register/"
+GUARDIAN_USER_LOGIN_URL = f"{GUARDIAN_URL}/accounts/login/"
+GUARDIAN_USER_ACCESS_TOKEN_URL = f"{GUARDIAN_URL}/accounts/access-token/"
+GUARDIAN_STANDARD_REGISTRIES_URL = f"{GUARDIAN_URL}/accounts/standard-registries/aggregated"
+GUARDIAN_TRANSFER_KEY_URL = f"{GUARDIAN_URL}/profiles/push/"

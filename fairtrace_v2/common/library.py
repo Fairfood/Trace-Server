@@ -6,6 +6,7 @@ import io
 import json
 import string
 import re
+import calendar
 from collections import OrderedDict
 from datetime import datetime
 from random import randint
@@ -824,3 +825,47 @@ def is_valid_gtin(gtin):
         re.match(r'^\d{13}$', gtin) or re.match(r'^\d{14}$', gtin):
         return True
     return False
+
+
+def get_node_from_request(request):
+    """
+    Helper function to retrieve the node from request parameters.
+    Returns the Node object if valid, or None if not.
+    """
+    from v2.supply_chains.models.node import Node
+
+    node_id = request.query_params.get("node")
+    try:
+        node = Node.objects.get(id=decode(node_id))
+        return node
+    except Node.DoesNotExist:
+        return None
+
+
+def hash_string(text: str) -> str:
+    """
+    Compute the MD5 hash of a string.
+
+    Args:
+        text (str): The input string.
+
+    Returns:
+        str: The hexadecimal MD5 hash.
+    """
+    if not text:
+        return ""
+
+    md5 = hashlib.md5()
+    md5.update(text.encode('utf-8'))
+    return md5.hexdigest()
+
+
+def convert_to_timestamp(date_str):
+    """Convert ISO 8601 date string to Unix timestamp."""
+    try:
+        dt = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S.%fZ")
+        unix = calendar.timegm(dt.utctimetuple()) + dt.microsecond / 1_000_000
+    except Exception as e:
+        print(f"Error: {e}")
+        unix = 0.0
+    return unix

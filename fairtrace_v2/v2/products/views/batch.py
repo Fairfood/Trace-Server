@@ -7,7 +7,7 @@ from django.db.models import Sum
 from common.library import encode, filter_queryset, success_response, decode
 from common.exceptions import BadRequest
 from rest_framework import status
-from v2.products.constants import UNIT_KG
+from v2.products.constants import UNIT_KG, PRODUCT_TYPE_CARBON
 from v2.accounts import permissions as user_permissions
 from v2.products.filters import BatchFarmerMappingFilter
 from v2.products.filters import BatchFilter
@@ -30,14 +30,26 @@ class BatchList(generics.ListAPIView):
     filterset_class = BatchFilter
 
     def get_queryset(self):
-        """To perform function get_queryset."""
-        query = Q(
-            node=self.kwargs["node"], 
-            current_quantity__gt=0, 
-            source_transaction__deleted=False
-        )
-        batches = Batch.objects.filter(query)
-        return batches.sort_by_query_params(self.request)
+        """
+        Return a filtered queryset of Batch objects based on request 
+        parameters.
+        """
+        params = self.request.query_params
+        is_carbon_product = params.get(
+            "is_carbon_product", "false").lower() == "true"
+        farmer = params.get("farmer")
+        
+        if is_carbon_product:
+            node = decode(farmer) if farmer else None
+            query = Q(node=node, product__type=PRODUCT_TYPE_CARBON)
+        else:
+            node = self.kwargs.get("node")
+            query = Q(
+                node=node, current_quantity__gt=0, 
+                source_transaction__deleted=False
+            )
+        return Batch.objects.filter(query).sort_by_query_params(self.request)
+
     
 class BatchSummary(views.APIView):
     """API to list batches of a node with option to filter by product."""

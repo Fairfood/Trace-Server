@@ -168,8 +168,8 @@ class ReverseSync:
         Lazily load and cache the supplier and buyer IDs for this node.
         """
         if self._supplier_buyer_ids is None:
-            suppliers = self.node.map_supplier_pks()
-            buyers = self.node.map_buyer_pks()
+            suppliers = self.node.get_suppliers()
+            buyers = self.node.get_buyers()
             self._supplier_buyer_ids = set(suppliers) | set(buyers)
         return self._supplier_buyer_ids
 
@@ -378,14 +378,15 @@ class ReverseSync:
     def _save_image_from_url(
             self, 
             image_url: str, 
-            external_id: str
+            external_id: str,
+            model_name: str
         ) -> Optional[InMemoryUploadedFile]:
         """fn to save image from url"""
         image_response = requests.get(image_url, stream=True)
         
         if not image_response.status_code == 200:
             self.messages.append(
-                f"Farmer external id-{external_id} - Image-\
+                f"{model_name} external id-{external_id} - Image-\
                 {image_response.reason}"
             )
             return None
@@ -523,7 +524,9 @@ class ReverseSync:
         if farmer["phone"]:
             data["phone"] = farmer["phone"]
         if image_url := farmer.get("image"):
-            if image := self._save_image_from_url(image_url, farmer["id"]):
+            if image := self._save_image_from_url(
+                image_url, farmer["id"], "Farmer"
+            ):
                 data['image'] = image
         return data
 
@@ -848,6 +851,11 @@ class ReverseSync:
         }
         if invoice_num := transaction.get("invoice_number"):
             data["invoice_number"] = invoice_num
+        if invoice_url := transaction.get("invoice"):
+            if invoice := self._save_image_from_url(
+                invoice_url, transaction["id"], "Transaction"
+            ):
+                data['invoice'] = invoice
         if reference := transaction.get("reference"):
             data["buyer_ref_number"] = reference
         return data

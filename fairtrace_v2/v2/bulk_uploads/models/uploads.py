@@ -10,6 +10,7 @@ from rest_framework.exceptions import ValidationError
 from ...products import constants as product_const
 from . import DataSheetTemplate
 from .common import get_file_path
+from v2.transactions.models import Transaction
 
 
 class DataSheetUpload(AbstractBaseModel):
@@ -40,6 +41,7 @@ class DataSheetUpload(AbstractBaseModel):
         is_used (bool): A flag indicating whether the upload has been used.
         is_confirmed (bool):  flag indicating whether the upload has been
             confirmed.
+        added_transactions(m2m): Transactions added from the sheet
     """
 
     node = models.ForeignKey("supply_chains.Node", on_delete=models.CASCADE)
@@ -74,6 +76,10 @@ class DataSheetUpload(AbstractBaseModel):
     errors = fields.JSONField(default=dict, null=True, blank=True)
     is_used = models.BooleanField(default=False)
     is_confirmed = models.BooleanField(default=False)
+    added_transactions = models.ManyToManyField(
+        Transaction,
+        related_name="datasheet_uploads"
+    )
 
     def __str__(self):
         return f"DataSheetUpload: {self.template.name} | {self.pk}"

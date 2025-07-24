@@ -3,6 +3,7 @@ from common import library as comm_lib
 from django.db.models import Q
 from django.utils.timezone import datetime
 from django_filters import rest_framework as filters
+from v2.products.constants import PRODUCT_TYPE_CARBON
 from v2.transactions import constants
 from v2.transactions.models import ExternalTransaction
 from v2.transactions.models import InternalTransaction
@@ -38,10 +39,11 @@ class ExternalTransactionFilter(filters.FilterSet):
     quantity_from = filters.NumberFilter(method="filter_quantity_from")
     quantity_to = filters.NumberFilter(method="filter_quantity_to")
     quantity_is = filters.CharFilter(method="filter_quantity_is")
+    is_carbon_product = filters.BooleanFilter(method="filter_carbon_product")
 
     class Meta:
         model = ExternalTransaction
-        fields = ["type", "product", "archived"]   
+        fields = ["type", "product", "archived", "is_carbon_product"]   
 
     def get_node(self):
         """Returns the node if available."""
@@ -72,6 +74,20 @@ class ExternalTransactionFilter(filters.FilterSet):
         query = Q(source_batches__product__id=product_id) | Q(
             result_batches__product__id=product_id
         )
+        return queryset.filter(query)
+    
+    def filter_carbon_product(self, queryset, name, value):
+        """
+        Filter transactions by carbon-related products.
+        If `value` is True, return only transactions involving carbon products.
+        If `value` is False, exclude them.
+        """
+        query = (
+            Q(source_batches__product__type=PRODUCT_TYPE_CARBON) |
+            Q(result_batches__product__type=PRODUCT_TYPE_CARBON)
+        )
+        if not value:
+            query = ~query
         return queryset.filter(query)
 
     def filter_node(self, queryset, name, value):
@@ -191,11 +207,11 @@ class InternalTransactionFilter(filters.FilterSet):
         method="filter_destination_product"
     )
     quantity_is = filters.CharFilter(method="filter_quantity_is")
-
+    is_carbon_product = filters.BooleanFilter(method="filter_carbon_product")
 
     class Meta:
         model = InternalTransaction
-        fields = ["type", "supply_chain", "archived"]
+        fields = ["type", "supply_chain", "archived", "is_carbon_product"]
 
     def filter_supply_chain(self, queryset, name, value):
         """Filter with value."""
@@ -257,6 +273,20 @@ class InternalTransactionFilter(filters.FilterSet):
         """Filter with value."""
         creator_id = comm_lib._decode(value)
         query = Q(creator_id=creator_id)
+        return queryset.filter(query)
+
+    def filter_carbon_product(self, queryset, name, value):
+        """
+        Filter transactions by carbon-related products.
+        If `value` is True, return only transactions involving carbon products.
+        If `value` is False, exclude them.
+        """
+        query = (
+            Q(source_batches__product__type=PRODUCT_TYPE_CARBON) |
+            Q(result_batches__product__type=PRODUCT_TYPE_CARBON)
+        )
+        if not value:
+            query = ~query
         return queryset.filter(query)
 
 

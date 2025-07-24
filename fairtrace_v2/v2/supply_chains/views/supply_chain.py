@@ -4,6 +4,7 @@ from common.drf_custom.paginators import LargePaginator
 from common.drf_custom.views import MultiPermissionView
 from common.exceptions import BadRequest
 from common.library import decode
+from django.db import transaction
 from django.db.models import F
 from django.db.models import Q
 from django.http import HttpResponse
@@ -20,18 +21,17 @@ from v2.products.constants import PRODUCT_TYPE_LOCAL
 from v2.products.filters import ProductFilter
 from v2.products.models import Product
 from v2.supply_chains import permissions as sc_permissions
-from v2.supply_chains.constants import INVITE_RELATION_BUYER
-from v2.supply_chains.constants import INVITE_RELATION_SUPPLIER
+from v2.supply_chains.constants import (
+    INVITE_RELATION_BUYER, INVITE_RELATION_SUPPLIER, NODE_TYPE_FARM
+)
 from v2.supply_chains.farmer_bulk import export_farmers
 from v2.supply_chains.farmer_bulk.constants import farmer_excel_file_name
 from v2.supply_chains.filters import LabelFilter
 from v2.supply_chains.filters import NodeFilter, ConnectionNodeFilter
 from v2.supply_chains.filters import SupplyChainFilter
-from v2.supply_chains.models import Connection
-from v2.supply_chains.models import Label
-from v2.supply_chains.models import Node
-from v2.supply_chains.models import NodeSupplyChain
-from v2.supply_chains.models import SupplyChain
+from v2.supply_chains.models import (
+    Connection, Label, Node, NodeSupplyChain, SupplyChain, Invitation
+)
 from v2.supply_chains.serializers import supply_chain as sc_serializers
 from v2.supply_chains.serializers.supply_chain import ConnectionNodeSerializer
 
@@ -516,7 +516,7 @@ class ConnectionNodeViewSet(viewsets.ModelViewSet):
 
         return Node.objects.filter(
             Q(pk__in=suppliers) | Q(pk__in=buyers)
-        ).filter_queryset(self.request)
+        ).filter_queryset(self.request).distinct()
 
     def get_supply_chain(self):
         """Get and validate the supply chain.
@@ -541,3 +541,38 @@ class ConnectionNodeViewSet(viewsets.ModelViewSet):
             raise ValidationError(
                 detail="?supply_chain is not provided " "or not valid"
             )
+
+
+class CarbonConnectionView(generics.GenericAPIView):
+    """
+    View to create connections of existing farmers of a company to a target 
+    company for carbon transactions
+    """
+
+    def post(self, request, *args, **kwargs):
+        """Override post to create connection and invitation"""
+        data = request.data
+        supply_chain = SupplyChain.objects.get(id=decode(data["supply_chain"]))
+        source_company = Node.objects.get(id=decode(data["source_company"]))
+        target_company = Node.objects.get(id=decode(data["target_company"]))
+        farmers = source_company.get_suppliers().filter(type=NODE_TYPE_FARM)
+
+        with transaction.atomic():
+            for farmer in farmers:
+                invitation, _ = Invitation.objects.get_or_create(
+                    inviter=target_company,
+                    message="Added through carbon connections",
+                    invitee=farmer,
+                )
+                connection, _ = Connection.objects.get_or_create(
+                    buyer=target_company, 
+                    supplier=farmer, 
+                    supply_chain=supply_chain
+                )
+                invitation.connection = connection
+                invitation.save()
+        target_company.verify_connections()
+        data = ConnectionNodeSerializer(
+            target_company.get_suppliers(), many=True
+        ).data
+        return Response(data)

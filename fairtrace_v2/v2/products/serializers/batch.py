@@ -123,7 +123,9 @@ class BatchSerializer(serializers.ModelSerializer):
 
     def get_created_on(self, instance):
         """Get created on as transaction date."""
-        return int(instance.source_transaction.created_on.timestamp())
+        if instance.source_transaction:
+            return int(instance.source_transaction.created_on.timestamp())
+        return int(instance.created_on.timestamp())
 
 
 class BatchMigrationSerializer(serializers.ModelSerializer):
@@ -218,6 +220,12 @@ class BatchDetailSerializer(serializers.ModelSerializer):
         if "gtin" in attrs and attrs["gtin"]:
             if not is_valid_gtin(attrs["gtin"]):
                 raise BadRequest("Invalid GTIN", send_to_sentry=False)
+            if Batch.objects.filter(
+                gtin=attrs["gtin"]
+            ).exclude(id=self.instance.id).exists():
+                raise BadRequest(
+                    "GTIN Already Exists!", send_to_sentry=False
+                )
         return super().validate(attrs)
 
     def get_outgoing_transactions(self, instance):

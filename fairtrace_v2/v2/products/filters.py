@@ -125,12 +125,20 @@ class BatchFilter(filters.FilterSet):
 
     def search_fields(self, queryset, name, value):
         """To perform function search_fields."""
+        search_by = self.request.query_params.get('search_by', None)
+
         query = Q()
-        query |= Q(name__icontains=value)
-        query |= Q(product__name__icontains=value)
-        query |= Q(number__icontains=value)
-        query |= Q(buyer_ref_number__icontains=value)
-        query |= Q(seller_ref_number__icontains=value)
+        if search_by == 'stock_number':
+            query |= Q(number__icontains=value)
+        elif search_by == 'ref_number':
+            query |= Q(buyer_ref_number__icontains=value)
+            query |= Q(seller_ref_number__icontains=value)
+        else:
+            query |= Q(number__icontains=value)
+            query |= Q(buyer_ref_number__icontains=value)
+            query |= Q(seller_ref_number__icontains=value)
+            query |= Q(name__icontains=value)
+            query |= Q(product__name__icontains=value)
         return queryset.filter(query)
 
     def filter_date_from(self, queryset, name, value):

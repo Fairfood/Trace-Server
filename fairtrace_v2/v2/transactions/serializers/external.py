@@ -138,6 +138,8 @@ class ExternalTransactionSerializer(serializers.ModelSerializer):
     force_create = serializers.BooleanField(default=False, required=False)
     invoice = serializers.FileField(required=False)
     remittance_type = serializers.SerializerMethodField()
+    gtin = serializers.SerializerMethodField()
+    is_batch_editable = serializers.SerializerMethodField()
 
     current_node = None
 
@@ -188,7 +190,9 @@ class ExternalTransactionSerializer(serializers.ModelSerializer):
             "seller_ref_number",
             "card_details",
             "archived",
-            "remittance_type"
+            "remittance_type",
+            "gtin",
+            "is_batch_editable"
         )
 
     def __init__(self, *args, **kwargs):
@@ -730,6 +734,27 @@ class ExternalTransactionSerializer(serializers.ModelSerializer):
             if remittance_type:
                 return remittance_type        
         return None
+    
+    def get_gtin(self, obj):
+        """
+        Return the GTIN of the first batch, or an empty string if not 
+        available.
+        """
+        batch = obj.result_batches.only('gtin').first()
+        return batch.gtin if batch and batch.gtin else ""
+    
+    def get_is_batch_editable(self, obj):
+        """
+        Return whether the batch is editable or not
+        """
+        try:
+            node = self.context["view"].kwargs["node"]
+        except Exception:
+            node = self.context["node"]
+        batch = obj.result_batches.values('node').first()
+        if batch is None or batch['node'] != node.id:
+            return False
+        return True
 
 
 
@@ -789,7 +814,8 @@ class ExternalTransactionListSerializer(serializers.ModelSerializer):
             "buyer_ref_number",
             "seller_ref_number",
             "creator",
-            "archived"
+            "archived",
+            "status"
         )
 
     def check_if_rejectable(self, instance):

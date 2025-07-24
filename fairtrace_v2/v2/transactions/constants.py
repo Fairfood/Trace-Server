@@ -1,4 +1,7 @@
 """Constants for transactions app."""
+
+import enum
+
 # Transaction types
 TRANSACTION_TYPE_EXTERNAL = 1
 TRANSACTION_TYPE_INTERNAL = 2
@@ -76,3 +79,20 @@ BULK_UPLOAD_TYPE_TXN = 2
 
 FILE_CORRUPTED_MSG = "File is corrupted. Please verify %s"
 FILE_CORRUPTED_STATUS = "inComplete"
+
+
+class CarbonTransactionType(str, enum.Enum):
+    """Carbon transaction types"""
+    ISSUED = "Issued"
+    CRU_TRANSFER = "CRU Transfer"
+    RETIRED = "Retired"
+
+CARBON_TRANSACTION_TYPE_MAP = {
+    TRANSACTION_TYPE_INTERNAL: {
+        INTERNAL_TRANS_TYPE_LOSS: CarbonTransactionType.RETIRED,
+    },
+    TRANSACTION_TYPE_EXTERNAL: {
+        EXTERNAL_TRANS_TYPE_INCOMING: CarbonTransactionType.ISSUED,
+        EXTERNAL_TRANS_TYPE_OUTGOING: CarbonTransactionType.CRU_TRANSFER
+    }
+}

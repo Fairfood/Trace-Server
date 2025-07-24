@@ -71,11 +71,11 @@ class FarmerUploadSchema(BaseUploadSchema):
         isin=["Farmer", "Collector"]
     )
     identification_no: Optional[Series[str]] = pa.Field(nullable=True, coerce=True)
-    street_name: Optional[Series[str]] = pa.Field(nullable=True)
+    street: Optional[Series[str]] = pa.Field(nullable=True)
     city: Optional[Series[str]] = pa.Field(nullable=True)
     country: Series[CountryDropDown]
     province: Series[ProvinceDropDown]
-    postal_code: Optional[Series[str]] = pa.Field(nullable=True)
+    zipcode: Optional[Series[str]] = pa.Field(nullable=True, coerce=True)
     latitude: Optional[Series[Latitude]] = pa.Field(nullable=True, coerce=True)
     longitude: Optional[Series[Longitude]] = pa.Field(nullable=True, coerce=True)
     country_code: Optional[Series[str]] = pa.Field(nullable=True, coerce=True)

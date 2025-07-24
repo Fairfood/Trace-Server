@@ -35,4 +35,7 @@ class DataSheetUploadSerializer(DynamicModelSerializer):
 
     class Meta:
         model = DataSheetUpload
-        exclude = ("file_hash", "initial_data", "data", "data_hash")
+        exclude = (
+            "file_hash", "initial_data", "data", "data_hash", 
+            "added_transactions"
+        )

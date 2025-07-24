@@ -369,12 +369,10 @@ class NavigateAPI:
         supply_chains = company.supply_chains.all()
         farmer_ids = []
         for supply_chain in supply_chains:
-            suppliers = company.map_supplier_pks(supply_chain=supply_chain)
-            farmers_count= Farmer.objects.filter(
-                pk__in=suppliers, navigate_id__isnull=True).count()
+            suppliers = company.get_farmer_suppliers(supply_chain=supply_chain)
+            farmers_count= suppliers.filter(navigate_id__isnull=True).count()
             for idx in range (0, farmers_count+1, 100):
-                farmers= Farmer.objects.filter(
-                    pk__in=suppliers, navigate_id__isnull=True)[idx:idx+100]
+                farmers= suppliers.filter(navigate_id__isnull=True)[idx:idx+100]
                 for farmer in farmers:
                     data = {
                         "external_id": farmer.idencode,
@@ -440,8 +438,9 @@ class NavigateAPI:
         if not supply_chain_name:
             supply_chains = company.supply_chains.all()
             for supply_chain in supply_chains:
-                suppliers = company.map_supplier_pks(supply_chain=supply_chain)
-                if farmer.id in suppliers:
+                suppliers = company.get_farmer_suppliers(
+                    supply_chain=supply_chain)
+                if farmer in suppliers:
                    return create_farmer(farmer, supply_chain.name)
         else:
             return create_farmer(farmer, supply_chain_name)
@@ -514,8 +513,7 @@ class NavigateAPI:
     def create_company_farmers(self, company):
         """Create all farmers under company from trace to navigate"""
 
-        suppliers = company.map_supplier_pks()
-        farmers= Farmer.objects.filter(pk__in=suppliers)
+        farmers = company.get_farmer_suppliers()
         try:
             #Iterate over each farmer
             for farmer in farmers:
@@ -595,7 +593,7 @@ class NavigateAPI:
         self.create_company_supply_chains(company)
 
         #add company farmers
-        self.add_company_farmers(company)
+        self.create_company_farmers(company)
 
         #create company batches
         supply_chains = company.supply_chains.all()

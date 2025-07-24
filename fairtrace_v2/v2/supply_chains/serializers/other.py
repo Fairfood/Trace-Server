@@ -35,13 +35,14 @@ class FarmerReferenceSerializer(DynamicModelSerializer):
     
     def validate(self, attrs):
         node = self.context["view"].kwargs["node"]
-        suppliers = node.map_supplier_pks()
-        buyers = node.map_buyer_pks()
-        ids = list(suppliers)+list(buyers)
+        farmers = node.get_farmer_suppliers()
         if FarmerReference.objects.filter(
             number=attrs['number'], 
-            farmer__node_ptr__in=ids).exists():
-            raise BadRequest("Identification Number Already Exists!")
+            farmer__in=farmers).exists():
+            raise BadRequest(
+                "Identification Number Already Exists!", 
+                send_to_sentry=False
+            )
         return super().validate(attrs)
 
 

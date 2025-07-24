@@ -11,6 +11,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.db.transaction import atomic
+from django.utils import timezone
 from django.utils.crypto import get_random_string
 from sentry_sdk import capture_exception
 from sentry_sdk import capture_message
@@ -59,6 +60,9 @@ class Claim(AbstractBaseModel):
         latest(bool)            : Whether the claims is the latest or not. Only
                                   one claim with the same reference number will
                                   be the latest.
+        claim_processor(str)    : The one who process claims. ie, if guardian
+                                  the claim will be initiated with guradian
+        key(str)                : key to identify claim apart from name
     """
 
     name = models.CharField(max_length=500)
@@ -106,6 +110,14 @@ class Claim(AbstractBaseModel):
     latest = models.BooleanField(default=True)
     image = models.ImageField(
         upload_to=_get_file_path, null=True, default=None, blank=True
+    )
+    claim_processor = models.CharField(
+        max_length=50,
+        default=constants.TRACE,
+        choices=constants.CLAIM_PROCESSOR_CHOICES,
+    )
+    key = models.CharField(
+        max_length=200, blank=True, null=True
     )
 
     def __str__(self):
@@ -1027,3 +1039,38 @@ class ClaimComment(AbstractBaseModel):
                     notif_type=notif_constants.NOTIF_TYPE_CLAIM_COMMENT,
                     context=context,
                 )
+
+
+class GuardianClaim(AbstractBaseModel):
+    """
+    Model to store details of guardian claim
+    
+    Attributes:
+        trans_claim(obj)        : Transaction for which the policy claim is 
+                                  initiated.
+        company_claim(obj)      : Company for which the policy claim is 
+                                  initiated.
+        hash(char)              : The hash value after the policy claim is 
+                                  verified.
+        mint_date(datetime)     : The date in which the claim is verified and 
+                                  minted
+        extra_info(json)        : All other details and info about the flow
+    """
+   
+    trans_claim = models.ForeignKey(
+        AttachedBatchClaim,
+        on_delete=models.CASCADE,
+        related_name='guardian_claims',
+        null=True,
+        blank=True
+    )
+    company_claim = models.ForeignKey(
+        AttachedCompanyClaim,
+        on_delete=models.CASCADE,
+        related_name='guardian_claims',
+        null=True,
+        blank=True
+    )
+    hash_value = models.CharField(max_length=200)
+    mint_date = models.DateTimeField(default=timezone.now)
+    extra_info = models.TextField(blank=True, default="")

@@ -279,4 +279,9 @@ urlpatterns = [
     # FF-Admin V3
     path("admin/", include(router.urls)),
     path("supply-chains/", include(default_router.urls)),
+    path(
+        "carbon-connections/", 
+        sc_views.CarbonConnectionView.as_view(),
+        name="carbon-connections"
+    )
 ]

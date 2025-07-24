@@ -17,6 +17,7 @@ from ..models.uploads import DataSheetUpload, DataSheetUploadSummary
 from ..schemas.errors import SchemaFormattedErrors
 from ..serializers.uploads import (DataSheetUploadSerializer,
                                    DataSheetUploadSummarySerializer)
+from ..constants import TEMPLATE_TYPE_CONNECTION
 
 
 class DataSheetUploadViewSet(
@@ -251,24 +252,22 @@ class DataSheetUploadViewSet(
                 
                 # Check for existence of the identification number in 
                 # FarmerReference model
-                node = self.kwargs.get("node", None)
-                suppliers = node.map_supplier_pks()
-                buyers = node.map_buyer_pks()
-                ids = set(suppliers) | set(buyers)
-
-                reference = FarmerReference.objects.filter(
-                    number=identification_no, 
-                    farmer__node_ptr__in=ids)
-                if fair_id:
-                    reference.exclude(farmer__id=decode(fair_id))
-                if reference.exists():
-                    # Remove the row from `data` and add it to `errors`
-                    if index in data:
-                        row_data = data.pop(index)
-                    add_to_errors(index, row_data, {
-                        'key': 'identification_no',
-                        'reason': 'Identification Number Already Exists'
-                    })
+                if instance.template.type == TEMPLATE_TYPE_CONNECTION:
+                    node = self.kwargs.get("node", None)
+                    suppliers = node.get_farmer_suppliers()
+                    reference = FarmerReference.objects.filter(
+                        number=identification_no, 
+                        farmer__in=suppliers)
+                    if fair_id:
+                        reference = reference.exclude(farmer__id=decode(fair_id))
+                    if reference.exists():
+                        # Remove the row from `data` and add it to `errors`
+                        if index in data:
+                            row_data = data.pop(index)
+                        add_to_errors(index, row_data, {
+                            'key': 'identification_no',
+                            'reason': 'Identification Number Already Exists'
+                        })
 
         key_columns = ['first_name', 'last_name', 'country', 'province']
         if self.check_all_key_exist(list(schema_fields), key_columns):

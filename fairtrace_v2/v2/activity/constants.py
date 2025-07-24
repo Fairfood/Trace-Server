@@ -167,6 +167,6 @@ OBJECT_TYPE_CHOICES = (
     (OBJECT_TYPE_INFORMATION_REQUEST, "Information Request"),
     (OBJECT_TYPE_CONNECTION_REQUEST, "Connection Request"),
     (OBJECT_TYPE_FFADMIN_INVITATION, "FFAdmin Invitation"),
-    (OBJECT_TYPE_CONNECTION_REQUEST, "Connection Request"),
+    (OBJECT_TYPE_CLAIM_COMMENT, "Claim Comment"),
     (OBJECT_TYPE_NODE_CARD_HISTORY, "Node Card History"),
 )

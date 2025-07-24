@@ -3,17 +3,18 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction as django_transaction
 from rest_framework import serializers
 from v2.claims import constants
-from v2.claims.models import AttachedCompanyClaim
+from v2.claims.models import AttachedCompanyClaim, GuardianClaim
 from v2.claims.models import AttachedCompanyCriterion
 from v2.claims.models import Claim
 from v2.claims.models import FieldResponse
 from v2.claims.serializers.claims import AttachedClaimSerializer
 from v2.claims.serializers.claims import AttachedCriterionSerializer
 from v2.claims.serializers.claims import CriterionFieldResponseSerializer
+from v2.claims.serializers.product_claims import GuardianClaimSerializer
 from v2.supply_chains.models import Node
 from v2.supply_chains.serializers.public import NodeBasicSerializer
 from v2.transparency_request.models import ClaimRequest
-
+from v2.guardian.tasks import initiate_guardian_claim
 
 class NodeCriterionFieldResponseSerializer(CriterionFieldResponseSerializer):
     """To Add field response for company claims."""
@@ -57,6 +58,11 @@ class CompanyClaimSerializer(AttachedClaimSerializer):
     override = serializers.BooleanField(
         default=False, required=False, write_only=True
     )
+    guardian_claims = custom_fields.ManyToManyIdencodeField(
+        serializer=GuardianClaimSerializer,
+        related_model=GuardianClaim, 
+        read_only=True
+    )
 
     class Meta:
         model = AttachedCompanyClaim
@@ -65,6 +71,8 @@ class CompanyClaimSerializer(AttachedClaimSerializer):
             "attached_by",
             "criteria",
             "override",
+            "note",
+            "guardian_claims"
         )
 
     @django_transaction.atomic
@@ -152,8 +160,9 @@ class AttachCompanyClaimSerializer(serializers.Serializer):
         """To perform function create."""
         override = validated_data.pop("override", False)
         for claim in validated_data["claims"]:
+            node = validated_data["node"]
             company_claim_data = {
-                "node": validated_data["node"],
+                "node": node,
                 "claim": claim,
                 "verifier": claim.verifiers.first(),
                 "override": override,
@@ -165,7 +174,19 @@ class AttachCompanyClaimSerializer(serializers.Serializer):
                 raise serializers.ValidationError(
                     company_claims_serializer.errors
                 )
-            company_claims_serializer.save()
+            company_claim = company_claims_serializer.save()
+
+            if company_claim.claim.claim_processor == constants.GUARDIAN:
+                company_claim.status = constants.STATUS_PENDING
+                company_claim.save()
+                guardian_claim = GuardianClaim.objects.create(
+                    company_claim=company_claim
+                )
+                initiate_guardian_claim.delay(
+                    node.idencode, 
+                    claim.idencode, 
+                    guardian_claim.idencode
+                )
 
         return {"status": True, "message": "Claims Attached"}
 

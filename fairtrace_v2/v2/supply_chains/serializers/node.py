@@ -360,7 +360,7 @@ class NodeSerializer(DynamicModelSerializer):
     profile_completion = serializers.FloatField(read_only=True)
     email_sent = serializers.BooleanField(read_only=True)
     primary_operation = custom_fields.IdencodeField(
-        required=False, allow_null=True
+        required=False, allow_null=True, related_model=Operation
     )
 
     user = None
@@ -454,13 +454,15 @@ class NodeSerializer(DynamicModelSerializer):
         admin = validated_data.get("admin", None)
 
         comm_lib._pop_out_from_dictionary(validated_data, ["admin"])
-        primary_operation = validated_data.pop("primary_operation", None)
         try:
             node = NodeModel.objects.create(**validated_data)
         except IntegrityError as e:
             if "duplicate key value violates unique constraint" in str(e):
                 raise ValidationError("Company already exist in the system.")
             raise e
+        except Exception as exc:
+            capture_exception(exc)
+            raise exc
 
         if node.is_company():
             NodeStats.objects.create(node=node)
@@ -470,7 +472,6 @@ class NodeSerializer(DynamicModelSerializer):
         # if other_operations:
         #    for operation in other_operations:
         #        node.other_operations.add(operation)
-        validated_data["primary_operation"] = primary_operation
         if admin:
             member = NodeMember.objects.create(
                 node=node,
@@ -577,6 +578,16 @@ class NodeSerializer(DynamicModelSerializer):
 
 class FarmerSerializer(NodeSerializer):
     """Serializer for Farmer model."""
+
+    def __init__(self, *args, **kwargs):
+        """Overrided init to prevent circular import"""
+        from v2.claims.serializers.company_claims import CompanyClaimSerializer
+        self.fields['claims'] = custom_fields.ManyToManyIdencodeField(
+            serializer=CompanyClaimSerializer,
+            required=False,
+            read_only=True
+        )
+        super().__init__(*args, **kwargs)
 
     family_members = serializers.CharField(
         required=False, allow_null=True, allow_blank=True

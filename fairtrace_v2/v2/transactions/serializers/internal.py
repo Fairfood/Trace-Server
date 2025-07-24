@@ -66,6 +66,8 @@ class InternalTransactionSerializer(serializers.ModelSerializer):
     )
     client_type = serializers.IntegerField(default=trans_constants.CLIENT_WEB)
     invoice = serializers.FileField(required=False)
+    gtin = serializers.SerializerMethodField()
+    is_batch_editable = serializers.SerializerMethodField()
 
     class Meta:
         model = InternalTransaction
@@ -95,7 +97,9 @@ class InternalTransactionSerializer(serializers.ModelSerializer):
             "client_type",
             "invoice",
             "created_on",
-            "archived"
+            "archived",
+            "gtin",
+            "is_batch_editable"
         )
 
     def get_source_products(self, instance):
@@ -347,6 +351,27 @@ class InternalTransactionSerializer(serializers.ModelSerializer):
         if theme.version != "0" and settings.CONSUMER_INTERFACE_V2_URL:
             return settings.CONSUMER_INTERFACE_V2_URL
         return ""
+    
+    def get_gtin(self, obj):
+        """
+        Return the GTIN of the first batch, or an empty string if not 
+        available.
+        """
+        batch = obj.result_batches.only('gtin').first()
+        return batch.gtin if batch and batch.gtin else ""
+    
+    def get_is_batch_editable(self, obj):
+        """
+        Return whether the batch is editable or not
+        """
+        try:
+            node = self.context["view"].kwargs["node"]
+        except Exception:
+            node = self.context["node"]
+        batch = obj.result_batches.values('node').first()
+        if batch is None or batch['node'] != node.id:
+            return False
+        return True
 
 
 class InternalTransactionListSerializer(serializers.ModelSerializer):
